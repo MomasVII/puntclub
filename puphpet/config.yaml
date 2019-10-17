@@ -3,7 +3,7 @@ vagrantfile:
     vm:
         provider:
             local:
-                box: puphpet/centos65-x64
+                box: puphpet/centos7-x64
                 box_url: 'false'
                 box_version: '0'
                 chosen_virtualizer: virtualbox
@@ -19,14 +19,14 @@ vagrantfile:
                         check_guest_tools: 0
                         update_guest_tools: 0
                 machines:
-                    vflm_xoqjkhouhar6:
+                    vflm_rnardlixppby:
                         id: local.rplcon.com.au
                         hostname: local.rplcon.com.au
                         network:
                             private_network: 192.168.33.10
                             forwarded_port:
-                                vflmnfp_8tepqgemcfjx:
-                                    host: '6633'
+                                vflmnfp_sitjhcxpdia9:
+                                    host: '6934'
                                     guest: '22'
                         memory: '4096'
                         cpus: '4'
@@ -40,7 +40,7 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_gfg9qikr0i0z:
+            vflsf_tmwyv7lb0hrp:
                 owner: www-data
                 group: www-data
                 source: ./
@@ -131,7 +131,7 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_nwoed35kis1i:
+        nxv_vxdr18hpc9hh:
             server_name: awesome.dev
             server_aliases:
                 - www.awesome.dev
@@ -140,7 +140,7 @@ nginx:
             client_max_body_size: 1m
             ssl: '0'
             locations:
-                nxvl_fkxri4ju1p6t:
+                nxvl_9x2v7t0huk70:
                     www_root: /var/www/awesome/web
                     location: /
                     autoindex: 'off'
@@ -159,7 +159,7 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_6otjujj4wivh:
+                nxvl_ggnsh9q0fw0s:
                     www_root: /var/www/awesome/web
                     location: '~ ^/(app_dev|config)\.php(/|$)'
                     autoindex: 'off'
@@ -178,7 +178,7 @@ nginx:
                         - '$path_info $fastcgi_path_info'
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_cn4jouyu33xd:
+                nxvl_yp6nnkgm74hl:
                     www_root: /var/www/awesome/web
                     location: '~ ^/index\.php(/|$)'
                     autoindex: 'off'
@@ -196,7 +196,7 @@ nginx:
                         - '$path_info $fastcgi_path_info'
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_vuusxupfyddo:
+                nxvl_hvgnhkwnpx11:
                     www_root: /var/www/awesome/web
                     location: '~ ^/app\.php(/|$)'
                     autoindex: 'off'
@@ -230,7 +230,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_9nw8itnfebbo:
+        av_hba02apbpruo:
             servername: local.rplcon.com.au
             serveraliases:
                 - local.rplcon.com.au
@@ -247,9 +247,9 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_xjd87sbea7tr:
+                avd_oya8v31faw23:
                     path: /var/www/local.rplcon.com.au/
-                    directoryindex: 'index.php app.dev'
+                    directoryindex: 'holding.html,index.html,holding.php,index.php'
                     options:
                         - Indexes
                         - FollowSymlinks
@@ -261,21 +261,21 @@ apache:
                     custom_fragment: ''
                     provider: directory
             files_match:
-                avfm_tgpsojfiri3c:
+                avfm_thnac2caqbd1:
                     path: (app_dev|config)\.php$
                     sethandler: 'proxy:fcgi://127.0.0.1:9000'
                     setenv:
                         - 'APP_ENV dev'
                     custom_fragment: ''
                     provider: filesmatch
-                avfm_8kj4t7vr878x:
+                avfm_q6bccfq1b0h3:
                     path: app\.php$
                     sethandler: 'proxy:fcgi://127.0.0.1:9000'
                     setenv:
                         - 'APP_ENV prod'
                     custom_fragment: ''
                     provider: filesmatch
-                avfm_n07i63h91qtn:
+                avfm_7ix3r9g4bslp:
                     path: \.php$
                     sethandler: 'proxy:fcgi://127.0.0.1:9000'
                     custom_fragment: ''
@@ -289,7 +289,7 @@ letsencrypt:
 php:
     install: '1'
     settings:
-        version: '5.6'
+        version: '7.1'
     modules:
         php:
             - cli
@@ -301,12 +301,10 @@ php:
             - mbstring
             - mcrypt
             - mysql
-            - sqlite
             - bcmath
             - simplexml
             - dom
             - ldap
-            - zip
             - imagick
         pear: {  }
         pecl: {  }
@@ -318,14 +316,14 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_a5vf2ccm5p6n:
+        phpfp_g81xmwy6zbh9:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
                 security.limit_extensions: .php
                 user: www-user
                 group: www-data
-    composer: '0'
+    composer: '1'
     composer_home: ''
 xdebug:
     install: '0'
@@ -361,7 +359,7 @@ drush:
 ruby:
     install: '1'
     versions:
-        rv_ox3cxhhn3ckv:
+        rv_digbm88229oe:
             default: '1'
             bundler: '1'
             version: 2.3.1
@@ -385,15 +383,15 @@ mariadb:
         root_password: '123'
         override_options: {  }
     users:
-        mariadbnu_zdlm2kncnjnm:
+        mariadbnu_1xnsbkq40c5n:
             name: dbuser
             password: '123'
     databases:
-        mariadbnd_x1cjaqnvdtqs:
+        mariadbnd_88rsqu4m6cmk:
             name: dbname
             sql: ''
     grants:
-        mariadbng_gv8b63jhwdij:
+        mariadbng_7mdhup3n3j42:
             user: dbuser
             table: '*.*'
             privileges:
@@ -405,15 +403,15 @@ mysql:
         root_password: '123'
         override_options: {  }
     users:
-        mysqlnu_f153z4ptvlmi:
+        mysqlnu_n293qb47i3rf:
             name: dbuser
             password: '123'
     databases:
-        mysqlnd_3jd03wsp0uth:
+        mysqlnd_a6gp4hh8l5y3:
             name: dbname
             sql: ''
     grants:
-        mysqlng_mvhwgfar2bq5:
+        mysqlng_xlqihyfqnlns:
             user: dbuser
             table: '*.*'
             privileges:
@@ -476,11 +474,10 @@ elastic_search:
         version: 2.3.1
         java_install: true
     instances:
-        esi_b7f45o2n7qwl:
+        esi_ek6qniqgrsvz:
             name: es-01
 solr:
     install: '0'
     settings:
         version: 5.5.2
         port: '8984'
-

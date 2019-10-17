@@ -8,7 +8,11 @@
 // Copyright Owner: Raremedia Pty Ltd (Andrew Davidson)
 ///////////////////////////////////////////////////////////////////////////////////
 
-class web_compile extends file_system{
+class web_compile extends file_system
+{
+
+    //append a version number to force cache clear
+    private $version = '?v=2';
 
     //set the path to compiled files
     private $compile_path = ROOT.'web/dyn_swap/';
@@ -17,30 +21,31 @@ class web_compile extends file_system{
     private $force_compile = false;
 
     //make sure the compile swap directory exists on load
-    public function __construct(){
+    public function __construct()
+    {
 
         //if the global force switch is set to true, trip the local private switch
-        if(FORCE_COMPILE){
+        if (FORCE_COMPILE) {
             $this->force_compile = true;
         }
 
         //look for the compile swap directory
-        if(!$this->directory_exists($this->compile_path)){
+        if (!$this->directory_exists($this->compile_path)) {
 
             //attempt to create the swap directory
-            if(!$this->mkdir($this->compile_path)){
+            if (!$this->mkdir($this->compile_path)) {
                 trigger_error('Swap directory couldn\'t be found or created, the front-end is going to break outside of local environments', E_USER_ERROR);
-            }else{
+            } else {
                 return true;
             }
-        }else{
+        } else {
             return true;
         }
     }
 
     //check if a compiled file exists for the current URI
-    private function compile_exists($compile_name){
-
+    private function compile_exists($compile_name)
+    {
         $return = array(
             'boolean' => false,
             'content' => '',
@@ -48,29 +53,29 @@ class web_compile extends file_system{
 
         //explode the complied file name to separate EPOCH string
         $name_chunks = explode('__', $compile_name);
-        if (isset($name_chunks[0]) && !empty($name_chunks[0])){
+        if (isset($name_chunks[0]) && !empty($name_chunks[0])) {
 
             //search search string
             $search_string = $name_chunks[0];
 
             //search the directory for files with a matching string
             $search_results = glob($this->compile_path.$search_string.'*');
-            if (is_array($search_results) && !empty($search_results)){
+            if (is_array($search_results) && !empty($search_results)) {
 
                 //reverse array because we want the newest version of the compiled file if there's multiples
                 $search_results = array_reverse($search_results);
 
                 //double check our work
-                if(isset($search_results[0]) && !empty($search_results[0])){
+                if (isset($search_results[0]) && !empty($search_results[0])) {
                     $return['content'] = array_shift($search_results);
                     $return['boolean'] = true;
 
                     //clean up any duplicates
                     $duplicates = $search_results;
-                    if(!empty($duplicates) && is_array($duplicates)){
+                    if (!empty($duplicates) && is_array($duplicates)) {
 
                         //loop through duplicates and delete them
-                        foreach($duplicates as $k => $v){
+                        foreach ($duplicates as $k => $v) {
                             unlink($v);
                         }
                     }
@@ -82,7 +87,8 @@ class web_compile extends file_system{
     }
 
     //make JS as small as we can without breaking it
-    private function js_string_compress($js) {
+    private function js_string_compress($js)
+    {
 
         //set regex patterns
         $replace = array(
@@ -100,7 +106,8 @@ class web_compile extends file_system{
 
         //run regex patterns
         $search = array_keys($replace);
-        $js = preg_replace($search, $replace, $js);
+        //TODO: resolve compression bugs
+        //$js = preg_replace($search, $replace, $js);
 
         //set replace patterns
         $replace = array(
@@ -126,20 +133,22 @@ class web_compile extends file_system{
 
         //run replace patterns
         $search = array_keys($replace);
-        $js = str_replace($search, $replace, $js);
+        //TODO: resolve compression bugs
+        //$js = str_replace($search, $replace, $js);
 
         return $js;
     }
 
     //compile js array into a single bundle and return tag reference for front-end
-    public function build_js($script_string, $prefix = ''){
+    public function build_js($script_string, $prefix = '')
+    {
         global $shortcut;
 
         //define return var
         $return_string = '';
 
         //make sure the styles constant exists
-        if (!empty($script_string)){
+        if (!empty($script_string)) {
 
             //strip all whitespace out of STYLES
             $no_white = trim($script_string);
@@ -149,13 +158,13 @@ class web_compile extends file_system{
             $script_array = explode(',', $no_white);
 
             //don't compile on local, deliver js array references as individual css calls to make debugging easier
-            if (ENVIRONMENT !== 'local' || $this->force_compile) {
+            /*if (ENVIRONMENT !== 'local' || $this->force_compile) {
 
                 //get the current URI
                 $compile_name = $shortcut->clean_uri($_SERVER['REQUEST_URI']);
 
                 //if the URI is blank then we're on index.html
-                if($compile_name == '/' || $compile_name == ''){
+                if ($compile_name == '/' || $compile_name == '') {
                     $compile_name = '/index.html';
                 }
 
@@ -168,20 +177,20 @@ class web_compile extends file_system{
 
                 //if the compiled file doesn't exist or we're on dev, compile it (dev re-compiles every load)
                 $already_compiled = $this->compile_exists($compile_name);
-                if(!$already_compiled['boolean'] || ENVIRONMENT == 'dev' || $this->force_compile){
+                if (!$already_compiled['boolean'] || ENVIRONMENT == 'dev' || $this->force_compile) {
 
                     //set container for compiled contents
                     $compile_string = '';
 
                     //loop through script
-                    foreach($script_array as $k => $v){
-                        if($v !== '') {
+                    foreach ($script_array as $k => $v) {
+                        if ($v !== '') {
 
                             //make sure the source js file exists
-                            if ($this->file_exists($v)){
+                            if ($this->file_exists($v)) {
 
                                 //read out contents of file
-                                if(is_readable($v)){
+                                if (is_readable($v)) {
 
                                     //attempt to open the file
                                     if ($fh = fopen($v, 'r')) {
@@ -195,13 +204,13 @@ class web_compile extends file_system{
                                         $compile_string .= $no_white;
                                     }
                                 }
-                            }else{
+                            } else {
                                 //is the script reference a URL
                                 $is_http = strpos($v, 'http://');
                                 $is_https = strpos($v, 'https://');
 
                                 //the script may be hosted externally
-                                if($is_http !== false || $is_https !== false){
+                                if ($is_http !== false || $is_https !== false) {
 
                                     //set external JS html reference
                                     $return_string .= '<script type="text/javascript" src="' .$v. '"></script>' . "\r\n";
@@ -211,11 +220,11 @@ class web_compile extends file_system{
                     }
 
                     //make sure the compiled string isn't empty
-                    if(!empty($compile_string)){
+                    if (!empty($compile_string)) {
 
                         //attempt to open a write file handle
                         $fh = fopen($this->compile_path.$compile_name, 'w');
-                        if($fh){
+                        if ($fh) {
 
                             //lock file exclusively
                             flock($fh, LOCK_EX);
@@ -233,47 +242,55 @@ class web_compile extends file_system{
                             fclose($fh);
 
                             //double check our work
-                            if($this->file_exists($this->compile_path.$compile_name)){
+                            if ($this->file_exists($this->compile_path.$compile_name)) {
 
                                 //set compiled JS html reference
-                                $return_string .= '<script type="text/javascript" src="' .$this->compile_path.$compile_name. '"></script>' . "\r\n";
+                                if ($prefix === 'head') {
+                                    $return_string .= '<script rel="preload" as="script" type="text/javascript" src="' .$this->compile_path.$compile_name. '"></script>' . "\r\n";
+                                } else {
+                                    $return_string .= '<script defer type="text/javascript" src="' .$this->compile_path.$compile_name. '"></script>' . "\r\n";
+                                }
                             }
                         }
                     }
-                }else{
+                } else {
                     //return the reference to the already compiled JS
                     $return_string .= '<script type="text/javascript" src="' . $already_compiled['content'] . '"></script>' . "\r\n";
 
                     //loop through script to find external references
-                    foreach($script_array as $k => $v){
-                        if($v !== '') {
+                    foreach ($script_array as $k => $v) {
+                        if ($v !== '') {
 
                             //is the script reference a URL
                             $is_http = strpos($v, 'http://');
                             $is_https = strpos($v, 'https://');
 
                             //the script may be hosted externally
-                            if($is_http !== false || $is_https !== false){
+                            if ($is_http !== false || $is_https !== false) {
 
                                 //set external JS html reference
                                 $return_string .= '<script type="text/javascript" src="' .$v. '"></script>' . "\r\n";
-                            }else{
+                            } else {
                                 continue;
                             }
                         }
                     }
                 }
-            } else {
+            } else {*/
 
                 //loop through scripts
-                foreach($script_array as $k => $v){
-                    if($v !== '') {
+                foreach ($script_array as $k => $v) {
+                    if ($v !== '') {
 
                         //append source JS html references to return string
-                        $return_string .= '<script type="text/javascript" src="' . $v . '"></script>' . "\r\n";
+                        if ($prefix === 'head') {
+                            $return_string .= '<script type="text/javascript" rel="preload" as="script" src="' . $v . $this->version . '"></script>' . "\r\n";
+                        } else {
+                            $return_string .= '<script defer type="text/javascript" src="' . $v . $this->version . '"></script>' . "\r\n";
+                        }
                     }
                 }
-            }
+            /*}*/
         }
 
         //return a tidy JS resource(list) ready for the front-end
@@ -281,7 +298,8 @@ class web_compile extends file_system{
     }
 
     //make CSS as small as we can without breaking it
-    private function css_string_compress($css) {
+    private function css_string_compress($css)
+    {
 
         //set regex patterns
         $replace = array(
@@ -316,14 +334,15 @@ class web_compile extends file_system{
 
 
     //compile css array into a single bundle and return tag reference for front-end
-    public function build_css($style_string, $prefix = ''){
+    public function build_css($style_string, $prefix = '')
+    {
         global $shortcut;
 
         //define return var
         $return_string = '';
 
         //make sure the styles constant exists
-        if (!empty($style_string)){
+        if (!empty($style_string)) {
 
             //strip all whitespace out of STYLES
             $no_white = trim($style_string);
@@ -333,13 +352,13 @@ class web_compile extends file_system{
             $style_array = explode(',', $no_white);
 
             //don't compile on local, deliver css array references as individual css calls to make debugging easier
-            if (ENVIRONMENT !== 'local' || $this->force_compile) {
+            /*if (ENVIRONMENT !== 'local' || $this->force_compile) {
 
                 //get the current URI
                 $compile_name = $shortcut->clean_uri($_SERVER['REQUEST_URI']);
 
                 //if the URI is blank then we're on index.html
-                if($compile_name == '/' || $compile_name == ''){
+                if ($compile_name == '/' || $compile_name == '') {
                     $compile_name = '/index.html';
                 }
 
@@ -352,20 +371,20 @@ class web_compile extends file_system{
 
                 //if the compiled file doesn't exist or we're on dev, compile it (dev re-compiles every load)
                 $already_compiled = $this->compile_exists($compile_name);
-                if(!$already_compiled['boolean'] || ENVIRONMENT == 'dev' || $this->force_compile){
+                if (!$already_compiled['boolean'] || ENVIRONMENT == 'dev' || $this->force_compile) {
 
                     //set container for compiled contents
                     $compile_string = '';
 
                     //loop through style
-                    foreach($style_array as $k => $v){
-                        if($v !== '') {
+                    foreach ($style_array as $k => $v) {
+                        if ($v !== '') {
 
                             //make sure the source css file exists
-                            if ($this->file_exists($v)){
+                            if ($this->file_exists($v)) {
 
                                 //read out contents of file
-                                if(is_readable($v)){
+                                if (is_readable($v)) {
 
                                     //attempt to open the file
                                     if ($fh = fopen($v, 'r')) {
@@ -379,13 +398,13 @@ class web_compile extends file_system{
                                         $compile_string .= $no_white;
                                     }
                                 }
-                            }else{
+                            } else {
                                 //is the style reference a URL
                                 $is_http = strpos($v, 'http://');
                                 $is_https = strpos($v, 'https://');
 
                                 //the style may be hosted externally
-                                if($is_http !== false || $is_https !== false){
+                                if ($is_http !== false || $is_https !== false) {
 
                                     //set external css html reference
                                     $return_string .= '<link rel="stylesheet" type="text/css" href="' .$v. '" />' . "\r\n";
@@ -395,11 +414,11 @@ class web_compile extends file_system{
                     }
 
                     //make sure the compiled string isn't empty
-                    if(!empty($compile_string)){
+                    if (!empty($compile_string)) {
 
                         //attempt to open a write file handle
                         $fh = fopen($this->compile_path.$compile_name, 'w');
-                        if($fh){
+                        if ($fh) {
 
                             //lock file exclusively
                             flock($fh, LOCK_EX);
@@ -417,52 +436,50 @@ class web_compile extends file_system{
                             fclose($fh);
 
                             //double check our work
-                            if($this->file_exists($this->compile_path.$compile_name)){
+                            if ($this->file_exists($this->compile_path.$compile_name)) {
 
                                 //set compiled CSS html reference
                                 $return_string .= '<link rel="stylesheet" type="text/css" href="'.$this->compile_path.$compile_name.'" />' . "\r\n";
                             }
                         }
                     }
-                }else{
+                } else {
                     //return the reference to the already compiled CSS
                     $return_string .= '<link rel="stylesheet" type="text/css" href="' . $already_compiled['content'] . '" />' . "\r\n";
-                    
+
                     //loop through style to find external references
-                    foreach($style_array as $k => $v){
-                        if($v !== '') {
+                    foreach ($style_array as $k => $v) {
+                        if ($v !== '') {
 
                             //is the style reference a URL
                             $is_http = strpos($v, 'http://');
                             $is_https = strpos($v, 'https://');
 
                             //the style may be hosted externally
-                            if($is_http !== false || $is_https !== false){
+                            if ($is_http !== false || $is_https !== false) {
 
                                 //set external CSS html reference
                                 $return_string .= '<link rel="stylesheet" type="text/css"  href="' . $v . '" />' . "\r\n";
-                                
-                                
-                            }else{
+                            } else {
                                 continue;
                             }
                         }
                     }
                 }
-            } else {
+            } else {*/
 
                 //loop through styles
-                foreach($style_array as $k => $v){
-                    if($v !== '') {
+                foreach ($style_array as $k => $v) {
+                    if ($v !== '') {
 
                         //append source CSS html references to return string
-                        $return_string .= '<link rel="stylesheet" type="text/css" href="' . $v . '" />' . "\r\n";
+                        $return_string .= '<link rel="stylesheet" type="text/css" href="' . $v . $this->version . '" />' . "\r\n";
                     }
                 }
-            }
+            /*}*/
         }
 
         //return a tidy css resource(list) ready for the front-end
         return trim($return_string);
-    }    
+    }
 }

@@ -44,33 +44,26 @@ define('HEAD', ROOT . 'secure/include/head.include.php');
 //foot include
 define('FOOT', ROOT . 'secure/include/foot.include.php');
 
-//contact
-define('CONTACT', ROOT . 'secure/include/contact.include.php');
-
-define('OVERVIEW_DEMO', ROOT . 'secure/include/overviewDemo.include.php');
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 // HEAD DEFINITIONS ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //define the name of the individual page  - delimiter: N/A
-define('PAGE', 'Page Title - Limit to 60 characters or 9 words');
+define('PAGE', 'Home');
 
 //define the individual page description - delimiter: N/A
-define('DESCRIPTION', 'An accurate, keyword-rich description about 150 characters');
+define('DESCRIPTION', 'Welcome to RPL Construction');
 
 //define the individual page styles - delimiter: COMMA
 define('STYLES', '
     '.ROOT. 'web/style/foundation.min.css,
     '.ROOT. 'web/style/typography.css,
-    '.ROOT. 'web/style/slider.css,
     '.ROOT. 'web/style/base.css,
     '.ROOT. 'web/style/header.css,
+    '.ROOT. 'web/style/home.css,
     '.ROOT. 'web/style/footer.css,
     '.ROOT. 'web/style/navigation.css,
-    '.ROOT. 'web/style/overview.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
@@ -91,15 +84,11 @@ define('FOOT_JS', '
     '.ROOT.'web/script/loadsh.js,
     '.ROOT.'web/script/foundation.min.js,
     '.ROOT.'web/script/tweenmax.min.js,
-    '.ROOT.'web/script/draggable.min.js,
     '.ROOT.'web/script/resizehandler.js,
-    '.ROOT.'web/script/slider.js,
     '.ROOT.'web/script/navigation.js,
     '.ROOT.'web/script/formhandler.js,
     '.ROOT.'web/script/gaTrack.js,
     '.ROOT.'web/script/svg.js,
-    '.ROOT.'web/script/preloadjs-0.6.2.min.js,
-    '.ROOT.'web/script/init.js,
     '.ROOT.'web/script/index.page.js,
 ');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

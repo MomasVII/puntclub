@@ -1,79 +1,36 @@
     </main>
     <footer id="footer" class="row expanded footer">
-        <div class="row first">
-            <div class="columns small-12 medium-6 large-3">
-                <h6>Contact</h6>
-                <p><strong>t:</strong> <a href="tel:+613<?= PHONE; ?>"
-                                          title="Call us" class="text-link nowrap">(03) <?= PHONE; ?></a><br/>
-                   <strong>e:</strong> <a href="mailto:<?= CONTACT_EMAIL; ?>"
-                                           title="email us" class="text-link nowrap"><?= CONTACT_EMAIL; ?></a>
-                </p>
-            </div>
-            <div class="columns small-12 medium-6 large-3">
-                <h6>Location</h6>
-                <p><?= ADDRESS; ?>,<br/>
-                <?= SUBURB; ?>, <?= STATE; ?>, <?= POSTCODE; ?><br/>
-                <?= COUNTRY; ?></p>
-            </div>
-            <div class="columns small-12 medium-6 large-3">
-                <h6>Hours</h6><!-- TODO Gordon add to config -->
-                <p>Mon - Fri 8am to 5:30pm<br>
-                    Sat - Sun 8am to 5:30pm
-                </p>
-            </div>
-            <div class="columns small-12 medium-6 large-3">
-                <div class="footer-logo">
-                    <a class="" href="/" title="Company brand name - Home"><img src="<?= ROOT; ?>web/image/demo/rare_logo.png" alt="Company brand name"></a>
-                </div>
-            </div>
-        </div>
         <div class="row last">
-            <div class="columns small-12 medium-10 large-10">
-                <ul class="social-list"> <!-- TODO Gordon add to config and calculated year -->
-                    <li><a href="#" target="_blank" class="text-link"><i class="icons icons-twitter xsmall"></i></a></li>
-                    <li><a href="#" target="_blank" class="text-link"><i class="icons icons-facebook xsmall"></i></a></li>
-                    <li><a href="#" target="_blank" class="text-link"><i class="icons icons-instagram xsmall"></i></a></li>
-                </ul>
-                <p class="copyright">&copy; 2017 Carne Grill | Eastridge Entertainment Precinct</p> <!-- TODO Gordon add to config and calculated year -->
+          <div class="columns small-12 medium-9 large-10">
+            <p class="copyright">
+                <span class="dont-wrap">&copy; RPLCON PTY LTD <?=date('Y');?></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
+                <span class="dont-wrap">e: <a href="mailto:info@rplcon.com.au" target="_top" title="Contact Us via Email">info@rplcon.com.au</a></span>
+            </p>
+            <div class="mbav_logos">
+                <a href="https://www.mbav.com.au/" target="_blank"><img src="/web/image/mbav1.png" alt="" class="mbav1" /></a>
+                <a href="https://www.vba.vic.gov.au/" target="_blank"><img src="/web/image/mbav2.png" alt="" class="mbav2" /></a>
             </div>
-            <div class="columns small-12 medium-2 large-2">
+          </div>
+            <div class="columns small-12 medium-3 large-2 siteby-container">
                 <p class="siteby">
                     <a href="http://rare.com.au" target="_blank" title="Raremedia - A relaxed digital creative agency based in Richmond Melbourne">
                         <span class="icon-label">site by RARE </span><i class="icons icons-raremedia xsmall"></i>
                     </a>
                 </p>
+                <ul class="social-list">
+                    <li>
+                        <a href="http://rare.com.au" target="_blank" title="Raremedia - A relaxed digital creative agency based in Richmond Melbourne">
+                            <i class="icons icons-raremedia xsmall"></i>
+                        </a>
+                    </li>
+                    <li><a href="https://www.facebook.com/pages/category/Construction-Company/RPL-Construction-1712268448831188/" target="_blank" class="text-link" title="Follow RPL CON on Facebook"><i class="icons icons-facebook xsmall"></i></a></li>
+                    <li><a href="https://www.instagram.com/rpl_construction/" target="_blank" class="text-link" title="Follow RPL CON on Instagram"><i class="icons icons-instagram xsmall"></i></a></li>
+                    <li><a href="https://www.linkedin.com/company/rpl-construction-pty-ltd/" target="_blank" class="text-link" title="Follow RPL CON on Linkin"><i class="icons icons-linkedin xsmall"></i></a></li>
+                </ul>
             </div>
         </div>
     </footer>
 </div>
-
-<!-- TODO: Remove Overview mark up if site does not require overview -->
-
-<!-- NOTE: START overview mark up -->
-<div id="overview1" class="overview overview1">
-    <a class="overview-close"><i class="icons icons-close xsmall"></i></a>
-    <div class="overview-inner">
-    </div>
-</div>
-
-<div id="overview2" class="overview overview2">
-    <a class="overview-close"><i class="icons icons-close xsmall"></i></a>
-    <div class="overview-inner">
-    </div>
-</div>
-
-<div id="overview3" class="overview overview3">
-    <a class="overview-close"><i class="icons icons-close xsmall"></i></a>
-    <div class="overview-inner">
-    </div>
-</div>
-
-<div id="overview4" class="overview overview4">
-    <a class="overview-close"><i class="icons icons-close xsmall"></i></a>
-    <div class="overview-inner">
-    </div>
-</div>
-<!-- NOTE: END overview mark up -->
 
 <script>
     var gaCode = "<?php echo GA_TRACK_ID; ?>";

@@ -21,12 +21,6 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
     //define protocol
     define('PROTOCOL', 'http');
 
-    //db definition
-    define('DB_HOST', 'YOUR_DB_HOST_HERE');
-    define('DB_USER', 'YOUR_DB_USER_HERE');
-    define('DB_PASS', 'YOUR_DB_PASSWORD_HERE');
-    define('DB_NAME', 'development'); //local and dev share some storage and db endpoints
-
     //define the end user's ip address
     define('END_USER_IP', $_SERVER['REMOTE_ADDR']);
 
@@ -38,12 +32,6 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
     //define protocol
     define('PROTOCOL', 'http');
 
-    //db definition
-    define('DB_HOST', 'YOUR_DB_HOST_HERE');
-    define('DB_USER', 'YOUR_DB_USER_HERE');
-    define('DB_PASS', 'YOUR_DB_PASSWORD_HERE');
-    define('DB_NAME', 'development'); //local and dev share some storage and db endpoints
-
     //define the end user's ip address
     define('END_USER_IP', $_SERVER['REMOTE_ADDR']);
 
@@ -54,12 +42,6 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
 
     //define protocol
     define('PROTOCOL', 'http');
-
-    //db definition
-    define('DB_HOST', 'YOUR_DB_HOST_HERE');
-    define('DB_USER', 'YOUR_DB_USER_HERE');
-    define('DB_PASS', 'YOUR_DB_PASSWORD_HERE');
-    define('DB_NAME', 'staging');
 
     //define the end user's ip address
     define('END_USER_IP', $_SERVER['REMOTE_ADDR']);
@@ -80,16 +62,10 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
 
     //get end user ip using beanstlk method
     define('END_USER_IP', $_SERVER['HTTP_X_FORWARDED_FOR']);
-
-    //db definition
-    define('DB_HOST', 'YOUR_DB_HOST_HERE');
-    define('DB_USER', 'YOUR_DB_USER_HERE');
-    define('DB_PASS', 'YOUR_DB_PASSWORD_HERE');
-    define('DB_NAME', 'live');
 }
 
 //google analytics tracking code
-define('GA_TRACK_ID', 'UA-669331-21');
+define('GA_TRACK_ID', 'UA-103791941-1');
 
 //site author
 define('AUTHOR', 'raremedia pty ltd');
@@ -107,28 +83,14 @@ date_default_timezone_set('Australia/Melbourne');
 define('SILENCE_ERRORS', false); //set to true to stop errors being logged.
 
 //session definitions (must be unique to each site)
-define('SESSION_NAME', 'YOUR_RANDOM_STRING_HERE');
+define('SESSION_NAME', 'f5QJxJCETPLyaS0');
 define('SESSION_LIFE', 2700);
 
 //security salt (must be unique to each site)
-define('SALT', 'YOUR_RANDOM_STRING_HERE');
+define('SALT', 'IaEE4CcIoLp1MA6');
 
 //define the site title
-define('TITLE', 'YOUR_SITE_TITLE_HERE');
-
-//START CONTENT GLOBALS
-
-    define('CONTACT_EMAIL', 'info@rare.com.au');
-    define('PHONE', '94289558');
-    define('COMPANY_NAME', 'Rare Media');
-    define('ADDRESS', '30 Cubitt Street');
-    define('SUBURB', 'Cremorne');
-    define('STATE', 'Vic');
-    define('POSTCODE', '3121');
-    define('COUNTRY', 'Australia');
-    define('COPYRIGHT', '&copy; '.COMPANY_NAME.' '.date('Y'));
-
-//END CONTENT GLOBALS
+define('TITLE', 'RPL Construction');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -144,9 +106,6 @@ if (!isset($required_classes)) {
 }
 
 //name the framework libraries you need in GLOBAL scope (cross dependencies mean the order matters)
-//$required_libraries[] = 'error_handler';//TODO: enable me once you've got a database
-//$required_libraries[] = 'mysqli_db';//TODO: enable me once you've got a database
-//$required_libraries[] = 'session';//TODO: enable me once you've got a database
 $required_libraries[] = 'shortcut';
 $required_libraries[] = 'validate';
 $required_libraries[] = 'web_compile';

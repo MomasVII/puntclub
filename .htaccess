@@ -136,3 +136,19 @@ RewriteCond %{QUERY_STRING} _REQUEST(=|[|\%[0-9A-Z]{0,2})
 
 # SEND BLOCKED REQUESTS TO ROOT WITH A 403 ERROR
 RewriteRule ^(.*)$ / [F,L]
+
+
+
+RewriteCond %{HTTP_HOST} ^rplbuilding\.com\.au$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.rplbuilding\.com\.au$
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^/?$ "https\:\/\/rplcon\.com\.au\/" [R=301,L]
+RewriteCond %{HTTP_HOST} ^rplconstruction\.com\.au$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.rplconstruction\.com\.au$
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^/?$ "https\:\/\/rplcon\.com\.au\/" [R=301,L]
+
+
+

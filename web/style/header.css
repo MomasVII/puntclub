@@ -19,16 +19,24 @@ Header Default
 
 header .main-bar {
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.8);
-    padding-right: .9375rem;
-    padding-left: .9375rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding-right: 0;
+    padding-left: 0;
+    -webkit-transition: background-color 600ms linear;
+    -ms-transition: background-color 600ms linear;
+    transition: background-color 600ms linear;
+}
+header[data-is-top="true"] .main-bar {
+    background: rgba(0, 0, 0, 0.4);
+}
+header[data-is-top="false"] .main-bar {
+    background: rgba(0, 0, 0, 0.9);
 }
 header .main-bar > .row {
     position: relative;
 }
 
-@media (max-width: 1023px) {
-
+@media (max-width: 1024px) {
     header .main-bar {
         position: relative;
     }
@@ -44,7 +52,6 @@ Top Bar
 
 header .top-bar {
     padding:.5em 0;
-    background-color: #333;
     padding-right: .9375rem;
     padding-left: .9375rem;
 }
@@ -56,7 +63,7 @@ header .top-bar .social-list {
 }
 
 header .top-bar .button {
-    margin-bottom:0px;
+    margin-bottom: 0;
 }
 
 @media (max-width: 400px) {
@@ -76,7 +83,7 @@ header .top-bar .button {
     display: block;
     position: relative;
     margin: 0;
-    padding: 0.1em 0;
+    padding: 1.199em 3.188em 1.333em 0;
     float: left;
 }
 .brand-logo.logo-right {
@@ -94,4 +101,6 @@ header .top-bar .button {
     margin: 0;
     padding: 0;
     min-height: 30px;
+    width: 6.555em;
+    height: 2.9999em;
 }

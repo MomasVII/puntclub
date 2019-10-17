@@ -1,38 +1,37 @@
-<form data-abide noValidate>
-    <div class="columns small-12 large-6">
-        <input type="text" id="firstName" name="form[firstName]" placeholder="First Name" required pattern="text"/>
-    </div>
-    <div class="columns small-12 large-6">
-        <input type="text" id="lastname" name="form[surname]" placeholder="Last Name" required pattern="text"/>
-    </div>
-    <div class="columns small-12">
-        <input type="text" id="company" name="form[company]" placeholder="Company (if applicable)" pattern="text"/>
-    </div>
-    <div class="columns small-12">
-        <input type="email" id="email" name="form[email]" placeholder="Email" required pattern="email"/>
-    </div>
-    <div class="columns small-12">
-        <input type="number" id="phone" name="form[phone]" placeholder="Contact Number" pattern="number"/>
-    </div>
-    <div class="columns small-12">
-        <textarea type="text" id="message" name="form[message]" placeholder="Message" required pattern="text"></textarea>
-    </div>
-    <div class="columns small-12 collapse">
-        <input type="submit" id="submit" value="Send" class="button submit right"/>
-        <div class="small-9">
-            <div data-abide-error class="alert callout" style="display: none">
-                <p id="form_validation_error">Error</p>
-            </div>
-            <div id="form_error" class="alert callout" style="display: none">
-                <p>Your message couldn't be sent<br />Please try again</p>
-            </div>
-            <div id="form_success" class="success callout" style="display: none">
-                <p><i class="fi-success"></i> Thank you for your enquiry</p>
-            </div>
+
+  <div class="row">
+    <div class="columns small-12 text-left">
+      <form data-abide noValidate action="<?=$shortcut->clean_uri($_SERVER['REQUEST_URI']);?>" method="post">
+
+        <div class="columns small-12">
+
+          <label> Name </label>
+          <input type="text" id="name" name="name" placeholder="" required pattern="text"/>
+
+          <label> Email</label>
+          <input type="email" id="email" name="email" placeholder="" required pattern="email"/>
+
+          <label> Phone</label>
+          <input type="number" id="phone" name="phone" placeholder="" pattern="number"/>
+
+          <label> Message</label>
+          <textarea type="text" rows="3" id="message" name="message" placeholder="" required pattern="text"></textarea>
+
+          <div class="g-recaptcha" data-sitekey="6LcvW5IUAAAAAHyOX5tSRR1cnAf5eJLk8z4n4v4Z"></div>
         </div>
+
+        <div class="columns small-12 medium-9 large-10">
+            <div data-abide-error class="alert callout" style="display: none">
+                <p id="form_validation_error">Please complete the required fields</p>
+            </div>
+            <?=$response;?>
+        </div>
+        <div class="columns small-12 medium-3 large-2" style="float: right">
+            <button type="submit" id="submit" class="button submit right">Send</button>
+        </div>
+
+        <input name="meta[check]" type="text" class="hide"/>
+      </form>
+
     </div>
-    <input name="meta[action]" value="send_email" type="text" class="hide"/>
-    <input name="meta[form]" value="contact" type="text" class="hide"/>
-    <input name="meta[check]" type="text" class="hide"/>
-    <?php /*<input name="meta[csrf]" type="text" value="<?=$auth->generate_csrf_token('contact');?>" class="hide"/> */ ?>
-</form>
+  </div>

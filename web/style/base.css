@@ -29,16 +29,29 @@
 html, body {
     padding: 0;
     margin: 0;
+    font-size: 16px;
 }
-a, a:link, a:visited {
+body {
+   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+p {
+   font-family: "Roboto-300", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-weight: 300;
+   font-size: 1em;
+}
+a,
+a:link,
+a:visited {
     text-decoration: none;
     outline: 0;
     border: none;
     cursor: pointer;
-    color: #b5a722;
+    color: #ffffff;
 }
 a:hover, a:focus, a:active {
     text-decoration: none;
+    color: #ffd300;
+    font-weight: 500;
 }
 
 :focus {
@@ -49,22 +62,57 @@ a:hover, a:focus, a:active {
 /*--------------------------------------------------------------
   # Base Structure
 --------------------------------------------------------------*/
-
-body {
-   background-image:url(../image/demo/demo_bg.jpg); /* TODO: REMOVE DEMO BG */
-   background-size: cover !important;
-   background-position: top center;
+html, body {
+   box-sizing: border-box;
+   display: block;
+   position: relative;
+   margin: 0;
+   padding: 0;
+}
+section {
+   display: block;
+   position: relative;
+   width: 100%;
+   height: 100%;
+   min-height: 100vh;
+}
+section .bg {
+   display: block;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   height: 100%;
+   height: 100vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
-main.content {
-    padding: 1.5rem .9375rem;
+body section#section-home .bg {
+   background-image:url(../image/bg01a.jpg);
 }
-
-main.content > section  {
-    position: relative;
-    padding-bottom: .9375rem;
+body section#section-services .bg {
+   background-image:url(../image/bg02a.jpg);
 }
-
+body section#section-document-centre .bg {
+   background-image:url(../image/bg03a.jpg);
+}
+body section#section-contact .bg {
+   background-image:url(../image/bg04a.jpg);
+}
+body section#section-what-we-build .bg {
+   background-image:url(../image/bg05a.jpg);
+}
+body section#section-who-we-are .bg {
+   background-image:url(../image/bg06a.jpg);
+}
 
 /*--------------------------------------------------------------
   # Global Styles
@@ -114,17 +162,25 @@ main.content > section  {
 .bg-white {
     background-color: #fff;
 }
+.fg-white {
+   color: #fff;
+}
 .bg-black {
     background-color: #000;
 }
-
+.fg-black {
+   color: #000;
+}
+.dont-wrap {
+    display:inline-block;
+}
 
 /*--------------------------------------------------------------
   # Headers - Tags, Panels & Styles
 --------------------------------------------------------------*/
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: "SourceSansPro-700", "Helvetica Neue", Helvetica, Arial, sans-serif;
+h1, h2, h4, h5, h6 {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
 }
 
@@ -139,7 +195,6 @@ h1, h2, h3, h4, h5, h6 {
     color:#fff;
     padding:10px 15px;
     line-height:100%;
-    text-transform: uppercase;
     cursor: pointer;
     outline: 0;
     font-weight: 500;
@@ -313,5 +368,410 @@ input.button:active {
 
 .tabs-title > a:focus,
 .tabs-title > a[aria-selected=true] {
-    color: #b5a722;
+    color: #ffd300;
+}
+
+/*--------------------------------------------------------------
+  # RPLCon Styles
+--------------------------------------------------------------*/
+.not_supported,
+.no_script {
+  display: block;
+  position: relative;
+  background-color: #e6af0f;
+  padding: 2em;
+  text-align: center;
+}
+.not_supported {
+  display: none;
+}
+.bg-texture {
+   display: block;
+   position: fixed;
+   padding: 0;
+   margin: 0;
+   width: 100%;
+   height: 100%;
+   height: 100vh;
+   background-size: cover !important;
+   background-position: center center;
+   background-image:url(../image/bg_texture01a.svg);
+   z-index: 10;
+   pointer-events: none;
+   opacity: 0;
+}
+/* IE11 & IE10 fix cant export SVG as responsive IE requires width and height attribute */
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .bg-texture {
+    background-image:url(../image/bg_texture01aIE.svg);
+  }
+}
+.bg-yello-triangle-wrapper {
+  display: block;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  height: 100vh;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+}
+.bg-yello-triangle-wrapper .bg-yello-triangle  {
+  display: block;
+  position: absolute;
+  width: 50%;
+  height: auto;
+  bottom: -1px;
+  right: 0;
+}
+
+.bg-yello-triangle-wrapper .bg-yello-triangle img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+}
+/*--------------------------------------------------------------
+  # Section styles
+--------------------------------------------------------------*/
+main section {
+   padding-top: 9.750em;
+}
+main > section > .row {
+  padding-bottom: 7em;
+}
+@media (max-width: 1200px) {
+  main > section > .row {
+      padding-bottom: 8em;
+  }
+  section {
+    min-height: 97vh;
+  }
+}
+@media (max-width: 479px) {
+  main > section > .row {
+      padding-bottom: 9em;
+  }
+}
+.section-header {
+  display: block;
+  position: relative;
+  margin: 0;
+  padding: 0.8em;
+  background-color: #e6af0f;
+  width: 11.938em;
+  height: auto;
+  float: left;
+  z-index: 100;
+}
+.section-header h2 {
+   text-transform: uppercase;
+   color: #232323;
+   font-weight: 700;
+   line-height: 1.0;
+}
+.section-content, .section-content-who-we-are {
+   display: block;
+   position: relative;
+   margin: 0;
+   padding: 2.688em 2.688em 0 2.688em;
+   height: auto;
+   float: left;
+   width: auto;
+   width: calc( 100% - 11.938em );
+   background-color: rgba(0, 0, 0, 0.7);
+   color: #fff;
+   z-index: 100;
+   min-height: 500px;
+}
+.section-content h3, .section-content-who-we-are h3 {
+   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-weight: 400;
+   font-size: 1.654em;
+}
+.section-content-who-we-are, .section-content-who-we-are .columns {
+    padding:0;
+}
+#section-who-we-are .row .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+/* Content sections responsive. */
+@media (max-width: 1200px) {
+   main section {
+      padding-top: 8.625em;
+   }
+   main section .pos-m {
+      position: relative;
+      margin-left: 2.688em;
+      margin-right: 2.688em;
+      top: 0;
+      left: 0;
+      transform: translate(0%,0%);
+      -webkit-transform: translate(0%,0%);
+      ms-transform: translate(0%,0%);
+   }
+   .section-header,
+   .section-content,
+   .section-content-who-we-are {
+     float: none;
+     width: 100%;
+   }
+}
+/* Document download section */
+.document-list {
+  list-style: none;
+}
+.document-list a,
+.document-list a:link,
+.document-list a:visited {
+  text-decoration: none;
+  outline: 0;
+}
+.document-list a:hover,
+.document-list a:focus,
+.document-list a:active {
+    text-decoration: none;
+    color: #ffd300;
+    outline: 0;
+}
+.document-list li {
+  border-bottom: solid 1px #666666;
+  padding: 0.813em 0 0.813em 0;
+  display: table;
+  width: 100%;
+}
+.document-list li a {
+  display: table-row;
+  width: 100%;
+}
+.document-list .document-label {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1em;
+  letter-spacing: 0.094em;
+  text-transform: uppercase;
+  display: table-cell;
+  vertical-align: middle;
+  padding-right: 1.5em;
+}
+.document-list .document-icon {
+  display: table-cell;
+  width: 1.250em;
+  vertical-align: middle;
+}
+
+
+/*-----User Profiles-------*/
+
+.user-profiles {
+    position:relative;
+    cursor: pointer;
+    float:left !important;
+    overflow: hidden;
+}
+.user-profiles:hover  img {
+    transform:scale(1.1);
+}
+.user-profiles img {
+    width:100%;
+    transition:0.4s ease all;
+}
+.user-content {
+    position:absolute;
+    bottom:0;
+    text-align:left;
+    padding:0px 8px 10px;
+}
+.user-content h1 {
+    font-size:16px;
+    text-shadow: 1px 1px 1px black;
+    margin:0;
+}
+.user-content p {
+    font-size:14px;
+    text-shadow: 1px 1px 1px black;
+    margin:0;
+}
+
+.user-profile-overlay {
+    display:none;
+    position:absolute;
+    top:0;
+    width:100%;
+    margin-bottom:50px;
+}
+.user-profile-overlay img {
+    width:100%;
+}
+.user-profile-content {
+    padding:20px;
+    background-color:rgba(0,0,0,0.8);
+}
+
+.notable-projects {
+    background-color:rgba(0,0,0,0.8);
+}
+
+.user-profile-content h2 {
+    text-align: left;
+    margin:0px;
+    font-size:18px;
+}
+
+.notable-projects-heading {
+    background-color:#ffcc00;
+}
+
+.notable-projects h2 {
+    padding:10px 20px;
+    font-size:20px;
+    color:black;
+    font-weight:800;
+}
+
+.projects-listing {
+    background-color:white;
+    display: flex;
+    justify-content: space-between;
+    padding:10px 20px;
+    align-items: center;
+}
+
+.projects-listing:nth-of-type(even) {
+    background-color:#f8e378;
+}
+
+.project-price {
+    color:black;
+}
+
+.notable-project h1 {
+    font-size:15px;
+    color:black;
+    font-weight:600;
+    margin:0;
+}
+
+.notable-project p {
+    margin:0;
+    font-size:14px;
+    color:black;
+}
+
+.project-price {
+    padding:10px 20px;
+}
+
+
+/*---------What We Build----------*/
+
+.drop-down-heading {
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    letter-spacing: 0.094em;
+    text-transform: uppercase;
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 1.5em;
+    cursor:pointer;
+}
+.color-heading {
+    color:#ffd300;
+}
+
+.project_a {
+    font-weight: 500;
+}
+
+.arrow {
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    margin-top: 6px;
+    margin-right:10px;
+    float:left;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.rotated {
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+    border: solid #ffd300;
+}
+
+.reveal-content {
+    padding:10px 20px;
+    display:none;
+}
+
+.reveal-content h2 {
+    font-size:16px;
+    text-transform: none;
+    margin:10px 0px;
+}
+
+.property-content {
+    margin-bottom:50px;
+}
+
+.property-overlay {
+    display:none;
+    background-color:rgba(0,0,0,0.9);
+    padding: 2.688em 2.688em 0 2.688em;
+    position:absolute;
+    top:0;
+    left:0;
+    margin: 0 !important;
+    width:100%;
+    margin-bottom:50px;
+    z-index:100;
+}
+
+.property-name {
+    font-size:36px;
+    font-weight:200;
+}
+
+.property-text {
+    font-size:14px;
+    font-weight:300;
+    margin:10px 0;
+}
+
+.property-text a {
+    font-weight: 500;
+}
+
+.hes-gallery {
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.hes-gallery img {
+    cursor:pointer;
+    width:30%;
+    height: 100%;
+    margin: 10px 0;
+}
+
+.new_bg {
+    animation:fadeInbg 2s ease forwards;
+    width:100%;
+}
+
+@keyframes fadeInbg {
+    0% { opacity:0; }
+    100% { opacity:1; }
 }

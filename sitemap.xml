@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
   xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 
    <url>
-      <loc>http://YOUR_DOMAIN_HERE/YOUR_PAGE_HERE</loc>
-      <lastmod>YYY-MM-DD</lastmod>
-      <changefreq>weekly</changefreq>
+      <loc>http://rplcon.com.au/</loc>
+      <lastmod>2017-08-01</lastmod>
+      <changefreq>monthly</changefreq>
       <priority>1.0</priority>
    </url>
-</urlset> 
+   <url>
+      <loc>http://rplcon.com.au/what_we_offer.html</loc>
+      <lastmod>2017-08-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://rplcon.com.au/document_centre.html</loc>
+      <lastmod>2017-08-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://rplcon.com.au/contact.html</loc>
+      <lastmod>2017-08-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+   <url>
+      <loc>http://rplcon.com.au/about_us.html</loc>
+      <lastmod>2017-08-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+   </url>
+</urlset>

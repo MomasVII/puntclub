@@ -15,6 +15,9 @@
 #   Navigation dropdownaccordion function
 #   Navigation .responsive-menu function
 #   Navigation fixed function
+#   Navigation checkForResponsive
+#   Navigation - scroll event - site specific function
+#   Navigation - Add active nav item
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -32,7 +35,8 @@ dropDownTransitionEase = "none"    // STRING Drop down transition ease | Options
 dropDownIcon = "none"              // STRING Drop down Icon type if we even want to display icons on our drop downs. | Options | none (default), chevron, plusMinus
 navigationFixed = false            // BOOLEAN value applies fixed to top position to the navigation bar | Options | fasle (default), true
 hamburgerTransitionType = "none"   // STRING Hamburger menu transitino type | Options | none (default), rcw ( rotate clockwise ), rccw ( rotate counterclockwise )
-hamburgerTransitionDuration = 0    // FLOAT Hamburger menu transition duration | Options | 0 (default),
+hamburgerTransitionDuration = 0    // FLOAT Hamburger menu transition duration | Options | 0 (default)
+activeItem = 0                  // INTEGER nav item child number to be made active | options | 0 (default), INTEGER
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -65,6 +69,9 @@ function Navigation ( options ) {
     this.hamburgerTransitionType = ( typeof options.hamburgerTransitionType !== 'undefined' ) ?  options.hamburgerTransitionType : "none"
     this.hamburgerTransitionDuration = ( typeof options.hamburgerTransitionDuration !== 'undefined' ) ?  options.hamburgerTransitionDuration : 0
     this.currentNavigationStyle = this.navigationStyle
+    this.navigationIsTop = false
+    this.isResponsive = false
+    this.activeItem = ( typeof options.activeItem !== 'undefined' ) ?  options.activeItem : 0
 
     /* Determine the currect drop down action based on responsive viewport */
     this.determineDropDownAction()
@@ -74,8 +81,6 @@ function Navigation ( options ) {
 
     /* Render fixed position on navigation if fixed passed */
     this.renderFixed()
-
-    //this.determineResponsiveMenu()
 
     /* Debounce and handle all dropdown events */
     this.dropdownHandler  = _.debounce( function(event) {
@@ -135,8 +140,21 @@ function Navigation ( options ) {
         this.responsiveMenuHandler( event )
     }.bind(this))
 
+    /* Debounced event for accordion menu nav item link handling */
+    this.navItemHandler  = _.debounce( function(event) {
+        this.accordionMenuNavItemHandler( event )
+    }.bind(this))
+
+    /* Document click function. if accordion responsive menu is open we want to close it again */
+    $(document).on("click touchstart", function( event ){
+        this.documentCloseResponsiveMenu( event )
+    }.bind(this))
+
     /* Bind reveal menu style events */
-    if ( this.currentNavigationStyle == "reveal" ) {
+    if ( this.currentNavigationStyle == "reveal" ||
+         this.navigationStyle == "reveal" ||
+         this.navigationStyleMedium == "reveal" ||
+         this.navigationStyleSmall == "reveal" ) {
         /* Toggle reveal menu mouseenter event */
         this.target.mouseenter( function ( event ) {
             this.dropdownHandler( event )
@@ -148,13 +166,48 @@ function Navigation ( options ) {
         }.bind(this))
     }
 
+
     /*--------------------------------------------------------------
-    #   Resize event
+    #   Window Resize event
     --------------------------------------------------------------*/
-    $(window).on("resizeByHandler", function () {
-        this.renderFixed()
-        this.determineDropDownAction()
+    /* Check whether we have debounced resize handler available else we bind regular window resize function */
+    var windowEvents = $._data(window, 'events');
+    if(windowEvents && windowEvents.resizeByHandler){
+        $(window).on("resizeByHandler", function () {
+            this.renderFixed()
+            this.determineDropDownAction()
+            this.addActiveNavItem()
+            TweenMax.set( $(this.target).find("nav"), { clearProps: "height" })
+        }.bind(this))
+    } else {
+        $(window).on("resize", function() {
+            this.renderFixed()
+            this.determineDropDownAction()
+            this.addActiveNavItem()
+            TweenMax.set( $(this.target).find("nav"), { clearProps: "height" })
+        }.bind(this))
+    }
+
+    /*--------------------------------------------------------------
+    #   Window Scroll event
+    --------------------------------------------------------------*/
+    $(window).on("scroll", function () {
+        var navigatoinISTop = this.scrollTop()
+        if ( navigatoinISTop ) {
+            this.target.closest("header").attr("data-is-top", "true");
+        } else {
+            this.target.closest("header").attr("data-is-top", "false");
+        }
+
     }.bind(this))
+
+    var navigatoinISTop = this.scrollTop()
+    if ( navigatoinISTop ) {
+        TweenMax.set(this.target.closest("header"), { clearProps: "background-color" })
+    } else {
+        TweenMax.to(this.target.closest("header"), 0, { backgroundColor: "rgba(0, 0, 0, 0.7)" })
+    }
+
 }
 
 
@@ -162,40 +215,44 @@ function Navigation ( options ) {
 #   Navigation determine dropdown action
 --------------------------------------------------------------*/
 Navigation.prototype.determineDropDownAction = function() {
-    if ( typeof Foundation.MediaQuery.current !== 'undefined' ) {
 
-        switch (  Foundation.MediaQuery.current ) {
-            case "medium":
-                this.currentNavigationStyle = this.navigationStyleMedium
-                break
-            case "small":
-                this.currentNavigationStyle = this.navigationStyleSmall
-                break
-            default:
-                this.currentNavigationStyle = this.navigationStyle
-                break
-        }
-        this.target.find("nav").attr("data-navigation-type", this.currentNavigationStyle)
-        if ( this.currentNavigationStyle == "accordion" && this.target.find(".nav-toggle").css("display") != "none" ) {
-            this.target.find("nav").attr("data-expanded", "false")
+    /* Determin what is the current navigation style for the viewport */
+    this.currentNavigationStyle = this.navigationStyle
+    if ( window.matchMedia("only screen and (max-width: 1280px)").matches ) {
+        this.currentNavigationStyle = this.navigationStyleMedium
+    } else if ( window.matchMedia("only screen and (max-width: 640px)").matches ) {
+        this.currentNavigationStyle = this.navigationStyleSmall
+    }
 
-        /* If current navigation style is revel set navigation */
-        } else if ( this.currentNavigationStyle == "reveal" ) {
-            $(this.target).addClass("menu-reveal")
-        } else {
-            $(this.target).removeClass("menu-reveal")
-        }
+    this.target.find("nav").attr("data-navigation-type", this.currentNavigationStyle)
+    if ( this.currentNavigationStyle == "accordion" ) {
+
+        this.target.find("nav").attr("data-expanded", "false")
+        $(this.target).removeClass("menu-reveal").addClass("menu-accordion")
         this.target.find("li").removeAttr("style")
+        var targetHeight = Math.floor( this.target.height() );
+        this.target.find("nav").css( "top", targetHeight+"px" )
+
+        /* Shutdown scrolling page behind the hamburger menu */
+        this.target.find("nav").on( "touchmove scroll", function(event){
+            event.preventDefault()
+            event.stopPropagation()
+        }.bind(this))
+
+        this.target.find("a").on( "touchmove scroll", function(event){
+            event.preventDefault()
+            event.stopPropagation()
+        }.bind(this))
+
+    /* If current navigation style is revel set navigation */
+    } else if ( this.currentNavigationStyle == "reveal" ) {
+        this.target.find("nav").removeAttr("style")
+        $(this.target).removeClass("menu-accordion").addClass("menu-reveal")
+        this.target.find("nav").attr("data-expanded", "false")
     } else {
-        /* NOTE  Foundation.MediaQuery.medium = 40em or 640px */
-        /* NOTE  Foundation.MediaQuery.large = 64em or 1024px */
-        if ( $(window).innerWidth() > 639 ) {
-            this.currentNavigationStyle = this.navigationStyleMedium
-        } else if ( $(window).innerWidth() > 1023 ){
-            this.currentNavigationStyle = this.navigationStyle
-        } else {
-            this.currentNavigationStyle = this.navigationStyleSmall
-        }
+        this.target.find("nav").removeAttr("style")
+        $(this.target).removeClass("menu-accordion menu-reveal")
+        this.target.find("nav").attr("data-expanded", "false")
     }
 }
 
@@ -238,7 +295,6 @@ Navigation.prototype.renderFixed = function() {
     } else {
 
         $("header").attr( "data-sticky", "true" );
-        $(".content").css( "padding-top", $("header").height() )
 
     }
 }
@@ -268,7 +324,14 @@ Navigation.prototype.dropdownHover = function( event ) {
                 break
             case "slideDown":
                 var $child = $(trigger).find("ul")
-                TweenMax.fromTo( $child, thisTranstitionDuration, { clip: "rect( 0, "+ $child.width() +"px, 0, 0 )" }, { onStart: function(){ $(trigger).attr("data-expanded", "true") }, clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )", ease: thisTransitionEase, onComplete: function(){ TweenMax.set( $child, { clearProps: "all" })} })
+                TweenMax.fromTo( $child, thisTranstitionDuration, {
+                  clip: "rect( 0, "+ $child.width() +"px, 0, 0 )" },
+                  {
+                    onStart: function(){ $(trigger).attr("data-expanded", "true") },
+                    clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )",
+                    ease: thisTransitionEase,
+                    onComplete: function(){ TweenMax.set( $child, { clearProps: "all" })}
+                  })
                 break
             default:
                 $(trigger).attr("data-expanded", "true")
@@ -284,7 +347,13 @@ Navigation.prototype.dropdownHover = function( event ) {
                 break
             case "slideDown":
                 var $child = $(trigger).find("ul")
-                TweenMax.fromTo( $child, thisTranstitionDuration, { clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )" }, { clip: "rect( 0, "+ $child.width() +"px, 0, 0 )", ease: thisTransitionEase, onComplete: function(){ $(trigger).attr("data-expanded", "false"); TweenMax.set( $child, { clearProps: "all" }) } })
+                TweenMax.fromTo( $child, thisTranstitionDuration, {
+                  clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )" },
+                  {
+                    clip: "rect( 0, "+ $child.width() +"px, 0, 0 )",
+                    ease: thisTransitionEase,
+                    onComplete: function(){ $(trigger).attr("data-expanded", "false"); TweenMax.set( $child, { clearProps: "all" }) }
+                  })
                 break
             default:
                 $(trigger).attr("data-expanded", "false")
@@ -317,6 +386,7 @@ Navigation.prototype.dropdownaccordion = function( event ) {
 
     /* Toggle Dropdown */
     var openValue = $(trigger).attr("data-expanded")
+
     /* Open dropdown */
     if ( openValue == "false" ) {
         switch ( thisTransitionType ) {
@@ -325,8 +395,17 @@ Navigation.prototype.dropdownaccordion = function( event ) {
                 break
             case "slideDown":
                 var $child = $(trigger).find("ul")
-                TweenMax.fromTo( $child, thisTranstitionDuration, { clip: "rect( 0, "+ $child.width() +"px, 0, 0 )" }, { onStart: function(){ $(trigger).attr("data-expanded", "true") }, clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )", ease: thisTransitionEase, onComplete: function(){ TweenMax.set( $child, { clearProps: "all" })} })
-                TweenMax.fromTo( trigger, thisTranstitionDuration, { height: trigger.height() }, { height: ( trigger.height() + $child.height() ), ease: thisTransitionEase })
+                TweenMax.fromTo( $child, thisTranstitionDuration,
+                    { clip: "rect( 0, "+ $child.width() +"px, 0, 0 )" },
+                    {
+                        onStart: function(){ $(trigger).attr("data-expanded", "true") },
+                        clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )",
+                        ease: thisTransitionEase,
+                        onComplete: function(){ TweenMax.set( $child, { clearProps: "all" })}
+                    })
+                TweenMax.fromTo( trigger, thisTranstitionDuration,
+                    { height: trigger.height() },
+                    { height: ( trigger.height() + $child.height() ), ease: thisTransitionEase })
                 break
             default:
                 $(trigger).attr("data-expanded", "true")
@@ -340,8 +419,20 @@ Navigation.prototype.dropdownaccordion = function( event ) {
                 break
             case "slideDown":
                 var $child = $(trigger).find("ul")
-                TweenMax.fromTo( $child, thisTranstitionDuration, { clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )" }, { clip: "rect( 0, "+ $child.width() +"px, 0, 0 )", ease: thisTransitionEase, onComplete: function(){ $(trigger).attr("data-expanded", "false"); TweenMax.set( $child, { clearProps: "all" }) } })
-                TweenMax.fromTo( trigger, thisTranstitionDuration, { height: trigger.height() }, { height: ( trigger.height() - $child.height() ), ease: thisTransitionEase, onComplete: function(){ TweenMax.set( trigger, { clearProps: "all" }) } })
+                TweenMax.fromTo( $child, thisTranstitionDuration,
+                    { clip: "rect( 0, "+ $child.width() +"px, "+ $child.height() +"px, 0 )" },
+                    {
+                        clip: "rect( 0, "+ $child.width() +"px, 0, 0 )",
+                        ease: thisTransitionEase,
+                        onComplete: function(){ $(trigger).attr("data-expanded", "false"); TweenMax.set( $child, { clearProps: "all" }) }
+                    })
+                TweenMax.fromTo( trigger, thisTranstitionDuration,
+                    { height: trigger.height() },
+                    {
+                        height: ( trigger.height() - $child.height() ),
+                        ease: thisTransitionEase,
+                        onComplete: function(){ TweenMax.set( trigger, { clearProps: "all" }) }
+                    })
                 break
             default:
                 $(trigger).attr("data-expanded", "false")
@@ -352,11 +443,34 @@ Navigation.prototype.dropdownaccordion = function( event ) {
 
 
 /*--------------------------------------------------------------
+#   Navigation - Responsive accordion menu Nav item function
+--------------------------------------------------------------*/
+Navigation.prototype.accordionMenuNavItemHandler = function( event ) {
+
+    if ( this.target.find("button.nav-toggle").css("display") == "none" ) {
+        return
+    }
+
+    if ( this.currentNavigationStyle != "accordion" ) {
+        return
+    }
+
+
+    this.responsiveMenu( event )
+
+
+}
+
+/*--------------------------------------------------------------
 #   Navigation .responsive-menu function
 --------------------------------------------------------------*/
 Navigation.prototype.responsiveMenu = function( event ) {
 
     if ( this.target.find("button.nav-toggle").css("display") == "none" ) {
+        return
+    }
+
+    if ( this.currentNavigationStyle != "accordion" ) {
         return
     }
 
@@ -371,14 +485,21 @@ Navigation.prototype.responsiveMenu = function( event ) {
     if ( this.target.find("button.nav-toggle").css("display") != "none" ) {
 
         /* Get nav-toggle target */
-        var thisTarget = "#" + $(event.target).closest("button.nav-toggle").attr("data-target")
-        thisTarget = this.target.find(thisTarget)
+        if( $(event.target)[0].className === "icons icons-menu xsmall" ) {
+            var thisTarget = "#" + $(event.target).closest("button.nav-toggle").attr("data-target")
+            thisTarget = this.target.find(thisTarget)
+        } else {
+            var thisTarget = "#" + $(this.target).find("button.nav-toggle").attr("data-target")
+            thisTarget = this.target.find(thisTarget)
+        }
+
 
         /* Toggle nav-toggle expanded data attribute */
         if( typeof thisTarget.attr("data-expanded") === 'undefined' ) {
             thisTarget.attr("data-expanded", "false")
         }
         var openValue = thisTarget.attr("data-expanded")
+
         if ( openValue == "false" ) {
 
             switch ( thisTransitionType ) {
@@ -387,8 +508,17 @@ Navigation.prototype.responsiveMenu = function( event ) {
                     break
                 case "slideDown":
                     var $child = $(thisTarget).find(" > ul")
-                    var thisHeight = $(thisTarget).height() * $(thisTarget).find(" > ul > li").length // NOTE: update if nav li height is differnt
-                    TweenMax.fromTo( $child, thisTranstitionDuration, { clip: "rect( 0, "+ $(window).width() +"px, 0, 0 )" }, { onStart: function(){ $(thisTarget).attr("data-expanded", "true") }, clip: "rect( 0, "+ $(window).width() +"px, "+thisHeight+"px, 0 )", ease: thisTransitionEase, onComplete: function(){ TweenMax.set( $child, { clearProps: "all" })} })
+                    var thisHeight = 70 * $(thisTarget).find(" > ul > li").length //$(thisTarget).height() * $(thisTarget).find(" > ul > li").length // NOTE: update if nav li height is diffrent
+
+
+                    TweenMax.fromTo( $child, thisTranstitionDuration,
+                        { clip: "rect( 0, "+ $(window).width() +"px, 0, 0 )" },
+                        {
+                            onStart: function(){ $(thisTarget).attr("data-expanded", "true"); },
+                            clip: "rect( 0, "+ $(window).width() +"px, "+thisHeight+"px, 0 )",
+                            ease: thisTransitionEase,
+                            onComplete: function(){ TweenMax.set( $child, { clearProps: "all" })}
+                        })
                     TweenMax.fromTo( thisTarget, thisTranstitionDuration, { height: thisTarget.height() }, { height: thisHeight+"px", ease: thisTransitionEase })
                     break
                 default:
@@ -417,8 +547,23 @@ Navigation.prototype.responsiveMenu = function( event ) {
                     break
                 case "slideDown":
                     var $child = $(thisTarget).find(" > ul")
-        			TweenMax.fromTo( $child, thisTranstitionDuration, { clip: "rect( 0, "+ $(window).width() +"px, "+ $child.height() +"px, 0 )" }, { clip: "rect( 0, "+ $(window).width() +"px, 0, 0 )", ease: thisTransitionEase, onComplete: function(){ $(thisTarget).attr("data-expanded", "false"); TweenMax.set( $child, { clearProps: "all" }) } })
-        			TweenMax.fromTo( thisTarget, thisTranstitionDuration, { height: thisHeight+"px" }, { height: ( thisTarget.height() - $child.height() ), ease: thisTransitionEase, onComplete: function(){ TweenMax.set( thisTarget, { clearProps: "all" }) } })
+        			TweenMax.fromTo( thisTarget, thisTranstitionDuration, {
+                        clip: "rect( 0, "+ $(window).width() +"px, "+ thisTarget.height() +"px, 0 )" },
+                        {
+                            clip: "rect( 0, "+ $(window).width() +"px, 0, 0 )",
+                            ease: thisTransitionEase,
+                            onComplete: function(){ $(thisTarget).attr("data-expanded", "false"); TweenMax.set( thisTarget, { clearProps: "clip, height, opacity" })
+                        }
+                    })
+                    TweenMax.to( thisTarget, ( thisTranstitionDuration - 0.15 ), { opacity: 0 })
+        			TweenMax.fromTo( thisTarget, thisTranstitionDuration,
+                        { height: thisHeight+"px" },
+                        {
+                            height: ( thisTarget.height() - thisTarget.height() ),
+                            ease: thisTransitionEase,
+                            onComplete: function(){ TweenMax.set( thisTarget, { clearProps: "height" })
+                        }
+                    })
         			break
                 default:
                     break
@@ -428,7 +573,11 @@ Navigation.prototype.responsiveMenu = function( event ) {
             if ( thisHamburgerTransitionType !== "none" ) {
                 // IF rotate clockwise or rotate counterclockwise
                 if ( thisHamburgerTransitionType == "rcw" || thisHamburgerTransitionType == "rccw" ) {
-                    TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {rotation: 0, ease: Power2.easeOut, onComplete: function() { TweenMax.set(hamburgerMenu, { clearProps: "all" }) } });
+                    TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {
+                        rotation: 0,
+                        ease: Power2.easeOut,
+                        onComplete: function() { TweenMax.set(hamburgerMenu, { clearProps: "all" }) }
+                    });
                 } else {}
             }
 
@@ -438,7 +587,7 @@ Navigation.prototype.responsiveMenu = function( event ) {
 
 
 /*--------------------------------------------------------------
-#   Navigation .responsive-menu function
+#   Navigation reveal menu function
 --------------------------------------------------------------*/
 Navigation.prototype.revealMenu = function ( event ) {
 
@@ -447,37 +596,41 @@ Navigation.prototype.revealMenu = function ( event ) {
 
     /* Set variables */
     var $element = this.target,
+    navBar = this.target,
     navItem = this.target.find("nav > ul > li"),
     hamburgerMenu = this.target.find(".nav-toggle"),
     thisHamburgerTransitionType = this.hamburgerTransitionType,
     thisHamburgerTransitionDuration = this.hamburgerTransitionDuration,
     navIntro_tl = new TimelineMax({ paused: true })
 
-    //trigger = $(event.target).closest("li.parent"),
-    //thisTransitionType = this.dropDownTransitionType,
-    //thisTranstitionDuration = this.dropDownTransitionDuration,
-    //thisTransitionEase = this.dropDownTransitionEase
+    navIntro_tl.eventCallback("onComplete", function(){ TweenMax.set( navItem, { clearProps: "transform" }) } )
 
     /* Toggle Dropdown */
     if (  event.type == "mouseenter" || event.type == "mouseover" ) {
 
+        var isNavigationTop = this.scrollTop()
+
         /* Reveal the navigation items one by one */
         TweenMax.set(navItem, { opacity: 1 })
         navIntro_tl.staggerFrom( navItem, 0.4, { y: 30, opacity: 0, ease: Power4.easeOut }, 0.05, 0 )
-        //.to(navBar, 0.8, {backgroundColor: "rgba(0, 0, 0, 0.7)", ease: Power2.easeOut}, 0.0);
 
-        navIntro_tl.restart().play()
+        if ( isNavigationTop ) {
+            var backgroundTween = TweenMax.to(navBar, 0.8, { backgroundColor: "rgba(0, 0, 0, 0.7)", ease: Power2.easeOut })
+            navIntro_tl.add( backgroundTween, 0.0 )
+        }
+
+        navIntro_tl.restart().play(0)
 
         /* IF we parsed an option of hamburger open transition type animate transition here */
         if ( thisHamburgerTransitionType !== "none" ) {
             switch ( thisHamburgerTransitionType ) {
                 case "rcw": // rotate clockwise
                     TweenMax.set( hamburgerMenu, { transformOrigin: "50% 50%", force3D: "auto", transformStyle: "preserve-3d" })
-                    TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {rotation: 90, ease: Power2.easeOut});
+                    TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {rotation: 90, ease: Power2.easeOut})
                     break
                 case "rccw": // rotate counterclockwise
                     TweenMax.set( hamburgerMenu, { transformOrigin: "50% 50%", force3D: "auto", transformStyle: "preserve-3d" })
-                    TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {rotation: -90, ease: Power2.easeOut});
+                    TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {rotation: -90, ease: Power2.easeOut})
                     break
             }
         }
@@ -486,15 +639,88 @@ Navigation.prototype.revealMenu = function ( event ) {
     } else if ( event.type == "mouseleave" ) {
 
         /* Hide navigation items again */
-        TweenMax.to(navItem, 0.4, {opacity: 0, ease: Power2.easeOut });
+        TweenMax.killTweensOf( navItem )
+        navIntro_tl.restart().pause(0)
+
+        var isNavigationTop = this.scrollTop()
+
+        TweenMax.to(navItem, 0.4, {opacity: 0, ease: Power2.easeOut, onComplete: function(){ TweenMax.set( navItem, { clearProps: "all" }) } })
+        if ( isNavigationTop ) {
+            TweenMax.to(navBar, 0.4, { backgroundColor: "rgba(0, 0, 0, 0.0)", ease: Power2.easeOut, onComplete: function(){ TweenMax.set( navBar, { clearProps: "all" }); }  })
+        }
 
         /* IF we parsed an option of hamburger transition type animate close transition here and clean up */
         if ( thisHamburgerTransitionType !== "none" ) {
             // IF rotate clockwise or rotate counterclockwise
             if ( thisHamburgerTransitionType == "rcw" || thisHamburgerTransitionType == "rccw" ) {
-                TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {rotation: 0, ease: Power2.easeOut, onComplete: function() { TweenMax.set(hamburgerMenu, { clearProps: "all" }) } });
+                TweenMax.to( hamburgerMenu, thisHamburgerTransitionDuration, {
+                    rotation: 0,
+                    ease: Power2.easeOut,
+                    onComplete: function() { TweenMax.set(hamburgerMenu, { clearProps: "all" }); thisInTransition = false; }
+                });
             } else {}
         }
 
     }
+}
+
+
+/*--------------------------------------------------------------
+#   Navigation checkForResponsive
+--------------------------------------------------------------*/
+Navigation.prototype.checkForResponsive = function() {
+
+    /* Detect mobile responsive more accurate if we have foundation */
+    if ( typeof Foundation.MediaQuery.current !== 'undefined' ) {
+        if ( Foundation.MediaQuery.current == "medium" || Foundation.MediaQuery.current  == "small" ) {
+            this.isResponsive = true
+        } else {
+            this.isResponsive = false
+        }
+    } else if (  window.matchMedia("only screen and (max-width: 1024px)").matches ) {
+        this.isResponsive = true
+    } else {
+        this.isResponsive = false
+    }
+
+    return this.isResponsive
+
+}
+
+
+/*--------------------------------------------------------------
+#   Navigation - scroll event - site specific function
+--------------------------------------------------------------*/
+Navigation.prototype.scrollTop = function() {
+    this.navigationIsTop = false;
+
+    if ( $(window).scrollTop() > 0 ) {
+        this.navigationIsTop = false
+    } else {
+        this.navigationIsTop = true
+    }
+
+    return this.navigationIsTop
+
+}
+
+
+Navigation.prototype.documentCloseResponsiveMenu = function( event ) {
+
+    if ( this.target.find("button.nav-toggle").css("display") == "none" ) {
+        return
+    }
+
+    if ( this.currentNavigationStyle != "accordion" ) {
+        return
+    }
+
+    if ( window.matchMedia("only screen and (min-width: 640px) and (max-width: 1024px)").matches ) {
+        if ( $(event.target).parentsUntil( $("#nav-main")).length > 3 ) {
+            if ( $(this.target).find("#nav-main").attr("data-expanded") === "true" ) {
+                this.responsiveMenu( event )
+            }
+        }
+    }
+
 }

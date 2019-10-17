@@ -16,19 +16,25 @@
 #   Accordion menu
 #   Responsive
 #   Navigation Utility Classes
+#   Site specific styles
 --------------------------------------------------------------*/
+
 
 /*--------------------------------------------------------------
   # Navigation list
 --------------------------------------------------------------*/
-
-
+.row.expanded .row > .row {
+  margin-left: 2.688em;
+  margin-right: 2.688em;
+  max-width: none;
+}
 .nav-bar {
     display: block;
     margin: 0;
     padding: 0;
     list-style:none;
     z-index: 1000;
+
 }
 .nav-bar.sticky {
     position: fixed;
@@ -39,11 +45,6 @@
     clear: both;
 }
 
-.nav-bar {
-    display: block;
-    margin: 0;
-    padding: 0;
-}
 .nav-bar.nav-left {
     float: left;
 }
@@ -71,28 +72,51 @@
 .nav-bar.horizontal > ul > li {
     display: table-cell;
     vertical-align: middle;
+    padding: 1.777em 2.031em 0 2.031em;
 }
-
+.nav-bar.horizontal > ul > li:nth-of-type(1) {
+    /*padding: 1.777em 2.031em 0 0;*/
+}
+.nav-bar.horizontal > ul.social-list > li {
+	padding: 1.2444em 0.656em !important;
+}
+@media (max-width: 1024px) {
+  .nav-bar.horizontal > ul > li,
+  .nav-bar.horizontal > ul > li:nth-of-type(1) {
+    padding: 0;
+  }
+}
 .nav-bar > ul > li > a,
 .nav-bar > ul > li > a:link,
 .nav-bar > ul > li > a:visited{
-    color: #999;
-    padding: 1.2em 1.5em;
+    color: #fff;
+    font-size: 0.875em;
+    padding: 0.777em 0.188em 0.7em 0.188em;
     line-height: 1;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: solid 3px transparent;
+    text-decoration: none !important;
 }
 
 .nav-bar > ul > li > a:hover,
 .nav-bar > ul > li > a:focus,
 .nav-bar > ul > li > a:active{
-    color: #ffffff;
-    background: rgba(51, 51, 51, 0.2);
+    background: transparent;
+    color: #ffd300;
+    text-decoration: none !important;
 }
 
 .nav-bar > ul > li.active > a {
-    background: rgba(181, 167, 34, 1);
-    color:#fff;
+    border-bottom: solid 3px #e6af0f;
 }
 
+.nav-bar .social-list img {
+  display: block;
+  width: 1.938em;
+  height: 1.938em;
+}
 
 /* Level 2 & 3+ */
 
@@ -129,11 +153,12 @@
 }
 
 .nav-bar > ul > li ul li.active a {
-    background: rgba(181, 167, 34, 1);
+    background: #e6af0f;
     color:#fff;
 }
 
 /* Active Classes */
+
 .nav-bar[data-active-type="underline"] > ul > li > a > span {
     border-bottom-style: solid;
     border-bottom-width: 0.188em;
@@ -177,11 +202,11 @@
 .nav-bar ul.mega-menu li ul {
     position: relative;
     display:block;
-    border:0px;
+    border: 0;
 }
 
 .nav-bar ul.mega-menu li ul > li {
-    border:0px
+    border: 0;
 }
 
 /*--------------------------------------------------------------
@@ -191,19 +216,49 @@
     color: #fff;
     cursor: pointer;
     display: none;
-    float:right;
+    float: right;
+    margin: 1.530em 0;
 }
-.nav-bar[data-navigation-type="accordion"] + .nav-toggle {
-    display: inline-block;
+.menu-accordion .nav-toggle {
+    display: block;
 }
 .nav-toggle i {
     color: #fff;
     font-size: 1.563em;
-    padding: 12.5px 0.5em;
+    padding: 11px 0.5em;
+}
+.nav-toggle:hover i {
+    color: #cfcfcf;
+}
+
+@media (max-width: 1024px) {
+
+    .nav-toggle i {
+        padding: 0.3em 0.3em;
+    }
 }
 
 .nav-bar[data-navigation-type="accordion"] > ul > li ul li:last-child a {
     border-bottom:none;
+}
+
+@media (max-width: 1024px) {
+
+    .nav-bar[data-navigation-type="accordion"] > ul > li a {
+        padding: 1em 1.8em;
+    }
+    .nav-bar[data-navigation-type="accordion"]  > ul > li > a:hover,
+    .nav-bar[data-navigation-type="accordion"]  > ul > li > a:focus,
+    .nav-bar[data-navigation-type="accordion"]  > ul > li > a:active{
+        background-color: #e6af0f;
+        color: #fff;
+    }
+}
+@media (max-width: 1024px) {
+
+    .nav-bar[data-navigation-type="accordion"] > ul > li a {
+        font-size: 1.1em;
+    }
 }
 
 .nav-bar[data-navigation-type="accordion"][data-expanded="true"] {
@@ -215,8 +270,8 @@
     background: rgba(0, 0, 0, 0.9);
     border-top: 1px solid #222;
     top: 3.125em; /* 50px */
-    left: 0px;
-    right: 0px;
+    left: 0;
+    right: 0;
 }
 .nav-bar[data-navigation-type="accordion"][data-expanded="true"] > ul {
     position: absolute;
@@ -225,6 +280,7 @@
 .nav-bar[data-navigation-type="accordion"][data-expanded="true"] > ul > li {
     display: block;
 }
+
 .nav-bar[data-navigation-type="accordion"][data-expanded="true"] > ul > li > ul {
     position: absolute;
     background: rgba(255,255, 255, 0.05);
@@ -237,8 +293,22 @@
 
 
 /*--------------------------------------------------------------
+  # Reveal menu ( rare.com.au style )
+--------------------------------------------------------------*/
+.menu-reveal .nav-toggle {
+    display: block;
+    float: left;
+}
+.nav-bar[data-navigation-type="reveal"] >ul > li {
+    opacity: 0;
+}
+
+
+/*--------------------------------------------------------------
   # Responsive
 --------------------------------------------------------------*/
+
+
 
 /*--------------------------------------------------------------
   # Navigation Utility Classes
@@ -246,5 +316,15 @@
 [data-sticky="true"] {
     position: fixed;
     width: 100%;
-    z-index: 1000
+    z-index: 1000;
+    top: 0;
+}
+
+/*--------------------------------------------------------------
+#   Site specific styles
+--------------------------------------------------------------*/
+@media (max-width: 1024px) {
+    .nav-bar {
+        margin: 0 ;
+    }
 }
