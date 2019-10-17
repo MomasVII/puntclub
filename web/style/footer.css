@@ -1,0 +1,72 @@
+/*
+  Theme Name: Site Name TODO: Add Site Name
+  Author: Stephen Arias, Lucas Jordan
+  Description: Styles gallery
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+Footer Structure
+--------------------------------------------------------------*/
+
+.footer {
+    background: rgba(0, 0, 0, 0.8);
+    padding-right: .9375rem;
+    padding-left: .9375rem;
+    color:#fff;
+    font-size: 0.9em;
+}
+
+.footer .social-list,
+.footer .copyright {
+    display: inline-block;
+    vertical-align: middle;
+    margin:0;
+}
+
+.footer > .row.first,
+.footer > .row.last {
+    padding: 14px 0px 10px 0px;
+}
+
+.footer .row.last {
+    border-top: 1px solid #333;
+}
+
+.footer-logo {
+    text-align: right;
+}
+
+.siteby {
+    text-align: right;
+}
+.siteby i {
+    opacity: 0.7;
+}
+
+.siteby a:hover i {
+    opacity: 1;
+}
+
+.siteby .icon-label {
+    color: #a6a8ab;
+    vertical-align: middle;
+    line-height: 100%;
+    padding: 0 0 0 10px;
+}
+
+@media only screen and (max-width: 639px){
+
+    .footer > .row.first,
+    .footer > .row.last {
+        text-align: center;
+    }
+
+    .footer-logo {
+        text-align: center;
+    }
+    .siteby {
+        text-align: center;
+    }
+}

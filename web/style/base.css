@@ -1,0 +1,317 @@
+/*
+  Theme Name: Site Name TODO: Add Site Name
+  Author: Lucas Jordan, Stephen Arias
+  Description: Base Styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+## Reset
+## Base Structure
+## Global
+## Colour
+## Headers
+## Buttons
+## Position Elements
+## Alerts
+## Title Bar
+## Social Icons
+
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  # Reset
+--------------------------------------------------------------*/
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+a, a:link, a:visited {
+    text-decoration: none;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    color: #b5a722;
+}
+a:hover, a:focus, a:active {
+    text-decoration: none;
+}
+
+:focus {
+    outline: 0px;
+}
+
+
+/*--------------------------------------------------------------
+  # Base Structure
+--------------------------------------------------------------*/
+
+body {
+   background-image:url(../image/demo/demo_bg.jpg); /* TODO: REMOVE DEMO BG */
+   background-size: cover !important;
+   background-position: top center;
+}
+
+main.content {
+    padding: 1.5rem .9375rem;
+}
+
+main.content > section  {
+    position: relative;
+    padding-bottom: .9375rem;
+}
+
+
+/*--------------------------------------------------------------
+  # Global Styles
+--------------------------------------------------------------*/
+
+.padding-all    {padding: 1rem;}
+.padding-none   {padding: 0rem;}
+.padding-top    {padding-top: 1rem;}
+.padding-right  {padding-right: 1rem;}
+.padding-bottom {padding-bottom: 1rem;}
+.padding-left   {padding-left: 1rem;}
+.padding-top-none {padding-top: 0rem;}
+.padding-right-none {padding-right: 0rem;}
+.padding-bottom-none {padding-bottom: 0rem;}
+.padding-left-none {padding-left: 0rem;}
+.padding-v      {padding: 1rem 0;}
+.padding-h      {padding: 0 1rem;}
+
+.text-italic {
+    font-style: italic;
+}
+.nowrap {
+    white-space:nowrap;
+}
+
+.todo {
+    font-weight: 300;
+    font-size:16px;
+    color:red;
+}
+
+/*--------------------------------------------------------------
+  # Colour - Inline classes
+--------------------------------------------------------------*/
+
+
+.white {
+    color:#fff;
+}
+.black {
+    color:#000;
+}
+.red {
+    color:#ff0000;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+.bg-black {
+    background-color: #000;
+}
+
+
+/*--------------------------------------------------------------
+  # Headers - Tags, Panels & Styles
+--------------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "SourceSansPro-700", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+}
+
+
+/*--------------------------------------------------------------
+  # Buttons
+--------------------------------------------------------------*/
+
+.button {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid transparent;
+    color:#fff;
+    padding:10px 15px;
+    line-height:100%;
+    text-transform: uppercase;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 500;
+}
+
+.button.outline {
+    background-color: transparent !important;
+    border: 1px solid #666;
+    color:#666 !important;
+}
+
+.button.solid:hover {
+    color:#ffffff !important;
+}
+
+a.button:hover,
+button.button:hover,
+input.button:hover,
+
+a.button:focus,
+button.button:focus,
+input.button:focus,
+
+a.button:active,
+button.button:active,
+input.button:active {
+    background-color: rgba(0, 0, 0, 0.9);
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.button.right {
+    float: right;
+}
+
+
+/*--------------------------------------------------------------
+# Position Elements
+--------------------------------------------------------------*/
+
+.pos-tl {
+    position: absolute;
+    top: 0px;
+    left:0px;
+}
+.pos-tm {
+    position: absolute;
+    top: 0;
+    left:50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    text-align: center;
+}
+.pos-tr {
+    position: absolute;
+    top: 0px;
+    right:0px;
+}
+
+.pos-ml {
+    position: absolute;
+    top: 50%;
+    left:0px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.pos-m {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    text-align: center;
+}
+.pos-mr {
+    position: absolute;
+    top: 50%;
+    right:0px;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.pos-bl {
+    position: absolute;
+    bottom: 0px;
+    left:0px;
+}
+.pos-bm {
+     position: absolute;
+     bottom: 0;
+     left:50%;
+     transform: translateX(-50%);
+     -webkit-transform: translateX(-50%);
+     text-align: center;
+ }
+.pos-br {
+    position: absolute;
+    bottom: 0px;
+    right:0px;
+}
+
+
+/*--------------------------------------------------------------
+  # Alerts - Browser Notifications
+--------------------------------------------------------------*/
+
+.old-browser {
+    display: none;
+    position: relative;
+    visibility: hidden;
+    width: 100%;
+    color: #ffffff;
+    margin: 0 auto;
+    padding: 60px 0 0 0;
+    text-align: center;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.no_script {
+    text-align: center;
+}
+
+/*--------------------------------------------------------------
+  # Title Bar
+--------------------------------------------------------------*/
+
+.title-bar {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.title-bar h2 {
+    line-height: 1;
+    margin-bottom:0px;
+}
+.title-bar h1 {
+    font-family: "SourceSansPro-300", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    font-style: italic;
+    text-transform: none;
+    margin:0;
+}
+
+/*--------------------------------------------------------------
+  # Social Icons
+--------------------------------------------------------------*/
+
+.social-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1em;
+}
+.social-list li {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-right: 5px;
+}
+
+
+/*--------------------------------------------------------------
+  # Tabs
+--------------------------------------------------------------*/
+
+.tabs-title > a:focus,
+.tabs-title > a[aria-selected=true] {
+    color: #b5a722;
+}

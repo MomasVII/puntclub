@@ -1,0 +1,38 @@
+# Autodetect text files
+* text eol=lf
+
+# Force proper text handling
+*.css text
+*.htm text
+*.html text
+*.js text
+*.json text
+*.lock text
+*.md text
+*.php text
+*.pp text
+*.ppk text
+*.rb text
+*.rc text
+*.rsa text
+*.scss text
+*.sh text
+*.txt text
+*.yaml text
+*.yml text
+
+#Set binary files to be left alone
+*.avi binary
+*.eot binary
+*.gif binary
+*.ico binary
+*.jpg binary
+*.mp3 binary
+*.mp4 binary
+*.ogg binary
+*.otf binary
+*.png binary
+*.svg binary
+*.ttf binary
+*.woff binary
+*.woff2 binary

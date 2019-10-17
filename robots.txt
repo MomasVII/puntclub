@@ -1,0 +1,11 @@
+User-agent: *
+
+# SITEMAP
+Sitemap: http://YOUR_DOMAIN_HERE/sitemap.xml
+
+# ENCOURAGE INDEXING THESE DIRECTORIES
+Allow: /
+Allow: /web/image/
+
+# IGNORE THESE DIRECTORIES
+Disallow: /secure/

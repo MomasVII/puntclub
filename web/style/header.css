@@ -1,0 +1,97 @@
+/*
+  Theme Name: Site Name TODO: Add Site Name
+  Author: Stephen Arias, Lucas Jordan
+  Description: Styles gallery
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+#   Header - Default
+#   Top Bar
+#   Brand logo
+
+/*--------------------------------------------------------------
+Header Default
+--------------------------------------------------------------*/
+
+header .main-bar {
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    padding-right: .9375rem;
+    padding-left: .9375rem;
+}
+header .main-bar > .row {
+    position: relative;
+}
+
+@media (max-width: 1023px) {
+
+    header .main-bar {
+        position: relative;
+    }
+
+    header .main-bar > .row {
+        position: static;
+    }
+}
+
+/*--------------------------------------------------------------
+Top Bar
+--------------------------------------------------------------*/
+
+header .top-bar {
+    padding:.5em 0;
+    background-color: #333;
+    padding-right: .9375rem;
+    padding-left: .9375rem;
+}
+
+header .top-bar .social-list {
+    background-color: transparent;
+    padding:.22em 0 0;
+    line-height: 1em;
+}
+
+header .top-bar .button {
+    margin-bottom:0px;
+}
+
+@media (max-width: 400px) {
+
+    header .top-bar .button {
+        font-size: .65rem;
+        padding: 10px 6px;
+    }
+}
+
+
+/*--------------------------------------------------------------
+  # Brand logo
+--------------------------------------------------------------*/
+
+.brand-logo {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0.1em 0;
+    float: left;
+}
+.brand-logo.logo-right {
+    float: right;
+}
+.brand-logo a {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.brand-logo img {
+    position: relative;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    min-height: 30px;
+}

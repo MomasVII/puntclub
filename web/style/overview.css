@@ -1,0 +1,150 @@
+/*
+  Theme Name: Eastridge Entertainment Precinct
+  Author: Lucas Jordan, Stephen Arias
+  Description: Styles for Eastridge Entertainment Precinct for KFT
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+  # Overview Styles
+--------------------------------------------------------------*/
+[data-overview="true"] {
+    cursor: pointer;
+}
+.no-scroll {
+    overflow:hidden;
+}
+.thumbnail {
+    cursor: pointer;
+    height: inherit;
+    width: 400px;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto;
+}
+.overview {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1005;
+    overflow: hidden;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0;
+    background-color: #e6e7e8;
+    clip:rect(0px 100vw 100vh 0px);
+    cursor: default;
+}
+.overview.open {
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch
+}
+.overview .overview-inner {
+    display: block;
+    position: relative;
+    width: 100vw;
+    background-color: #e6e7e8;
+}
+.overview .overview-close{
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    display: block;
+    cursor: pointer;
+    z-index: 1006;
+}
+.overview .overview-close i {
+    font-size: 25px;
+    color:#ffffff;
+    transform-origin: center center;
+}
+
+.overview .overview-close:hover i {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.overview iframe {
+    border: 0;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100%;
+    height:100%
+}
+
+/* Overview 2 styles */
+
+.overview2 {
+    background-color: rgba( 0, 0, 0, 0.8);
+}
+.overview2 .overview-inner{
+    display: block;
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+/* Overview 3 styles - Booking */
+
+.overview3 {
+    background-color: rgba( 0, 0, 0, 0.8);
+}
+.overview3 .overview-inner{
+    display: block;
+    position: absolute;
+    width: 56%;
+    height: 64%;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    background-color:transparent;
+}
+.overview2.open,
+.overview3.open{
+    overflow-y: hidden;
+}
+
+@media only screen and (max-width: 1024px){
+    .overview3 .overview-inner,
+    .overview2 .overview-inner {
+        width:100%;
+        height:100%;
+        padding-top:70px;
+    }
+    .overview3,
+    .overview2 {
+        background-color: rgba( 255, 255, 255, 1);
+    }
+
+    .overview3  .overview-close i,
+    .overview2  .overview-close i {
+        color:#000;
+    }
+}
+
+@media only screen and (max-width: 767px){
+    .overview3 .overview-inner {
+        padding-top:50px;
+    }
+
+    .overview2 .overview-inner {
+        padding-top: 50px;
+    }
+}

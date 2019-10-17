@@ -1,0 +1,307 @@
+/*
+  Theme Name: Site Name TODO: Add Site Name
+  Author: Lucas Jordan, Stephen Arias
+  Description: Typography Styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+
+## Typography
+    #Fonts
+    #Glyph Icons
+--------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+  # Typography - Fonts
+--------------------------------------------------------------*/
+
+@font-face {
+    font-family: 'SourceSansPro-200';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/source-sans-pro-200.eot'); /* IE9 Compat Modes */
+    src: local('Source Sans Pro ExtraLight'), local('SourceSansPro-ExtraLight'),
+    url('../font/source-sans-pro-200.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/source-sans-pro-200.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../font/source-sans-pro-200.woff') format('woff'), /* Modern Browsers */
+    url('../font/source-sans-pro-200.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../font/source-sans-pro-200.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'SourceSansPro-300';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/source-sans-pro-300.eot'); /* IE9 Compat Modes */
+    src: local('Source Sans Pro Light'), local('SourceSansPro-Light'),
+    url('../font/source-sans-pro-300.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/source-sans-pro-300.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../font/source-sans-pro-300.woff') format('woff'), /* Modern Browsers */
+    url('../font/source-sans-pro-300.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../font/source-sans-pro-300.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'SourceSansPro-400';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/source-sans-pro-regular.eot'); /* IE9 Compat Modes */
+    src: local('Source Sans Pro'), local('SourceSansPro-Regular'),
+    url('../font/source-sans-pro-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/source-sans-pro-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../font/source-sans-pro-regular.woff') format('woff'), /* Modern Browsers */
+    url('../font/source-sans-pro-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../font/source-sans-pro-regular.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'SourceSansPro-600';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/source-sans-pro-600.eot'); /* IE9 Compat Modes */
+    src: local('Source Sans Pro Semibold'), local('SourceSansPro-Semibold'),
+    url('../font/source-sans-pro-600.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/source-sans-pro-600.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../font/source-sans-pro-600.woff') format('woff'), /* Modern Browsers */
+    url('../font/source-sans-pro-600.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../font/source-sans-pro-600.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'SourceSansPro-700';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/source-sans-pro-700.eot'); /* IE9 Compat Modes */
+    src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'),
+    url('../font/source-sans-pro-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/source-sans-pro-700.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../font/source-sans-pro-700.woff') format('woff'), /* Modern Browsers */
+    url('../font/source-sans-pro-700.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../font/source-sans-pro-700.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'SourceSansPro-900';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/source-sans-pro-900.eot'); /* IE9 Compat Modes */
+    src: local('Source Sans Pro Black'), local('SourceSansPro-Black'),
+    url('../font/source-sans-pro-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/source-sans-pro-900.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../font/source-sans-pro-900.woff') format('woff'), /* Modern Browsers */
+    url('../font/source-sans-pro-900.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../font/source-sans-pro-900.svg#SourceSansPro') format('svg'); /* Legacy iOS */
+}
+
+/*--------------------------------------------------------------
+  # Typography - Glyphs Icons (Rare Icomoon library)
+--------------------------------------------------------------*/
+
+@font-face {
+    font-family: 'raremedia';
+    src:  url('../font/raremedia.eot?tirphy');
+    src:  url('../font/raremedia.eot?tirphy#iefix') format('embedded-opentype'),
+    url('../font/raremedia.ttf?tirphy') format('truetype'),
+    url('../font/raremedia.woff?tirphy') format('woff'),
+    url('../font/raremedia.svg?tirphy#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* icon default */
+
+.icons {
+    font-family: 'raremedia' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    display:inline-block;
+    font-size: 50px;
+    vertical-align: middle;
+}
+
+/*  icon rotation */
+
+.icons.up {
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg); /* Safari */
+    transform: rotate(0deg);
+}
+.icons.right {
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari */
+    transform: rotate(90deg);
+}
+.icons.down {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Safari */
+    transform: rotate(180deg);
+}
+.icons.left {
+    -ms-transform: rotate(270deg); /* IE 9 */
+    -webkit-transform: rotate(270deg); /* Safari */
+    transform: rotate(270deg);
+}
+
+/*  icon size */
+
+.icons.xlarge {
+    font-size: 150px;
+}
+.icons.large {
+    font-size: 100px;
+}
+.icons.medium {
+    font-size: 80px;
+}
+.icons.small {
+    font-size: 50px;
+}
+.icons.xsmall {
+    font-size: 25px;
+}
+.icons.xxsmall {
+    font-size: 16px;
+}
+
+/* icon list */
+
+.icons-home:before {
+    content: "\e90a";
+}
+.icons-image:before {
+    content: "\e90e";
+}
+.icons-camera:before {
+    content: "\e90f";
+}
+.icons-bubble2:before {
+    content: "\e96e";
+}
+.icons-user:before {
+    content: "\e971";
+}
+.icons-heart:before {
+    content: "\e9da";
+}
+.icons-mail:before {
+    content: "\ea83";
+}
+.icons-mail2:before {
+    content: "\ea84";
+}
+.icons-mail3:before {
+    content: "\ea85";
+}
+.icons-mail4:before {
+    content: "\ea86";
+}
+.icons-amazon:before {
+    content: "\ea87";
+}
+.icons-google:before {
+    content: "\ea88";
+}
+.icons-google2:before {
+    content: "\ea89";
+}
+.icons-google3:before {
+    content: "\ea8a";
+}
+.icons-google-plus:before {
+    content: "\ea8b";
+}
+.icons-google-plus2:before {
+    content: "\ea8c";
+}
+.icons-google-plus3:before {
+    content: "\ea8d";
+}
+.icons-facebook2:before {
+    content: "\ea90";
+}
+.icons-facebook22:before {
+    content: "\ea91";
+}
+.icons-instagram2:before {
+    content: "\ea92";
+}
+.icons-whatsapp:before {
+    content: "\ea93";
+}
+.icons-spotify:before {
+    content: "\ea94";
+}
+.icons-telegram:before {
+    content: "\ea95";
+}
+.icons-twitter2:before {
+    content: "\ea96";
+}
+.icons-rss:before {
+    content: "\ea9b";
+}
+.icons-rss2:before {
+    content: "\ea9c";
+}
+.icons-youtube:before {
+    content: "\ea9d";
+}
+.icons-youtube2:before {
+    content: "\ea9e";
+}
+.icons-vimeo:before {
+    content: "\eaa0";
+}
+.icons-vimeo2:before {
+    content: "\eaa1";
+}
+.icons-raremedia:before {
+    content: "\e909";
+}
+.icons-close:before {
+    content: "\e900";
+}
+.icons-arrow:before {
+    content: "\e906";
+}
+.icons-wineglass:before {
+    content: "\e90c";
+}
+.icons-winebottle:before {
+    content: "\e90d";
+}
+.icons-email:before {
+    content: "\e901";
+}
+.icons-drink:before {
+    content: "\e902";
+}
+.icons-coffee:before {
+    content: "\e903";
+}
+.icons-cutlery:before {
+    content: "\e904";
+}
+.icons-cutlery2:before {
+    content: "\e905";
+}
+.icons-facebook:before {
+    content: "\e907";
+}
+.icons-instagram:before {
+    content: "\e908";
+}
+.icons-twitter:before {
+    content: "\e90b";
+}

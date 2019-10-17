@@ -1,0 +1,58 @@
+/*
+  Theme Name: Raremedia PHP core_boilerplate
+  Author: Lucas Jordan
+  Description: Raremedia boiler plate rotator styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+#   RM rotator
+#
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+#   RM rotator
+--------------------------------------------------------------*/
+.rotator {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+}
+.rotator .wrapper {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.rotator .wrapper .slide {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: auto;
+}
+.rotator .wrapper .slide a {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    cursor: default;
+}
+.rotator .wrapper .slide a > * {
+    cursor: pointer;
+}
+.rotator .slide img {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    z-index: -1;
+    cursor: default;
+}

@@ -1,0 +1,250 @@
+/*
+  Theme Name: Raremedia base navigation style sheet
+  Author: Lucas Jordan, Stephen Arias
+  Description: base navigation style sheet
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+#   Root navigation element
+#   Nav bar
+#   Drop down menu
+    ##  Mega menu drop down
+#   Accordion menu
+#   Responsive
+#   Navigation Utility Classes
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  # Navigation list
+--------------------------------------------------------------*/
+
+
+.nav-bar {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style:none;
+    z-index: 1000;
+}
+.nav-bar.sticky {
+    position: fixed;
+}
+.nav-bar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.nav-bar {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.nav-bar.nav-left {
+    float: left;
+}
+.nav-bar.nav-right {
+    float: right;
+}
+
+/* Level All */
+
+.nav-bar ul {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.nav-bar li {
+    display: block;
+}
+.nav-bar a {
+    display: block;
+}
+
+/* Level 1 */
+
+.nav-bar.horizontal > ul > li {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.nav-bar > ul > li > a,
+.nav-bar > ul > li > a:link,
+.nav-bar > ul > li > a:visited{
+    color: #999;
+    padding: 1.2em 1.5em;
+    line-height: 1;
+}
+
+.nav-bar > ul > li > a:hover,
+.nav-bar > ul > li > a:focus,
+.nav-bar > ul > li > a:active{
+    color: #ffffff;
+    background: rgba(51, 51, 51, 0.2);
+}
+
+.nav-bar > ul > li.active > a {
+    background: rgba(181, 167, 34, 1);
+    color:#fff;
+}
+
+
+/* Level 2 & 3+ */
+
+.nav-bar > ul > li ul {
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow: hidden;
+}
+.nav-bar > ul > li[data-expanded="true"] ul {
+    display: block;
+}
+.nav-bar > ul > li[data-expanded="true"] ul.mega-menu {
+    display: table;
+}
+
+.nav-bar > ul > li ul li {
+    position: relative;
+}
+
+.nav-bar > ul > li ul a,
+.nav-bar > ul > li ul a:link,
+.nav-bar > ul > li ul a:visited{
+    border-bottom:1px solid #222;
+    padding: 1em 1.5em;
+    color: #f0f0f0;
+}
+
+.nav-bar > ul > li ul a:hover,
+.nav-bar > ul > li ul a:focus,
+.nav-bar > ul > li ul a:active{
+    color: #ffffff;
+    background: rgba(0, 0, 0, 1);
+}
+
+.nav-bar > ul > li ul li.active a {
+    background: rgba(181, 167, 34, 1);
+    color:#fff;
+}
+
+/* Active Classes */
+.nav-bar[data-active-type="underline"] > ul > li > a > span {
+    border-bottom-style: solid;
+    border-bottom-width: 0.188em;
+    border-color: transparent;
+    padding: 1.063em 0 0.875em 0;
+}
+
+/*--------------------------------------------------------------
+  # Drop Down - Style 01
+--------------------------------------------------------------*/
+
+.nav-bar.dropdown > ul > li ul {
+    position: absolute;
+}
+
+
+/*--------------------------------------------------------------
+  # Mega View - Style 01
+--------------------------------------------------------------*/
+
+/* Level 2 */
+
+.nav-bar ul.mega-menu {
+    display:none;
+    left: 0;
+    right: 0;
+    max-width: 62.5rem;
+    width: 100%;
+}
+
+.nav-bar ul.mega-menu > li {
+    display: table-cell;
+    padding: 1em;
+}
+
+.nav-bar ul.mega-menu > li > a {
+    font-size: 1em;
+    color:#fff;
+}
+
+.nav-bar ul.mega-menu li ul {
+    position: relative;
+    display:block;
+    border:0px;
+}
+
+.nav-bar ul.mega-menu li ul > li {
+    border:0px
+}
+
+/*--------------------------------------------------------------
+  # Accordion menu
+--------------------------------------------------------------*/
+.nav-toggle {
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    float:right;
+}
+.nav-bar[data-navigation-type="accordion"] + .nav-toggle {
+    display: inline-block;
+}
+.nav-toggle i {
+    color: #fff;
+    font-size: 1.563em;
+    padding: 12.5px 0.5em;
+}
+
+.nav-bar[data-navigation-type="accordion"] > ul > li ul li:last-child a {
+    border-bottom:none;
+}
+
+.nav-bar[data-navigation-type="accordion"][data-expanded="true"] {
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 1px solid #222;
+    top: 3.125em; /* 50px */
+    left: 0px;
+    right: 0px;
+}
+.nav-bar[data-navigation-type="accordion"][data-expanded="true"] > ul {
+    position: absolute;
+    width: 100%;
+}
+.nav-bar[data-navigation-type="accordion"][data-expanded="true"] > ul > li {
+    display: block;
+}
+.nav-bar[data-navigation-type="accordion"][data-expanded="true"] > ul > li > ul {
+    position: absolute;
+    background: rgba(255,255, 255, 0.05);
+    width: 100%;
+}
+.nav-bar[data-navigation-type="accordion"][data-expanded="false"] {
+    display: none;
+}
+
+
+
+/*--------------------------------------------------------------
+  # Responsive
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+  # Navigation Utility Classes
+--------------------------------------------------------------*/
+[data-sticky="true"] {
+    position: fixed;
+    width: 100%;
+    z-index: 1000
+}

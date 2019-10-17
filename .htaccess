@@ -1,0 +1,138 @@
+## Build: Rare_System_Core
+## Version 2.1.3
+## Author: Gordon MacK
+## Copyright Owner: Raremedia Pty Ltd (Andrew Davidson)
+
+#TEMPORARY FIX
+Allow from all
+
+# DENY ALL CONNECTIONS
+#Order Deny,Allow
+#Deny from all
+
+# DEFINE ALLOWED IPs (X-FORWARDED-FOR is REMOTE_ADDR when behind an AWS ELB)
+#SetEnv whitelisted_ip false
+#SetEnvIf X-FORWARDED-FOR "203.206.208.232" whitelisted_ip=true
+#SetEnvIf REMOTE_ADDR "203.206.208.232" whitelisted_ip=true
+#SetEnvIf X-FORWARDED-FOR "127.0.0.1" whitelisted_ip=true
+#SetEnvIf REMOTE_ADDR "127.0.0.1" whitelisted_ip=true
+
+# REQUIRE AUTH FOR DEV AND STAGE BUT NOT OTHERS
+#SetEnv auth_required false
+#SetEnvIf Host ^(dev|stage)(\.)(.*)$ auth_required=true
+
+# DEFINE AUTH
+#AuthType Basic
+#AuthName "RARE Client - Private Environment"
+#AuthUserFile /var/www/html/secure/.htpasswd
+# user: rare
+# password: rare@cubitt
+
+# DEFINE AUTH RULES
+#Allow from env=!auth_required
+#Allow from env=whitelisted_ip
+#Require valid-user
+#Satisfy any
+
+# STOP SENSITIVE FILES BEING READ
+<Files ~ "\.(htaccess|htpasswd|ini|log|sh)$">
+	Order Allow,Deny
+	Deny from all
+</Files>
+
+# SET DIRECTORY INDEXES
+DirectoryIndex index.html index.php
+
+# RECURSIVELY ENABLE SYMBOLIC LINKS
+Options All +FollowSymLinks
+
+# DISABLE DIRECTORY LISTING
+IndexIgnore *
+
+# RECURSIVELY DISABLE DIRECTORY BROWSING
+Options All -Indexes
+
+# DISABLE THE SERVER SIGNATURE
+ServerSignature Off
+
+# SET THE SERVER ADMINISTRATOR EMAIL ADDRESS
+SetEnv SERVER_ADMIN security@rare.com.au
+
+# SET DEFAULT CHARSET
+AddDefaultCharset UTF-8
+
+# SET DEFAULT LANGUAGE
+DefaultLanguage en
+
+# FILE COMPRESSION
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+# ERROR DOCUMENTS
+ErrorDocument 400 /web/error/400.php
+ErrorDocument 401 /web/error/401.php
+ErrorDocument 403 /web/error/403.php
+ErrorDocument 404 /web/error/404.php
+ErrorDocument 500 /web/error/500.php
+
+# TURN REWRITE ENGINE ON
+RewriteEngine On
+RewriteBase /
+
+# REDIRECT ATTEMPTS TO ACCESS PRIVATE ENDPOINTS TO ROOT
+RewriteCond %{REQUEST_URI} htpasswd [NC,OR]
+RewriteCond %{REQUEST_URI} htaccess [NC,OR]
+RewriteCond %{REQUEST_URI} secure [NC,OR]
+RewriteCond %{REQUEST_URI} include [NC,OR]
+RewriteCond %{REQUEST_URI} ebextensions [NC,OR]
+RewriteCond %{REQUEST_URI} vagrant [NC,OR]
+RewriteCond %{REQUEST_URI} puphpet [NC,OR]
+RewriteCond %{REQUEST_URI} gitattributes [NC,OR]
+RewriteCond %{REQUEST_URI} gitignore [NC,OR]
+RewriteCond %{REQUEST_URI} README [NC,OR]
+RewriteCond %{REQUEST_URI} vagrant_destroy [NC,OR]
+RewriteCond %{REQUEST_URI} vagrant_halt [NC,OR]
+RewriteCond %{REQUEST_URI} vagrant_up [NC,OR]
+RewriteCond %{REQUEST_URI} Vagrantfile
+RewriteRule .* index.html [R=301,NC,L]
+
+# SET ENVIRONMENT VARIABLE FOR HTTP/S
+RewriteCond %{HTTPS} =on
+RewriteRule ^(.*)$ - [env=ps:https]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ - [env=ps:http]
+
+# DISABLE 'WWW' PREFIX BUT RETAIN HTTPS WHEN REQUIRED
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ %{ENV:ps}://%1%{REQUEST_URI} [R=301,L]
+
+# CHANGE .PHP EXTENSIONS TO .HTML
+RewriteCond %{THE_REQUEST} (.*)\.php
+RewriteRule ^(.*)\.php $1.html [R=301,L]
+RewriteCond %{THE_REQUEST} (.*)\.html
+RewriteRule ^(.*)\.html $1.php [L]
+
+# BLOCK ATTEMPTS TO SET 'MOSCONFIG' VALUE THROUGH THE URL
+RewriteCond %{QUERY_STRING} mosConfig_[a-zA-Z_]{1,21}(=|\%3D) [OR]
+
+# BLOCK ATTEMPTS TO BASE_64_ENCODE ANYTHING INTO THE URL
+RewriteCond %{QUERY_STRING} base64_encode.*(.*) [OR]
+
+# BLOCK ATTEMPTS TO SEND <SCRIPT> TAGS IN A URL
+RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+
+# BLOCK ATTEMPTS TO SET A PHP_GLOBAL VARIABLE IN A URL
+RewriteCond %{QUERY_STRING} GLOBALS(=|[|\%[0-9A-Z]{0,2}) [OR]
+
+# BLOCK ATTEMPTS TO MODIFY A _REQUEST VARIABLE IN A URL
+RewriteCond %{QUERY_STRING} _REQUEST(=|[|\%[0-9A-Z]{0,2})
+
+# SEND BLOCKED REQUESTS TO ROOT WITH A 403 ERROR
+RewriteRule ^(.*)$ / [F,L]
