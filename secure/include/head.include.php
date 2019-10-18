@@ -66,40 +66,10 @@
 </head>
 <body class="pg-index">
     <div id="wrapper">
-        <div class="bg-yello-triangle-wrapper">
-            <div class="bg-yello-triangle">
-                <img src="<?= ROOT; ?>web/image/yello_triangle.svg" />
-            </div>
-        </div>
-        <div class="bg-texture"></div>
         <header class="row expanded" data-is-top="true">
-            <div id="main-bar" class="row expanded main-bar">
-                <div class="row">
-                    <div class="brand-logo">
-                        <a class="" href="/" title="Company brand name - Home"><img src="<?= ROOT; ?>web/image/rplcon_logo_small01a.svg" alt="Company brand name"/></a>
-                    </div>
 
-                    <nav id="nav-main" class="nav-bar nav-main dropdown horizontal nav-left">
-                           <ul>
-                              <li class="item-1 <?= $navigation->is_active('what_we_offer'); ?>"><a href="/what_we_offer.html" title="what_we_offer"> <span>what we offer</span></a></li>
-                              <li class="item-2 <?= $navigation->is_active('what_we_build'); ?>"><a href="/what_we_build.html" title="what_we_build"> <span>what we build</span></a></li>
-                              <li class="item-3 <?= $navigation->is_active('who_we_are'); ?>"><a href="/who_we_are.html" title="who_we_are"> <span>who we are</span></a></li>
-                              <li class="item-4 <?= $navigation->is_active('document_centre'); ?>"><a href="/document_centre.html" title="document_centre"> <span>document centre</span></a></li>
-                              <li class="item-5 <?= $navigation->is_active('contact'); ?>"><a href="/contact.html" title="contact"> <span>contact</span></a></li>
-                           </ul>
-                    </nav>
-                    <nav class="nav-bar horizontal nav-right">
-                        <ul class="social-list">
-                            <li><a href="https://www.facebook.com/pages/category/Construction-Company/RPL-Construction-1712268448831188/" target="_blank" class="text-link" title="Follow RPL CON on Facebook"><i class="icons icons-facebook xsmall"></i></a></li>
-                            <li><a href="https://www.instagram.com/rpl_construction/" target="_blank" class="text-link" title="Follow RPL CON on Instagram"><i class="icons icons-instagram xsmall"></i></a></li>
-                            <li><a href="https://www.linkedin.com/company/rpl-construction-pty-ltd/" target="_blank" class="text-link" title="Follow RPL CON on Linkin"><i class="icons icons-linkedin xsmall"></i></a></li>
-                        </ul>
-                    </nav>
-                    <button class="nav-toggle" data-target="nav-main">
-                        <i class="icons icons-menu xsmall"></i>
-                    </button>
-                </div>
-            </div>
+        <!--Here-->
+
         </header>
         <main id="content" class="content">
             <div class="not_supported">

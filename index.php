@@ -62,6 +62,7 @@ define('STYLES', '
     '.ROOT. 'web/style/header.css,
     '.ROOT. 'web/style/home.css,
     '.ROOT. 'web/style/footer.css,
+    '.ROOT. 'web/style/bootstrap.min.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
@@ -80,6 +81,7 @@ define('FOOT_JS', '
 
     '.ROOT.'web/script/jquery-3.2.1.min.js,
     '.ROOT.'web/script/index.page.js,
+    '.ROOT.'web/script/bootstrap.min.js,
 ');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -20,8 +20,8 @@ vagrantfile:
                         update_guest_tools: 0
                 machines:
                     vflm_rnardlixppby:
-                        id: local.rplcon.com.au
-                        hostname: local.rplcon.com.au
+                        id: local.puntclub.com.au
+                        hostname: local.puntclub.com.au
                         network:
                             private_network: 192.168.33.10
                             forwarded_port:
@@ -44,7 +44,7 @@ vagrantfile:
                 owner: www-data
                 group: www-data
                 source: ./
-                target: /var/www/local.rplcon.com.au/
+                target: /var/www/local.puntclub.com.au/
                 sync_type: default
                 smb:
                     smb_host: ''
@@ -231,10 +231,10 @@ apache:
         - rewrite
     vhosts:
         av_hba02apbpruo:
-            servername: local.rplcon.com.au
+            servername: local.puntclub.com.au
             serveraliases:
-                - local.rplcon.com.au
-            docroot: /var/www/local.rplcon.com.au/
+                - local.puntclub.com.au
+            docroot: /var/www/local.puntclub.com.au/
             port: '80'
             setenvif:
                 - 'Authorization "(.*)" HTTP_AUTHORIZATION=$1'
@@ -248,7 +248,7 @@ apache:
             ssl_cipher: ''
             directories:
                 avd_oya8v31faw23:
-                    path: /var/www/local.rplcon.com.au/
+                    path: /var/www/local.puntclub.com.au/
                     directoryindex: 'holding.html,index.html,holding.php,index.php'
                     options:
                         - Indexes
