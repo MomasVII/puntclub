@@ -53,17 +53,15 @@ define('FOOT', ROOT . 'secure/include/foot.include.php');
 define('PAGE', 'Home');
 
 //define the individual page description - delimiter: N/A
-define('DESCRIPTION', 'Welcome to RPL Construction');
+define('DESCRIPTION', 'Welcome to Punt.Club');
 
 //define the individual page styles - delimiter: COMMA
 define('STYLES', '
-    '.ROOT. 'web/style/foundation.min.css,
     '.ROOT. 'web/style/typography.css,
     '.ROOT. 'web/style/base.css,
     '.ROOT. 'web/style/header.css,
     '.ROOT. 'web/style/home.css,
     '.ROOT. 'web/style/footer.css,
-    '.ROOT. 'web/style/navigation.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
@@ -81,14 +79,6 @@ define('HEAD_JS', ''
 define('FOOT_JS', '
 
     '.ROOT.'web/script/jquery-3.2.1.min.js,
-    '.ROOT.'web/script/loadsh.js,
-    '.ROOT.'web/script/foundation.min.js,
-    '.ROOT.'web/script/tweenmax.min.js,
-    '.ROOT.'web/script/resizehandler.js,
-    '.ROOT.'web/script/navigation.js,
-    '.ROOT.'web/script/formhandler.js,
-    '.ROOT.'web/script/gaTrack.js,
-    '.ROOT.'web/script/svg.js,
     '.ROOT.'web/script/index.page.js,
 ');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
