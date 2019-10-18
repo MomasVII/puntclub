@@ -65,10 +65,10 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
 }
 
 //google analytics tracking code
-define('GA_TRACK_ID', 'UA-103791941-1');
+//define('GA_TRACK_ID', 'UA-103791941-1');
 
 //site author
-define('AUTHOR', 'raremedia pty ltd');
+define('AUTHOR', 'Thomas Bye');
 
 //switch to make the front-end web assets compiler to turn on - DO NOT commit this to any remote repo as 'true'
 define('FORCE_COMPILE', false);
@@ -90,7 +90,7 @@ define('SESSION_LIFE', 2700);
 define('SALT', 'IaEE4CcIoLp1MA6');
 
 //define the site title
-define('TITLE', 'RPL Construction');
+define('TITLE', 'Punt.Club');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
