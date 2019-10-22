@@ -98,7 +98,7 @@ function send_email($form){
     //set SMTP mail send
     $mail->isSMTP();
 
-    //set SMTP server authentication (details for mail.rare.systems)
+    //set SMTP server authentication (details for mail.rare.systems) TODO: Replace with my own
     $mail->Host = 'mail.rare.systems';
     $mail->SMTPAuth = true;
     $mail->Username = 'security@rare.com.au';

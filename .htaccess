@@ -1,38 +1,4 @@
-## Build: Rare_System_Core
-## Version 2.1.3
-## Author: Gordon MacK
-## Copyright Owner: Raremedia Pty Ltd (Andrew Davidson)
-
-#TEMPORARY FIX
 Allow from all
-
-# DENY ALL CONNECTIONS
-#Order Deny,Allow
-#Deny from all
-
-# DEFINE ALLOWED IPs (X-FORWARDED-FOR is REMOTE_ADDR when behind an AWS ELB)
-#SetEnv whitelisted_ip false
-#SetEnvIf X-FORWARDED-FOR "203.206.208.232" whitelisted_ip=true
-#SetEnvIf REMOTE_ADDR "203.206.208.232" whitelisted_ip=true
-#SetEnvIf X-FORWARDED-FOR "127.0.0.1" whitelisted_ip=true
-#SetEnvIf REMOTE_ADDR "127.0.0.1" whitelisted_ip=true
-
-# REQUIRE AUTH FOR DEV AND STAGE BUT NOT OTHERS
-#SetEnv auth_required false
-#SetEnvIf Host ^(dev|stage)(\.)(.*)$ auth_required=true
-
-# DEFINE AUTH
-#AuthType Basic
-#AuthName "RARE Client - Private Environment"
-#AuthUserFile /var/www/html/secure/.htpasswd
-# user: rare
-# password: rare@cubitt
-
-# DEFINE AUTH RULES
-#Allow from env=!auth_required
-#Allow from env=whitelisted_ip
-#Require valid-user
-#Satisfy any
 
 # STOP SENSITIVE FILES BEING READ
 <Files ~ "\.(htaccess|htpasswd|ini|log|sh)$">
@@ -136,16 +102,3 @@ RewriteCond %{QUERY_STRING} _REQUEST(=|[|\%[0-9A-Z]{0,2})
 
 # SEND BLOCKED REQUESTS TO ROOT WITH A 403 ERROR
 RewriteRule ^(.*)$ / [F,L]
-
-
-
-RewriteCond %{HTTP_HOST} ^rplbuilding\.com\.au$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.rplbuilding\.com\.au$
-RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^/?$ "https\:\/\/rplcon\.com\.au\/" [R=301,L]
-RewriteCond %{HTTP_HOST} ^rplconstruction\.com\.au$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.rplconstruction\.com\.au$
-RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
-RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
-RewriteRule ^/?$ "https\:\/\/rplcon\.com\.au\/" [R=301,L]
