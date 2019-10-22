@@ -1,0 +1,48 @@
+.home_container {
+    height:500px;
+    background-image:url('/web/image/crowd-bg.jpg');
+    background-size:cover;
+    background-position:center center;
+}
+
+
+/*---Header---*/
+.login_container {
+    width: 50%;
+}
+.login_container h4 {
+    color:white;
+}
+
+/*--------------------------------------------------------------
+  # Alerts - Browser Notifications
+--------------------------------------------------------------*/
+
+.old-browser {
+    display: none;
+    position: relative;
+    visibility: hidden;
+    width: 100%;
+    color: #ffffff;
+    margin: 0 auto;
+    padding: 60px 0 0 0;
+    text-align: center;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.no_script {
+    text-align: center;
+}
+
+.not_supported,
+.no_script {
+  display: block;
+  position: relative;
+  background-color: #e6af0f;
+  padding: 2em;
+  text-align: center;
+}
+.not_supported {
+  display: none;
+}
