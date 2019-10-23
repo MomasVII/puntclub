@@ -119,3 +119,26 @@
     font-weight:bold;
     letter-spacing: 2px;
 }
+
+/*--Sign-up---*/
+.sign_up_buttons {
+    display:flex;
+    align-items:baseline;
+    justify-content: space-between;
+    margin: 18px 0 10px;
+}
+
+.form_items {
+    display:flex;
+    justify-content: space-between;
+}
+
+.cancel_sign-up p {
+    transition:0.4s ease all;
+}
+.cancel_sign-up a:hover {
+    text-decoration:none;
+}
+.cancel_sign-up a:hover p {
+    color:#c7c7c7;
+}

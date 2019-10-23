@@ -28,6 +28,9 @@
     background: linear-gradient(90deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
 }
+.gradient_button a:hover {
+    text-decoration:none;
+}
 .button_content {
     height:30px;
     color:white;
@@ -50,4 +53,71 @@
     margin:0;
     width: calc(100% - 21px);
     text-align:center;
+}
+
+
+/*---Popup---*/
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index:1000;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 15px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  min-width:400px;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+.popup h2 {
+    color:black;
+    font-size:26px;
+}
+.popup p {
+    font-size:12px;
+    color:black;
+}
+
+/*---Forms---*/
+textarea:focus, input:focus{
+    outline: none;
+}
+.form_label {
+    display: flex;
+    align-items: center;
+}
+.form_label i {
+    z-index:100;
+    font-size:12px;
+    color:#CCC;
+}
+.form_text {
+    border-bottom:1px solid #CCC;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    width:100%;
+    margin: 8px 0 8px -15px;
+    padding-left: 24px;
+    font-size:14px;
 }

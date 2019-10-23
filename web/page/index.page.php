@@ -1,5 +1,48 @@
 <?php require(HEAD); ?>
 
+
+<div id="sign-up" class="overlay">
+	<div class="popup">
+		<h2>Sign Up</h2>
+        <p>Australias premium punt club management system</p>
+		<!--a class="close" href="#"><i class="fas fa-times"></i></a-->
+        <hr />
+		<div class="content">
+			<form>
+                <label class="form_label"><i class="fas fa-user"></i>
+                    <input type="text" class="form_text" name="name" placeholder="Name" />
+                </label>
+                <label class="form_label"><i class="fas fa-envelope"></i>
+                    <input type="text" class="form_text" name="email" placeholder="Email" />
+                </label>
+                <label class="form_label"><i class="fas fa-unlock-alt"></i>
+                    <input type="text" class="form_text" name="password" placeholder="Password" />
+                </label>
+                <label class="form_label"><i class="fas fa-unlock-alt"></i>
+                    <input type="text" class="form_text" name="confirm_password" placeholder="Confirm Password" />
+                </label>
+
+                <div class="sign_up_buttons">
+                    <div class="gradient_button">
+                        <a href="#sign-up">
+                            <div class="button_content">
+                                <i class="fas fa-user"></i>
+                                <div class="vertical_line"></div>
+                                <h5>Sign Up</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cancel_sign-up">
+                        <a href="#">
+                            <p>Cancel</p>
+                        </a>
+                    </div>
+                </div>
+            </form>
+		</div>
+	</div>
+</div>
+
 <div class="container-fluid home_container">
     <div class="row">
         <div class="offset-lg-7 col-lg-5">
@@ -7,11 +50,13 @@
                 <h4>Login</h4>
                 <!---Reusable button--->
                 <div class="gradient_button">
-                    <div class="button_content">
-                        <i class="fas fa-user"></i>
-                        <div class="vertical_line"></div>
-                        <h5>Sign Up</h5>
-                    </div>
+                    <a href="#sign-up">
+                        <div class="button_content">
+                            <i class="fas fa-user"></i>
+                            <div class="vertical_line"></div>
+                            <h5>Sign Up</h5>
+                        </div>
+                    </a>
                 </div>
                 <!---Button end--->
             </div>
