@@ -3,15 +3,37 @@
     background-image:url('/web/image/crowd-bg.jpg');
     background-size:cover;
     background-position:center center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 
 /*---Header---*/
 .login_container {
-    width: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top:10px;
 }
 .login_container h4 {
     color:white;
+    margin:0 30px;
+    font-size:12px;
+}
+
+.punt_club_banner {
+    margin-left:10%;
+}
+.punt_club_banner h1 {
+    font-size:80px;
+    margin:0;
+    line-height:70px;
+}
+.punt_club_banner p {
+    font-size:20px;
+    margin:0px;
 }
 
 /*--------------------------------------------------------------
@@ -45,4 +67,55 @@
 }
 .not_supported {
   display: none;
+}
+
+/*---Home Buttons---*/
+.home_buttons {
+    border-top:4px solid red;
+}
+
+.main_button {
+    color:white;
+    text-align:center;
+    background-color:rgba(0,0,0,0.5);
+    border-left:1px solid rgba(255,255,255,0.2);
+    border-right:1px solid rgba(255,255,255,0.2);
+}
+.main_button i {
+    font-size:50px;
+    margin:20px 0 15px;
+}
+.main_button h2 {
+    font-size:30px;
+}
+
+
+/*---Club details---*/
+.vertical_gradient {
+    background: rgb(209,0,0);
+    background: -moz-linear-gradient(0deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
+    background: linear-gradient(0deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
+    margin-left:10%;
+    padding-left:8px;
+}
+.club_details_container {
+    margin-top:20px;
+}
+.club_details {
+    background-color:white;
+    padding-left:10px;
+}
+.club_details h1 {
+    font-size:50px;
+    color:black;
+    margin:4px 0;
+}
+.club_details p {
+    color:black;
+    font-size:13px;
+    margin:2px 0;
+    font-weight:bold;
+    letter-spacing: 2px;
 }

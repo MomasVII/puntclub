@@ -57,13 +57,13 @@ define('DESCRIPTION', 'Welcome to Punt.Club');
 
 //define the individual page styles - delimiter: COMMA
 define('STYLES', '
-    '.ROOT. 'web/style/typography.css,
     '.ROOT. 'web/style/base.css,
     '.ROOT. 'web/style/header.css,
     '.ROOT. 'web/style/home.css,
     '.ROOT. 'web/style/footer.css,
     '.ROOT. 'web/style/bootstrap.min.css,
-    '.ROOT. 'web/style/all.css
+    '.ROOT. 'web/style/all.css,
+    '.ROOT. 'web/style/typography.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
