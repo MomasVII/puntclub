@@ -20,14 +20,26 @@ $(document).ready( function(){
     $('.tab_headers h3').click(function() {
         $('.tab_headers h3').removeClass("active");
         $(this).addClass("active");
-        if($(this).html() == "Next Up") {
-            $(".punter_list").animate({right:100},{duration:400});
-            $(".current_punters_list").animate({opacity:0},{duration:400});
-            $(".next_up_punters_list").animate({opacity:1},{duration:400});
-        } else if($(this).html() == "Current Punters") {
-            $(".punter_list").animate({right:-100},{duration:400});
-            $(".current_punters_list").animate({opacity:1},{duration:400});
-            $(".next_up_punters_list").animate({opacity:0},{duration:400});
+        if($(this).html() == "NEXT UP") {
+            $(".punter_list").animate({right:0},{duration:300});
+            $(".current_punters_list").animate({opacity:0},{duration:300});
+            $(".next_up_punters_list").animate({opacity:1},{duration:300});
+        } else if($(this).html() == "CURRENT PUNTERS") {
+            $(".punter_list").animate({right:-200},{duration:300});
+            $(".current_punters_list").animate({opacity:1},{duration:300});
+            $(".next_up_punters_list").animate({opacity:0},{duration:300});
+        }
+    });
+
+    $('.table_headers h3').click(function() {
+        $('.table_headers h3').removeClass("active");
+        $(this).addClass("active");
+        if($(this).html() == "LEADERBOARDS") {
+
+        } else if($(this).html() == "GRAPHS") {
+
+        } else if($(this).html() == "AWARDS") {
+
         }
     });
 

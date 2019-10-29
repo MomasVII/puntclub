@@ -105,8 +105,8 @@
         <div class="col-md-6 tabs_col">
 			<div class="tab_container">
 				<div class="tab_headers">
-					<h3 class="active">Current Punters</h3>
-					<h3>Next Up</h3>
+					<h3 class="active">CURRENT PUNTERS</h3>
+					<h3>NEXT UP</h3>
 				</div>
 				<div class="punter_list">
 					<ul class="current_punters_list">
@@ -127,7 +127,149 @@
         </div>
     </div>
 </div>
+<div class="container-fluid table_container">
+    <div class="row">
+        <div class="col-md-12 table_col">
+			<div class="table_headers">
+				<h3 class="active">LEADERBOARD</h3>
+				<h3>GRAPHS</h3>
+				<h3>AWARDS</h3>
+			</div>
+			<div class="leaderboard_header">
+				<h4>Name</h4>
+				<h4>ROI</h4>
+				<h4>Wagered</h4>
+				<h4>Won</h4>
+				<h4>Form</h4>
+			</div>
+			<div class="leaderboard_content">
+				<h4>Thomas Bye</h4>
+				<h4>34%</h4>
+				<h4>$123</h4>
+				<h4>$34</h4>
+				<div class="form">
+					<div class="loss"></div>
+					<div class="win"></div>
+				</div>
+			</div>
+			<div class="leaderboard_content">
+				<h4>Thomas Bye</h4>
+				<h4>34%</h4>
+				<h4>$123</h4>
+				<h4>$34</h4>
+				<div class="form">
+					<div class="loss"></div>
+					<div class="win"></div>
+				</div>
+			</div>
+			<div class="leaderboard_content">
+				<h4>Thomas Bye</h4>
+				<h4>34%</h4>
+				<h4>$123</h4>
+				<h4>$34</h4>
+				<div class="form">
+					<div class="loss"></div>
+					<div class="win"></div>
+				</div>
+			</div>
+			<div class="leaderboard_content">
+				<h4>Thomas Bye</h4>
+				<h4>34%</h4>
+				<h4>$123</h4>
+				<h4>$34</h4>
+				<div class="form">
+					<div class="loss"></div>
+					<div class="win"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container-fluid current_bets_container">
+    <div class="row">
+        <div class="col-md-12">
+			<h3>CURRENT BETS</h3>
+		</div>
+		<div class="col-md-9">
 
+			<div class="bet_slip_container">
+				<div class="vertical_gradient">
+					<div class="bet_slip">
+						<h3>THOMAS BYE</h3>
+						<hr />
+						<h5>Description:</h5>
+						<p>Some bet description</p>
+						<hr />
+						<h5>Amount:</h5>
+						<p>$15</p>
+						<hr />
+						<div class="bet_details">
+							<div>
+								<h5>Odds:</h5>
+								<p>$2.20</p>
+							</div>
+							<div>
+								<h5>Date:</h5>
+								<p>12/6/19</p>
+							</div>
+						</div>
+					</div>
+					<div class="win_percentage">
+						<div class="win_line" style="width:70%"></div>
+						<div class="loss_line" style="width:30%"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="bet_slip_container">
+				<div class="vertical_gradient">
+					<div class="bet_slip">
+						<h3>THOMAS BYE</h3>
+						<hr />
+						<h5>Description:</h5>
+						<p>Some bet description</p>
+						<hr />
+						<h5>Amount:</h5>
+						<p>$15</p>
+						<hr />
+						<div class="bet_details">
+							<div>
+								<h5>Odds:</h5>
+								<p>$2.20</p>
+							</div>
+							<div>
+								<h5>Date:</h5>
+								<p>12/6/19</p>
+							</div>
+						</div>
+					</div>
+					<div class="win_percentage">
+						<div class="win_line" style="width:70%"></div>
+						<div class="loss_line" style="width:30%"></div>
+					</div>
+				</div>
+		</div>
+		<div class="col-md-3">
+
+		</div>
+	</div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
   <!-- content end -->
 
 <?php require(FOOT); ?>
