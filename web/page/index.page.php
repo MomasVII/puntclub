@@ -102,8 +102,28 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-
+        <div class="col-md-6 tabs_col">
+			<div class="tab_container">
+				<div class="tab_headers">
+					<h3 class="active">Current Punters</h3>
+					<h3>Next Up</h3>
+				</div>
+				<div class="punter_list">
+					<ul class="current_punters_list">
+						<li>Thomas Bye</li>
+						<li>Lachy Pound</li>
+						<li>Simon Jackson</li>
+						<li>Alistair Holliday</li>
+						<li>Angus Hillman</li>
+					</ul>
+					<ul class="next_up_punters_list">
+						<li>Thomas Bye</li>
+						<li>Lachy Pound</li>
+						<li>Simon Jackson</li>
+						<li>Alistair Holliday</li>
+					</ul>
+				</div>
+			</div>
         </div>
     </div>
 </div>

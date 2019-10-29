@@ -120,6 +120,47 @@
     letter-spacing: 2px;
 }
 
+/*---Tabs---*/
+.tabs_col {
+    overflow:hidden;
+}
+.tab_headers {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.tab_headers h3 {
+    margin-left:20px;
+    color:rgba(0,0,0,0.2);
+    transition:0.3s ease all;
+    cursor:pointer;
+}
+.tab_headers .active {
+    color:black;
+}
+
+.tab_container {
+    margin-right:10%;
+}
+
+.punter_list {
+    display:flex;
+    position:absolute;
+    right:-100px;
+}
+.punter_list ul {
+    list-style-type:none;
+    width:200px;
+    padding-inline-start: 0px;
+}
+.punter_list ul li {
+    text-align:right;
+}
+
+.next_up_punters_list {
+    opacity:0;
+}
+
 /*--Sign-up---*/
 .sign_up_buttons {
     display:flex;
