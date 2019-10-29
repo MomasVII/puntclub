@@ -96,7 +96,7 @@
     background: -webkit-linear-gradient(0deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
     background: linear-gradient(0deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
-    padding-left:8px;
+    padding-left:7px;
 }
 .club_details_container {
     margin-top:20px;
@@ -260,16 +260,63 @@
 }
 
 /*---Current Bets---*/
+.bets_container {
+    display:flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-between;
+}
 .bet_slip_container {
     width:32%;
-    float:left;
+    margin-top:1%;
+    margin-bottom:1%;
 }
 .bet_slip_container:nth-of-type(2) {
-    margin:0 1.33333%;
+    margin-left:1.33333%;
+    margin-right:1.33333%;
 }
 .bet_slip {
     background-color:#f7f7f7;
     padding:4%;
+}
+.bet_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bet_header i {
+    transition:0.4s ease all;
+    opacity:0.4;
+    cursor:pointer;
+}
+.bet_header i:hover {
+    opacity:1;
+}
+.winner {
+    background-color:#edffea;
+}
+.loser {
+    background-color:#ffeeee;
+}
+.winner_detail {
+    background-color:#81d576;
+    text-align:center;
+}
+.winner_detail h3 {
+    color:white;
+    font-size:18px;
+    padding:5px 0;
+    text-shadow:1px 1px 6px rgba(0,0,0,0.3);
+}
+.loser_detail {
+    background-color:#f87c7d;
+    text-align:center;
+}
+.loser_detail h3 {
+    color:white;
+    font-size:18px;
+    padding:5px 0;
+    text-shadow:1px 1px 6px rgba(0,0,0,0.3);
 }
 .bet_slip h3 {
     font-size:14px;
@@ -302,11 +349,68 @@
 }
 .win_line {
     float:left;
-    background-color:green;
+    background-color:#81d576;
     height:5px;
 }
 .loss_line {
-    background-color:red;
+    background-color:#f87c7d;
     height:5px;
     float:right;
+}
+
+.resulted_header {
+    margin-top:50px;
+}
+
+/*---Chat---*/
+.chat_container {
+    background-color:#f7f7f7;
+    padding:0 0 30px;
+}
+
+.chat_box {
+    border-radius:3px;
+    border:1px solid #CCC;
+    width:86%;
+    margin:10px 7%;
+    padding:4px;
+    font-size:10px;
+    transition: 0.4s ease all;
+    height:25px;
+}
+.chat_box:focus {
+    height: 55px !important;
+}
+
+.chat_form .gradient_button {
+    margin:0 7%;
+}
+
+.other_chat {
+    width:70%;
+    border:1px solid #ccc;
+    margin:8px 7%;
+    padding:4px 3%;
+    background-color:white;
+}
+.my_chat {
+    width:70%;
+    border:1px solid #ccc;
+    margin: 8px 7% 0 auto;
+    padding:4px 3%;
+    background-color:#edfbff;
+}
+.chatter {
+    color:black;
+    font-size:10px;
+    margin:0;
+}
+.other_chat hr, .my_chat hr {
+    margin:4px 0;
+}
+.other_chat p, .my_chat p {
+  font-family: 'Montserrat-Medium';
+    color:black;
+    font-size:10px;
+    margin:0;
 }

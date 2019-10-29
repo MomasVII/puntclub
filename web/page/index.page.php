@@ -187,18 +187,108 @@
 </div>
 <div class="container-fluid current_bets_container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
 			<h3>CURRENT BETS</h3>
 		</div>
+		<div class="col-md-3">
+			<h3>CHAT</h3>
+		</div>
 		<div class="col-md-9">
-
-			<div class="bet_slip_container">
+			<div class="bets_container">
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip">
+							<div class="bet_header">
+								<h3>THOMAS BYE</h3>
+								<i class="fas fa-camera"></i>
+							</div>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some longer bet description tha goes over 2 lines</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
+							</div>
+						</div>
+						<div class="win_percentage">
+							<div class="win_line" style="width:70%"></div>
+							<div class="loss_line" style="width:30%"></div>
+						</div>
+					</div>
+				</div>
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip">
+							<h3>THOMAS BYE</h3>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some bet description</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
+							</div>
+						</div>
+						<div class="win_percentage">
+							<div class="win_line" style="width:70%"></div>
+							<div class="loss_line" style="width:30%"></div>
+						</div>
+					</div>
+				</div>
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip">
+							<h3>THOMAS BYE</h3>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some bet description</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
+							</div>
+						</div>
+						<div class="win_percentage">
+							<div class="win_line" style="width:70%"></div>
+							<div class="loss_line" style="width:30%"></div>
+						</div>
+					</div>
+				</div>
+				<div class="bet_slip_container">
 				<div class="vertical_gradient">
 					<div class="bet_slip">
 						<h3>THOMAS BYE</h3>
 						<hr />
 						<h5>Description:</h5>
-						<p>Some bet description</p>
+						<p>Some longer bet description tha goes over 2 lines</p>
 						<hr />
 						<h5>Amount:</h5>
 						<p>$15</p>
@@ -220,37 +310,159 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="bet_slip_container">
-				<div class="vertical_gradient">
-					<div class="bet_slip">
-						<h3>THOMAS BYE</h3>
-						<hr />
-						<h5>Description:</h5>
-						<p>Some bet description</p>
-						<hr />
-						<h5>Amount:</h5>
-						<p>$15</p>
-						<hr />
-						<div class="bet_details">
-							<div>
-								<h5>Odds:</h5>
-								<p>$2.20</p>
-							</div>
-							<div>
-								<h5>Date:</h5>
-								<p>12/6/19</p>
+			</div>
+			<h3 class="resulted_header">RESULTED BETS</h3>
+			<div class="bets_container">
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip winner">
+							<h3>THOMAS BYE</h3>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some longer bet description tha goes over 2 lines</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="win_percentage">
-						<div class="win_line" style="width:70%"></div>
-						<div class="loss_line" style="width:30%"></div>
+						<div class="winner_detail">
+							<h3>+$34.55</h3>
+						</div>
 					</div>
 				</div>
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip loser">
+							<h3>THOMAS BYE</h3>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some bet description</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
+							</div>
+						</div>
+						<div class="loser_detail">
+							<h3>-$34.55</h3>
+						</div>
+					</div>
+				</div>
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip loser">
+							<h3>THOMAS BYE</h3>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some bet description</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
+							</div>
+						</div>
+						<div class="loser_detail">
+							<h3>-$30</h3>
+						</div>
+					</div>
+				</div>
+				<div class="bet_slip_container">
+					<div class="vertical_gradient">
+						<div class="bet_slip loser">
+							<h3>THOMAS BYE</h3>
+							<hr />
+							<h5>Description:</h5>
+							<p>Some longer bet description tha goes over 2 lines</p>
+							<hr />
+							<h5>Amount:</h5>
+							<p>$15</p>
+							<hr />
+							<div class="bet_details">
+								<div>
+									<h5>Odds:</h5>
+									<p>$2.20</p>
+								</div>
+								<div>
+									<h5>Date:</h5>
+									<p>12/6/19</p>
+								</div>
+							</div>
+						</div>
+						<div class="loser_detail">
+							<h3>-$30</h3>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-3">
-
+			<div class="vertical_gradient">
+				<div class="chat_container">
+					<form class="chat_form">
+						<textarea type="text" class="chat_box"></textarea>
+						<div class="gradient_button grd_btn_small">
+							<a href="#">
+								<div class="button_content btn_small">
+									<h5>Send</h5>
+								</div>
+							</a>
+						</div>
+					</form>
+					<div class="other_chat">
+						<h4 class="chatter">Thomas</p>
+							<hr />
+						<p>Agree. No one uses a BB on $1.50 odds. You have to double your money to get worth. As cal said, half their value</p>
+					</div>
+					<div class="other_chat">
+						<h4 class="chatter">Lachy</p>
+							<hr />
+						<p>“Free money” syndrome</p>
+					</div>
+					<div class="other_chat">
+						<h4 class="chatter">Lachy</p>
+							<hr />
+						<p>People throw bonus bets away afaik</p>
+					</div>
+					<div class="other_chat">
+						<h4 class="chatter">Calvin</p>
+							<hr />
+						<p>I value bonus bets at around half their amount in cash</p>
+					</div>
+					<div class="my_chat">
+						<h4 class="chatter">Calvin</p>
+							<hr />
+						<p>I value bonus bets at around half their amount in cash</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

@@ -31,6 +31,10 @@
 .gradient_button a:hover {
     text-decoration:none;
 }
+.grd_btn_small {
+    height:20px !important;
+    width:80px !important;
+}
 .button_content {
     height:30px;
     color:white;
@@ -54,7 +58,12 @@
     width: calc(100% - 21px);
     text-align:center;
 }
-
+.btn_small {
+    height:20px !important;
+}
+.btn_small h5 {
+    width:95%;
+}
 
 /*---Popup---*/
 .overlay {
