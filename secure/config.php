@@ -12,6 +12,12 @@
 $host = explode('.', $_SERVER['HTTP_HOST']);
 $sub_domain = array_shift($host);
 
+//db definition
+define('DB_HOST', 'localhost');
+define('DB_USER', 'MomasVII');
+define('DB_PASS', 'd4HTsv6!-5~`');
+define('DB_NAME', 'puntclub'); //local and dev share some storage and db endpoints
+
 //define runtime environment
 if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
 
@@ -108,6 +114,7 @@ if (!isset($required_classes)) {
 //name the framework libraries you need in GLOBAL scope (cross dependencies mean the order matters)
 $required_libraries[] = 'shortcut';
 $required_libraries[] = 'validate';
+$required_libraries[] = 'mysqli_db';
 $required_libraries[] = 'web_compile';
 
 //name the site classes you need in GLOBAL scope
