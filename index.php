@@ -33,7 +33,83 @@ require(ROOT . 'secure/config.php');
 //set default logic response
 $response = '';
 
-$get_result = $mysqli_db->get('bets', 10);
+$bets = $mysqli_db->get('bets', 10);
+print_r($bets);
+
+$pending_bets = '';
+
+foreach($bets as $bs){
+
+    switch ($bs['User']) {
+        case '1':
+            $user_bet = 'Simon Jackson';
+            break;
+        case '2':
+            $user_bet = 'Thomas Bye';
+            break;
+        case '3':
+            $user_bet = 'Lachlan Pound';
+            break;
+        case '4':
+            $user_bet = 'Alistair Holiday';
+            break;
+        case '5':
+            $user_bet = 'Angus Hillman';
+            break;
+        case '6':
+            $user_bet = 'Calvin Bransdon';
+            break;
+        case '7':
+            $user_bet = 'Joel Leegood';
+            break;
+        case '8':
+            $user_bet = 'Tom Dann';
+            break;
+    }
+
+    if($bs['Description'] == "") { $desc = "None"; }
+    else { $desc = $bs['Description']; }
+
+    if($bs['Result'] == "Pending") {
+        $pending_bets .= '<div class="bet_slip_container">
+            <div class="vertical_gradient">
+                <div class="bet_slip">
+                    <h3>'.$user_bet.'</h3>
+                    <hr />
+                    <h5>Description:</h5>
+                    <p>'.$desc.'</p>
+                    <hr />
+                    <div class="bet_details">
+                        <div>
+                            <h5>Odds:</h5>
+                            <p>$'.number_format((float)$bs['Odds'], 2, '.', '').'</p>
+                        </div>
+                        <div>
+                            <h5>Amount:</h5>
+                            <p>$'.number_format((float)$bs['Amount'], 2, '.', '').'</p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="bet_details">
+                        <div>
+                            <h5>Potential Winnings:</h5>
+                            <p>$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</p>
+                        </div>
+                        <div>
+                            <h5>Date:</h5>
+                            <p>'.$bs['Date'].'</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="win_percentage">
+                    <div class="win_line" style="width:70%"></div>
+                    <div class="loss_line" style="width:30%"></div>
+                </div>
+            </div>
+        </div>';
+    } else if
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
