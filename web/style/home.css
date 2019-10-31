@@ -97,6 +97,9 @@
     background: linear-gradient(0deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
     padding-left:7px;
+    height:100%;
+    display: flex;
+    flex-direction: column;
 }
 .club_details_container {
     margin-top:20px;
@@ -116,6 +119,12 @@
     margin:2px 0;
     font-weight:bold;
     letter-spacing: 2px;
+}
+.red span{
+    color:#fb080a !important;
+}
+.green span {
+    color:#81d576 !important;
 }
 
 /*---Tabs---*/
@@ -260,23 +269,34 @@
 }
 
 /*---Current Bets---*/
+#new-bet a:hover {
+    text-decoration: none;
+}
 .bets_container {
     display:flex;
     flex-wrap: wrap;
     align-items: stretch;
-    justify-content: space-between;
+    justify-content: start;
+}
+.new_bet {
+    font-size:100px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    color:#CCC;
 }
 .bet_slip_container {
     width:32%;
-    margin-bottom:2%;
+    margin-bottom:2%;%
 }
-.bet_slip_container:nth-of-type(2) {
+.bet_slip_container:nth-child(3n+2) {
     margin-left:1.33333%;
     margin-right:1.33333%;
 }
 .bet_slip {
     background-color:#f7f7f7;
     padding:4%;
+    height:100%;
 }
 .bet_header {
     display: flex;
@@ -297,6 +317,17 @@
 .loser {
     background-color:#ffeeee;
 }
+.pending_detail {
+    background-color:#CCC;
+    text-align:center;
+}
+.pending_detail h3 {
+    color:white;
+    font-size:18px;
+    padding:5px 0;
+    margin:0;
+    text-shadow:1px 1px 6px rgba(0,0,0,0.3);
+}
 .winner_detail {
     background-color:#81d576;
     text-align:center;
@@ -305,6 +336,7 @@
     color:white;
     font-size:18px;
     padding:5px 0;
+    margin:0;
     text-shadow:1px 1px 6px rgba(0,0,0,0.3);
 }
 .loser_detail {
@@ -315,24 +347,27 @@
     color:white;
     font-size:18px;
     padding:5px 0;
+    margin:0;
     text-shadow:1px 1px 6px rgba(0,0,0,0.3);
 }
 .bet_slip h3 {
-    font-size:14px;
+    font-size:16px;
     margin:0;
+    text-transform: uppercase;
 }
 .bet_slip hr {
     margin:4% 0;
 }
 .bet_slip h5 {
-    font-size:10px;
+    font-size:13px;
     color:black;
-    font-family: 'Montserrat-Medium';
     margin-bottom:4px;
+    font-family: 'Montserrat-Light';
 }
 .bet_slip p {
-    font-size:12px;
+    font-size:14px;
     color:black;
+    font-family: 'Montserrat-Medium';
 }
 
 .bet_details {
@@ -365,6 +400,7 @@
 .chat_container {
     background-color:#f7f7f7;
     padding:0 0 30px;
+    height:100%;
 }
 
 .chat_box {

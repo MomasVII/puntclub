@@ -33,12 +33,43 @@ require(ROOT . 'secure/config.php');
 //set default logic response
 $response = '';
 
-$bets = $mysqli_db->get('bets', 10);
-print_r($bets);
+
+
+$users = $mysqli_db->query('select * from users', 100);
+
+foreach($users as $usr){
+
+    $query = 'select * from bets where User = '.$usr['ID'];
+    $user_bets = $mysqli_db->query($query, 100);
+    foreach($user_bets as $ub){
+        $ub_won
+        $ub_lost
+    }
+
+
+    $table = '<div class="leaderboard_content">
+        <h4>'.$usr.'</h4>
+        <h4>34%</h4>
+        <h4>$123</h4>
+        <h4>$34</h4>
+        <div class="form">
+            <div class="loss"></div>
+            <div class="win"></div>
+        </div>
+    </div>'
+
+}
+
+
+
+
+$bets = $mysqli_db->query('select * from bets order by Date DESC', 100);
 
 $pending_bets = '';
+$resulted_bets = '';
 
 foreach($bets as $bs){
+
 
     switch ($bs['User']) {
         case '1':
@@ -70,6 +101,24 @@ foreach($bets as $bs){
     if($bs['Description'] == "") { $desc = "None"; }
     else { $desc = $bs['Description']; }
 
+    if($bs['Result'] == "Win") { $winloss = "winner"; }
+    else if($bs['Result'] == "Loss") { $winloss = "loser"; }
+
+    if($bs['Result'] == "Win") {
+        $profit =  '<div class="winner_detail">
+                        <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
+                    </div>';
+    } else if($bs['Result'] == "Loss") {
+        $profit =  '<div class="loser_detail">
+                        <h3>-$'.number_format((float)$bs['Amount'], 2, '.', '').'</h3>
+                    </div>';
+    } else if($bs['Result'] == "Pending") {
+        $profit =  '<div class="pending_detail">
+                        <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
+                    </div>';
+    }
+
+
     if($bs['Result'] == "Pending") {
         $pending_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
@@ -92,23 +141,56 @@ foreach($bets as $bs){
                     <hr />
                     <div class="bet_details">
                         <div>
-                            <h5>Potential Winnings:</h5>
-                            <p>$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</p>
+                            <h5>Date:</h5>
+                            <p>'.date("Y-m-d", strtotime($bs['Date'])).'</p>
                         </div>
+                    </div>
+                </div>
+                '.$profit.'
+            </div>
+        </div>';
+    } else if($bs['Result'] != "Pending") {
+        if($bs['Result'] != "Win") {
+            $totalWon += $bs['Amount'];
+        }
+        $total += $bs['Amount'];
+        $resulted_bets .= '<div class="bet_slip_container">
+            <div class="vertical_gradient">
+                <div class="bet_slip '.$winloss.'">
+                    <h3>'.$user_bet.'</h3>
+                    <hr />
+                    <h5>Description:</h5>
+                    <p>'.$desc.'</p>
+                    <hr />
+                    <div class="bet_details">
+                        <div>
+                            <h5>Odds:</h5>
+                            <p>$'.number_format((float)$bs['Odds'], 2, '.', '').'</p>
+                        </div>
+                        <div>
+                            <h5>Amount:</h5>
+                            <p>$'.number_format((float)$bs['Amount'], 2, '.', '').'</p>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="bet_details">
                         <div>
                             <h5>Date:</h5>
                             <p>'.$bs['Date'].'</p>
                         </div>
                     </div>
                 </div>
-                <div class="win_percentage">
-                    <div class="win_line" style="width:70%"></div>
-                    <div class="loss_line" style="width:30%"></div>
-                </div>
+                '.$profit.'
             </div>
         </div>';
-    } else if
+    }
 
+}
+
+if(($totalWon/$total)*100 > 100) {
+    $roi = '<p class="green">ROI: <span><?=number_format((float)(($totalWon/$total)*100), 2, ".", "")?>%</span></p>';
+} else if(($totalWon/$total)*100 < 100) {
+    $roi = '<p class="red">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

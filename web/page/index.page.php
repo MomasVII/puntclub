@@ -1,6 +1,55 @@
 <?php require(HEAD); ?>
 
 
+<div id="new-bet" class="overlay">
+	<div class="popup">
+		<h2>New Bet Slip</h2>
+		<!--a class="close" href="#"><i class="fas fa-times"></i></a-->
+        <hr />
+		<div class="content">
+			<form>
+				<label class="form_label"><i class="fas fa-comment-dollar"></i>
+					<select class="form_text">
+						<option value="1">Simon Jackson</option>
+						<option value="2">Thomas Bye</option>
+						<option value="3">Lachlan Pound</option>
+						<option value="4">Alistair Holiday</option>
+						<option value="5">Angus Hillman</option>
+						<option value="6">Calvin Bransdon</option>
+						<option value="7">Joel Leegood</option>
+						<option value="8">Tom Dann</option>
+					</select>
+                </label>
+                <label class="form_label"><i class="fas fa-comment-dollar"></i>
+                    <input type="text" class="form_text" name="name" placeholder="Description" />
+                </label>
+                <label class="form_label"><i class="fas fa-dollar-sign"></i>
+                    <input type="number" class="form_text" name="email" placeholder="Odds" />
+                </label>
+                <label class="form_label"><i class="fas fa-dollar-sign"></i>
+                    <input type="number" class="form_text" name="password" placeholder="Amount" />
+                </label>
+
+                <div class="sign_up_buttons">
+                    <div class="gradient_button">
+                        <a href="#sign-up">
+                            <div class="button_content">
+                                <i class="fas fa-plus"></i>
+                                <div class="vertical_line"></div>
+                                <h5>Add Bet</h5>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cancel_sign-up">
+                        <a href="#">
+                            <p>Cancel</p>
+                        </a>
+                    </div>
+                </div>
+            </form>
+		</div>
+	</div>
+</div>
 <div id="sign-up" class="overlay">
 	<div class="popup">
 		<h2>Sign Up</h2>
@@ -95,10 +144,11 @@
             <div class="vertical_gradient">
                 <div class="club_details">
                     <h1>MY PUNT CLUB</h1>
-                    <p>ROI: <span>148.54%</span></p>
-                    <p>Total Won: 1432.65</p>
-                    <p>Bank: $543.63</p>
-                    <p>Total: $1965.63</p>
+                    <p>Total Won: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
+					<p>Total Bet: $<?=number_format((float)$total, 2, '.', '')?></p>
+                    <?=$roi?>
+                    <p>Bank: $000.00</p>
+                    <p>Total: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
                 </div>
             </div>
         </div>
@@ -196,117 +246,22 @@
 		<div class="col-md-9">
 			<div class="bets_container">
 				<?=$pending_bets;?>
+				<div class="bet_slip_container" id="new-bet">
+					<a href="#new-bet">
+			            <div class="vertical_gradient">
+			                <div class="bet_slip new_bet">
+								<i class="fas fa-plus"></i>
+			                </div>
+							<div class="pending_detail">
+					        	<h3>Add New Bet</h3>
+					        </div>
+			            </div>
+					</a>
+		        </div>
 			</div>
 			<h3 class="resulted_header">RESULTED BETS</h3>
 			<div class="bets_container">
-				<div class="bet_slip_container">
-					<div class="vertical_gradient">
-						<div class="bet_slip winner">
-							<h3>THOMAS BYE</h3>
-							<hr />
-							<h5>Description:</h5>
-							<p>Some longer bet description tha goes over 2 lines</p>
-							<hr />
-							<h5>Amount:</h5>
-							<p>$15</p>
-							<hr />
-							<div class="bet_details">
-								<div>
-									<h5>Odds:</h5>
-									<p>$2.20</p>
-								</div>
-								<div>
-									<h5>Date:</h5>
-									<p>12/6/19</p>
-								</div>
-							</div>
-						</div>
-						<div class="winner_detail">
-							<h3>+$34.55</h3>
-						</div>
-					</div>
-				</div>
-				<div class="bet_slip_container">
-					<div class="vertical_gradient">
-						<div class="bet_slip loser">
-							<h3>THOMAS BYE</h3>
-							<hr />
-							<h5>Description:</h5>
-							<p>Some bet description</p>
-							<hr />
-							<h5>Amount:</h5>
-							<p>$15</p>
-							<hr />
-							<div class="bet_details">
-								<div>
-									<h5>Odds:</h5>
-									<p>$2.20</p>
-								</div>
-								<div>
-									<h5>Date:</h5>
-									<p>12/6/19</p>
-								</div>
-							</div>
-						</div>
-						<div class="loser_detail">
-							<h3>-$34.55</h3>
-						</div>
-					</div>
-				</div>
-				<div class="bet_slip_container">
-					<div class="vertical_gradient">
-						<div class="bet_slip loser">
-							<h3>THOMAS BYE</h3>
-							<hr />
-							<h5>Description:</h5>
-							<p>Some bet description</p>
-							<hr />
-							<h5>Amount:</h5>
-							<p>$15</p>
-							<hr />
-							<div class="bet_details">
-								<div>
-									<h5>Odds:</h5>
-									<p>$2.20</p>
-								</div>
-								<div>
-									<h5>Date:</h5>
-									<p>12/6/19</p>
-								</div>
-							</div>
-						</div>
-						<div class="loser_detail">
-							<h3>-$30</h3>
-						</div>
-					</div>
-				</div>
-				<div class="bet_slip_container">
-					<div class="vertical_gradient">
-						<div class="bet_slip loser">
-							<h3>THOMAS BYE</h3>
-							<hr />
-							<h5>Description:</h5>
-							<p>Some longer bet description tha goes over 2 lines</p>
-							<hr />
-							<h5>Amount:</h5>
-							<p>$15</p>
-							<hr />
-							<div class="bet_details">
-								<div>
-									<h5>Odds:</h5>
-									<p>$2.20</p>
-								</div>
-								<div>
-									<h5>Date:</h5>
-									<p>12/6/19</p>
-								</div>
-							</div>
-						</div>
-						<div class="loser_detail">
-							<h3>-$30</h3>
-						</div>
-					</div>
-				</div>
+				<?=$resulted_bets?>
 			</div>
 		</div>
 		<div class="col-md-3">
