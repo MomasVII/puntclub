@@ -41,10 +41,10 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
     //define the end user's ip address
     define('END_USER_IP', $_SERVER['REMOTE_ADDR']);
 
-} elseif ($sub_domain == 'stage') {
+} elseif ($sub_domain == 'puntclub') {
 
     //define environment as staging
-    define('ENVIRONMENT', 'stage');
+    define('ENVIRONMENT', 'puntclub');
 
     //define protocol
     define('PROTOCOL', 'http');

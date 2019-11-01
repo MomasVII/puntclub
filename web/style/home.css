@@ -261,11 +261,18 @@
     background-color:rgba(0,0,0,0.05);
 }
 
-.leaderboard_content h4 {
-    width: 100%;
+tr h4 {
     color:black;
     line-height:35px;
     font-size:12px;
+    font-weight:700;
+    margin:0;
+}
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 0px 10px !important;
+}
+table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+    background-color: #fafafa;
 }
 
 /*---Current Bets---*/

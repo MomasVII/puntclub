@@ -185,13 +185,13 @@
 				<h3>GRAPHS</h3>
 				<h3>AWARDS</h3>
 			</div>
-			<div class="leaderboard_header">
+			<!--div class="leaderboard_header">
 				<h4>Name</h4>
 				<h4>ROI</h4>
 				<h4>Wagered</h4>
 				<h4>Won</h4>
 				<h4>Form</h4>
-			</div>
+			</div-->
 			<?=$table?>
 		</div>
 	</div>

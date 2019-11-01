@@ -11,5 +11,6 @@
 </script>
     <?= $web_compile->build_js(FOOT_JS, 'foot'); ?>
 
+
 </body>
 </html>

@@ -38,6 +38,17 @@ $users = $mysqli_db->query('select * from clubs where ClubID = 1', 100);
 
 $table = '';
 $name = '';
+$table = '<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th><h4>Name</h4></th>
+            <th><h4>ROI</h4></th>
+            <th><h4>Wagered</h4></th>
+            <th><h4>Won</h4></th>
+            <th><h4>Form</h4></th>
+        </tr>
+    </thead>
+    <tbody>';
 
 foreach($users as $usr){
 
@@ -61,6 +72,49 @@ foreach($users as $usr){
     }
     $form .= '</div>';
 
+    $queryName = 'select * from users where ID = '.$usr['UserID'];
+    $user_name = $mysqli_db->query($queryName, 10);
+    foreach($user_name as $un){
+        $name = $un['Name'];
+    }
+
+    $table .= '<tr>
+            <td><h4>'.$name.'</h4></td>
+            <td><h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4></td>
+            <td><h4>$'.number_format((float)$usr_total, 2, '.', '').'</h4></td>
+            <td><h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4></td>
+            <td>'.$form.'</td>
+        </tr>';
+
+}
+
+$table .= '</tbody>
+</table>';
+
+/*foreach($users as $usr){
+
+    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date';
+    $user_bets = $mysqli_db->query($query, 100);
+    $form = '<div class="form">';
+
+    $ub_won = 0;
+    $usr_total = 0;
+
+    foreach($user_bets as $ub){
+
+        if($ub['Result'] == "Win") {
+            $ub_won += $ub['Amount']*$ub['Odds'];
+            $form .= '<div class="win"></div>';
+        } else if ($ub['Result'] == "Loss") {
+            $form .= '<div class="loss"></div>';
+        }
+        $usr_total += $ub['Amount'];
+
+    }
+    $form .= '</div>';
+
+
+
 
     $queryName = 'select * from users where ID = '.$usr['UserID'];
     $user_name = $mysqli_db->query($queryName, 10);
@@ -76,7 +130,7 @@ foreach($users as $usr){
         '.$form.'
     </div>';
 
-}
+}*/
 
 
 
@@ -244,6 +298,7 @@ define('STYLES', '
     '.ROOT. 'web/style/bootstrap.min.css,
     '.ROOT. 'web/style/all.css,
     '.ROOT. 'web/style/typography.css,
+    '.ROOT. 'web/style/datatables.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
@@ -262,7 +317,8 @@ define('FOOT_JS', '
 
     '.ROOT.'web/script/jquery-3.2.1.min.js,
     '.ROOT.'web/script/index.page.js,
-    '.ROOT.'web/script/bootstrap.min.js
+    '.ROOT.'web/script/bootstrap.min.js,
+    '.ROOT.'web/script/datatables.js
 ');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
