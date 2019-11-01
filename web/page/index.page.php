@@ -192,46 +192,7 @@
 				<h4>Won</h4>
 				<h4>Form</h4>
 			</div>
-			<div class="leaderboard_content">
-				<h4>Thomas Bye</h4>
-				<h4>34%</h4>
-				<h4>$123</h4>
-				<h4>$34</h4>
-				<div class="form">
-					<div class="loss"></div>
-					<div class="win"></div>
-				</div>
-			</div>
-			<div class="leaderboard_content">
-				<h4>Thomas Bye</h4>
-				<h4>34%</h4>
-				<h4>$123</h4>
-				<h4>$34</h4>
-				<div class="form">
-					<div class="loss"></div>
-					<div class="win"></div>
-				</div>
-			</div>
-			<div class="leaderboard_content">
-				<h4>Thomas Bye</h4>
-				<h4>34%</h4>
-				<h4>$123</h4>
-				<h4>$34</h4>
-				<div class="form">
-					<div class="loss"></div>
-					<div class="win"></div>
-				</div>
-			</div>
-			<div class="leaderboard_content">
-				<h4>Thomas Bye</h4>
-				<h4>34%</h4>
-				<h4>$123</h4>
-				<h4>$34</h4>
-				<div class="form">
-					<div class="loss"></div>
-					<div class="win"></div>
-				</div>
-			</div>
+			<?=$table?>
 		</div>
 	</div>
 </div>

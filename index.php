@@ -34,29 +34,47 @@ require(ROOT . 'secure/config.php');
 $response = '';
 
 
+$users = $mysqli_db->query('select * from clubs where ClubID = 1', 100);
 
-$users = $mysqli_db->query('select * from users', 100);
+$table = '';
+$name = '';
 
 foreach($users as $usr){
 
-    $query = 'select * from bets where User = '.$usr['ID'];
+    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date';
     $user_bets = $mysqli_db->query($query, 100);
+    $form = '<div class="form">';
+
+    $ub_won = 0;
+    $usr_total = 0;
+
     foreach($user_bets as $ub){
-        $ub_won
-        $ub_lost
+
+        if($ub['Result'] == "Win") {
+            $ub_won += $ub['Amount']*$ub['Odds'];
+            $form .= '<div class="win"></div>';
+        } else if ($ub['Result'] == "Loss") {
+            $form .= '<div class="loss"></div>';
+        }
+        $usr_total += $ub['Amount'];
+
+    }
+    $form .= '</div>';
+
+
+    $queryName = 'select * from users where ID = '.$usr['UserID'];
+    $user_name = $mysqli_db->query($queryName, 10);
+    foreach($user_name as $un){
+        $name = $un['Name'];
     }
 
-
-    $table = '<div class="leaderboard_content">
-        <h4>'.$usr.'</h4>
-        <h4>34%</h4>
-        <h4>$123</h4>
-        <h4>$34</h4>
-        <div class="form">
-            <div class="loss"></div>
-            <div class="win"></div>
-        </div>
-    </div>'
+    $table .= '<div class="leaderboard_content">
+        <h4>'.$name.'</h4>
+        <h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4>
+        <h4>$'.number_format((float)$usr_total, 2, '.', '').'</h4>
+        <h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4>
+        '.$form.'
+    </div>';
 
 }
 
@@ -67,6 +85,8 @@ $bets = $mysqli_db->query('select * from bets order by Date DESC', 100);
 
 $pending_bets = '';
 $resulted_bets = '';
+$total = 0;
+$totalWon = 0;
 
 foreach($bets as $bs){
 
