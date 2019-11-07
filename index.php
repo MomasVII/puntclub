@@ -32,7 +32,18 @@ require(ROOT . 'secure/config.php');
 
 //set default logic response
 $response = '';
+if (!empty($_POST['action'])) {
+    echo "2";
+    if ($_POST['action'] == 'new_bet') {
+        echo "3";
+    }
+}
 
+$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],
+                ["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
+                ["", -10, 31.15, -10, -10, -5, 29.50, -10, 7.15],
+                ["", -10, -3, -10, -10, -10, 29.50, -10, 4.80],
+                ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';
 
 $users = $mysqli_db->query('select * from clubs where ClubID = 1', 100);
 
@@ -50,11 +61,26 @@ $table = '<table id="table_id" class="display">
     </thead>
     <tbody>';
 
+
+$graph_title = '["Week';
+$graph_weeks = array();
+$weeks_count = 0;
+
 foreach($users as $usr){
 
-    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date';
+    $graph_title .= '", "';
+
+    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date desc';
     $user_bets = $mysqli_db->query($query, 100);
     $form = '<div class="form">';
+
+    //Get current betters real name
+    $queryName = 'select * from users where ID = '.$usr['UserID'];
+    $user_name = $mysqli_db->query($queryName, 10);
+    foreach($user_name as $un){
+        $name = $un['Name'];
+        $graph_title .= $name;
+    }
 
     $ub_won = 0;
     $usr_total = 0;
@@ -72,11 +98,6 @@ foreach($users as $usr){
     }
     $form .= '</div>';
 
-    $queryName = 'select * from users where ID = '.$usr['UserID'];
-    $user_name = $mysqli_db->query($queryName, 10);
-    foreach($user_name as $un){
-        $name = $un['Name'];
-    }
 
     $table .= '<tr>
             <td><h4>'.$name.'</h4></td>
@@ -85,8 +106,8 @@ foreach($users as $usr){
             <td><h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4></td>
             <td>'.$form.'</td>
         </tr>';
-
 }
+$graph_title .= '"],';
 
 $table .= '</tbody>
 </table>';
@@ -298,7 +319,7 @@ define('STYLES', '
     '.ROOT. 'web/style/bootstrap.min.css,
     '.ROOT. 'web/style/all.css,
     '.ROOT. 'web/style/typography.css,
-    '.ROOT. 'web/style/datatables.css,
+    '.ROOT. 'web/style/datatables.css
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA

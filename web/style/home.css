@@ -275,6 +275,29 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     background-color: #fafafa;
 }
 
+.tables_graphs_awards {
+    /*width:300%;
+    display:flex;*/
+}
+
+.dataTables_wrapper, .graphs {
+    /*width:33.333333%;*/
+}
+
+.line-chart {
+    height:100%;
+    width:20%;
+}
+
+.graphs {
+    display:flex;
+}
+
+#curve_chart {
+    width:100%;
+    height:100%;
+}
+
 /*---Current Bets---*/
 #new-bet a:hover {
     text-decoration: none;

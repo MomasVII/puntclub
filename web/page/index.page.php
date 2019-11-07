@@ -7,8 +7,8 @@
 		<!--a class="close" href="#"><i class="fas fa-times"></i></a-->
         <hr />
 		<div class="content">
-			<form>
-				<label class="form_label"><i class="fas fa-comment-dollar"></i>
+			<form id="new_bet_form" accept-charset="UTF-8" name="new_bet_form" action="<?=$shortcut->clean_uri($_SERVER['REQUEST_URI']);?>" method="post">
+				<label class="form_label"><i class="fas fa-user"></i>
 					<select class="form_text">
 						<option value="1">Simon Jackson</option>
 						<option value="2">Thomas Bye</option>
@@ -29,10 +29,10 @@
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
                     <input type="number" class="form_text" name="password" placeholder="Amount" />
                 </label>
-
+				<input type="hidden" name="action" value="new_bet"/>
                 <div class="sign_up_buttons">
                     <div class="gradient_button">
-                        <a href="#sign-up">
+                        <a href="" id="new_bet_submit">
                             <div class="button_content">
                                 <i class="fas fa-plus"></i>
                                 <div class="vertical_line"></div>
@@ -147,7 +147,7 @@
                     <p>Total Won: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
 					<p>Total Bet: $<?=number_format((float)$total, 2, '.', '')?></p>
                     <?=$roi?>
-                    <p>Bank: $000.00</p>
+                    <!--p>Bank: $000.00</p-->
                     <p>Total: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
                 </div>
             </div>
@@ -177,13 +177,14 @@
         </div>
     </div>
 </div>
+
 <div class="container-fluid table_container">
     <div class="row">
         <div class="col-md-12 table_col">
 			<div class="table_headers">
 				<h3 class="active">LEADERBOARD</h3>
-				<h3>GRAPHS</h3>
-				<h3>AWARDS</h3>
+				<!--h3>GRAPHS</h3>
+				<h3>AWARDS</h3-->
 			</div>
 			<!--div class="leaderboard_header">
 				<h4>Name</h4>
@@ -192,7 +193,12 @@
 				<h4>Won</h4>
 				<h4>Form</h4>
 			</div-->
-			<?=$table?>
+			<div class="tables_graphs_awards">
+				<?=$table?>
+				<!--div class="graphs">
+					<div id="curve_chart"></div>
+				</div-->
+			</div>
 		</div>
 	</div>
 </div>
@@ -287,3 +293,27 @@
   <!-- content end -->
 
 <?php require(FOOT); ?>
+<script type="text/javascript">
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			<?=$graph_title?>
+			["1", 		-5, 		16.80, 		-10, 	-10, 	-5, 		21.50, 	-5, 		-2],
+			["2", 		-10, 		31.15, 		-10, 	-10, 	-5, 		29.50, 	-10, 		7.15],
+			["3", 		-10, 		-3, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80],
+			["4", 		-10, 		-5, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80]
+		]);
+
+		var options = {
+			title: '',
+			curveType: 'none',
+			legend: { position: 'top' }
+		};
+
+		var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+		chart.draw(data, options);
+	}
+  </script>

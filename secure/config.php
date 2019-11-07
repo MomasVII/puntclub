@@ -13,7 +13,7 @@ $host = explode('.', $_SERVER['HTTP_HOST']);
 $sub_domain = array_shift($host);
 
 //db definition
-define('DB_HOST', '43.255.154.108');
+define('DB_HOST', '43.255.154.108'); //43.255.154.108
 define('DB_USER', 'MomasVII');
 define('DB_PASS', 'd4HTsv6!-5~`');
 define('DB_NAME', 'puntclub'); //local and dev share some storage and db endpoints
@@ -44,7 +44,7 @@ if ($sub_domain == 'local' || $sub_domain == 'sandbox') {
 } elseif ($sub_domain == 'puntclub') {
 
     //define environment as staging
-    define('ENVIRONMENT', 'puntclub');
+    define('ENVIRONMENT', 'stage');
 
     //define protocol
     define('PROTOCOL', 'http');

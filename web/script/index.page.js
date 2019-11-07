@@ -43,16 +43,21 @@ $(document).ready( function(){
         }
     });
 
-    $(document).ready( function () {
-        $('#table_id').DataTable({
-            paging: false,
-            searching: false,
-            "order": [[ 1, "desc" ]],
-            "bInfo" : false,
-            "columnDefs": [
-                { "orderable": false, "targets": 4 }
-            ]
-        });
-    } );
+    //Datatble for users
+    $('#table_id').DataTable({
+        paging: false,
+        searching: false,
+        "order": [[ 1, "desc" ]],
+        "bInfo" : false,
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ]
+    });
+
+
+    //Submit new bet form
+    $("#new_bet_submit").click(function(){
+         $("#new_bet_form").submit()
+    });
 
 });
