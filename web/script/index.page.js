@@ -43,10 +43,10 @@ $(document).ready( function(){
         }
     });
 
-    //Datatble for users
     $('#table_id').DataTable({
         paging: false,
         searching: false,
+        "responsive": true,
         "order": [[ 1, "desc" ]],
         "bInfo" : false,
         "columnDefs": [

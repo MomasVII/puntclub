@@ -116,22 +116,22 @@
         <p>Punt Club Management</p>
     </div>
     <div class="row home_buttons">
-        <div class="col-lg-3 main_button">
+        <div class="col-sm-3 main_button">
             <i class="fas fa-football-ball"></i>
             <h2>My Clubs</h2>
             <p>View and edit your existing clubs</p>
         </div>
-        <div class="col-lg-3 main_button">
+        <div class="col-sm-3 main_button">
             <i class="fas fa-users"></i>
             <h2>New Club</h2>
             <p>Start a new club</p>
         </div>
-        <div class="col-lg-3 main_button">
+        <div class="col-sm-3 main_button">
             <i class="fas fa-trophy"></i>
             <h2>My Awards</h2>
             <p>View your accomplishments</p>
         </div>
-        <div class="col-lg-3 main_button">
+        <div class="col-sm-3 main_button">
             <i class="fas fa-tools"></i>
             <h2>Club Settings</h2>
             <p>Change your club settings</p>
@@ -207,7 +207,7 @@
         <div class="col-md-9">
 			<h3>CURRENT BETS</h3>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-3 chat_header">
 			<h3>CHAT</h3>
 		</div>
 		<div class="col-md-9">
