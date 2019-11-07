@@ -43,16 +43,16 @@ $(document).ready( function(){
         }
     });
 
-    $(document).ready( function () {
-        $('#table_id').DataTable({
-            paging: false,
-            searching: false,
-            "order": [[ 1, "desc" ]],
-            "bInfo" : false,
-            "columnDefs": [
-                { "orderable": false, "targets": 4 }
-            ]
-        });
-    } );
+    $('#table_id').DataTable({
+        paging: false,
+        searching: false,
+        "responsive": true,
+        "order": [[ 1, "desc" ]],
+        "bInfo" : false,
+        "columnDefs": [
+            { "orderable": false, "targets": 4 }
+        ]
+    });
+
 
 });

@@ -294,7 +294,7 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 }
 .bet_slip_container {
     width:32%;
-    margin-bottom:2%;%
+    margin-bottom:2%;
 }
 .bet_slip_container:nth-child(3n+2) {
     margin-left:1.33333%;
@@ -455,4 +455,74 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     color:black;
     font-size:10px;
     margin:0;
+}
+
+
+
+@media (max-width: 768px) {
+
+    /*Header*/
+    .login_container {
+        justify-content: space-around;
+    }
+    .punt_club_banner {
+        margin: 40px 0;
+        text-align: center;
+    }
+    .punt_club_banner h1 {
+        font-size: 40px;
+        line-height:40px;
+    }
+    .home_container {
+        height: 100%;
+    }
+    .main_button {
+        width:25% !important;
+        padding-top:10px;
+        padding-bottom:10px;
+        border-left: none;
+        border-right: none;
+    }
+    .main_button i {
+        margin: 10px 0;
+        font-size: 15px;
+    }
+    .main_button h2 {
+        font-size: 8px;
+        font-family: 'Montserrat-Medium';
+    }
+    .main_button p {
+        display:none;
+    }
+
+    /*Club Details*/
+    .club_details h1 {
+        font-size: 27px;
+    }
+    .tabs_col {
+        display:none;
+    }
+
+    /*Datatable*/
+    table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child {
+        padding-left: 30px !important;
+    }
+    tr h4 {
+        font-size:10px;
+        white-space: nowrap;
+    }
+
+
+    /*Bet Slips*/
+    .bet_slip_container {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .bet_slip_container:nth-child(3n+2) {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    .chat_header {
+        display:none;
+    }
 }

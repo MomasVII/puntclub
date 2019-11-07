@@ -299,6 +299,7 @@ define('STYLES', '
     '.ROOT. 'web/style/all.css,
     '.ROOT. 'web/style/typography.css,
     '.ROOT. 'web/style/datatables.css,
+    '.ROOT. 'web/style/responsive.dataTables.min.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
@@ -316,7 +317,8 @@ define('HEAD_JS', '
 define('FOOT_JS', '
     '.ROOT.'web/script/index.page.js,
     '.ROOT.'web/script/bootstrap.min.js,
-    '.ROOT.'web/script/datatables.js
+    '.ROOT.'web/script/datatables.js,
+    '.ROOT.'web/script/dataTables.responsive.min.js
 ');
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
