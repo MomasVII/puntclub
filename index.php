@@ -302,9 +302,9 @@ define('STYLES', '
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
-define('HEAD_JS', ''
-    //.ROOT.'web/css/YOUR_HEADER_JS_HERE.js,
-);
+define('HEAD_JS', '
+    '.ROOT.'web/script/jquery-3.2.1.min.js,
+');
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -314,8 +314,6 @@ define('HEAD_JS', ''
 
 //define the individual page javascript that runs at the end of the page - delimiter: COMMA
 define('FOOT_JS', '
-
-    '.ROOT.'web/script/jquery-3.2.1.min.js,
     '.ROOT.'web/script/index.page.js,
     '.ROOT.'web/script/bootstrap.min.js,
     '.ROOT.'web/script/datatables.js
