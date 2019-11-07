@@ -17,6 +17,15 @@
 --------------------------------------------------------------*/
 $(document).ready( function(){
 
+    $('.new_bet_btn').click(function() {
+        $('#new-bet').fadeIn('fast');
+        $('#new-bet .popup').animate({top:0},{duration:600});
+    });
+    $('.cancel_new-bet').click(function() {
+        $('#new-bet').fadeOut('fast');
+        $('#new-bet .popup').animate({top:"110vh"},{duration:400});
+    });
+
     $('.tab_headers h3').click(function() {
         $('.tab_headers h3').removeClass("active");
         $(this).addClass("active");
@@ -56,8 +65,8 @@ $(document).ready( function(){
 
 
     //Submit new bet form
-    $("#new_bet_submit").click(function(){
-         $("#new_bet_form").submit()
-    });
+    /*$("#new_bet_submit").click(function(){
+         $("#submit_me").click();
+    });*/
 
 });

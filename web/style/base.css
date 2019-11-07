@@ -15,7 +15,43 @@
   # Reset
 --------------------------------------------------------------*/
 
+/*---File Upload Buttton---*/
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 14px;
+    color: white;
+    background-color:#777;
+    display: inline-block;
+    cursor: pointer; /* "hand" cursor */
+    cursor: pointer;
+    padding: 4px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: grey;
+}
+
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
 /*---Button Styles---*/
+button {
+    background: none;
+    border: none;
+}
+
 .gradient_button {
     height:30px;
     border:none;
@@ -67,31 +103,25 @@
 
 /*---Popup---*/
 .overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index:1000;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-.overlay:target {
-  visibility: visible;
-  opacity: 1;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index:1000;
+    background: rgba(0, 0, 0, 0.7);
+    display:none;
 }
 
 .popup {
-  margin: 70px auto;
-  padding: 15px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  min-width:400px;
-  position: relative;
-  transition: all 5s ease-in-out;
+    position: absolute;
+    top:110vh;
+    margin: 70px auto;
+    padding: 15px;
+    background: #fff;
+    width: 100%;
+    max-width:400px;
+    position: relative;
 }
 
 .popup .content {

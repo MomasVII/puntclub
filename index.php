@@ -33,17 +33,67 @@ require(ROOT . 'secure/config.php');
 //set default logic response
 $response = '';
 if (!empty($_POST['action'])) {
-    echo "2";
-    if ($_POST['action'] == 'new_bet') {
-        echo "3";
+    if ($_POST['action'] == 'thumb_up') {
+        $update_data = array(
+            'Result' => 'Win',
+        );
+        $mysqli_db->where('ID', $_POST['bet_id']);
+        $update_result = $mysqli_db->update('bets', $update_data);
+    } else if ($_POST['action'] == 'thumb_down') {
+        $update_data = array(
+            'Result' => 'Loss',
+        );
+        $mysqli_db->where('ID', $_POST['bet_id']);
+        $update_result = $mysqli_db->update('bets', $update_data);
+    } else if ($_POST['action'] == 'undo') {
+        $update_data = array(
+            'Result' => 'Pending',
+        );
+        $mysqli_db->where('ID', $_POST['bet_id']);
+        $update_result = $mysqli_db->update('bets', $update_data);
+    } else if ($_POST['action'] == 'new_bet') {
+
+        /*--Upload bet slip image--*/
+        /*$target_dir = "web/uploads/";
+        $target_file = $target_dir . basename($_FILES["bet"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if image file is a actual image or fake image
+        $check = getimagesize($_FILES["bet"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }*/
+
+
+        $date = new DateTime();
+
+        if($_POST['description'] == "") {
+            $desc = 'None';
+        } else {
+            $desc = $_POST['description'];
+        }
+
+        $insert_data = array(
+            'User' => $_POST['user'],
+            'Amount' => $_POST['amount'],
+            'Odds' => $_POST['odds'],
+            'Description' => $desc,
+            'Result' => 'Pending',
+            'Date' => $date->format('Y-m-d H:i:s')
+        );
+        $insert_result = $mysqli_db->insert('bets', $insert_data);
     }
 }
 
-$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],
+/*$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],
                 ["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
                 ["", -10, 31.15, -10, -10, -5, 29.50, -10, 7.15],
                 ["", -10, -3, -10, -10, -10, 29.50, -10, 4.80],
-                ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';
+                ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';*/
 
 $users = $mysqli_db->query('select * from clubs where ClubID = 1', 100);
 
@@ -201,15 +251,45 @@ foreach($bets as $bs){
 
     if($bs['Result'] == "Win") {
         $profit =  '<div class="winner_detail">
+                        <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
+                            <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
+                            <input type="hidden" name="action" value="undo"/>
+                            <button type="submit">
+                                <i class="fas fa-undo undo_green"></i>
+                            </button>
+                        </form>
                         <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
+                        <div class="spacing"><i class="fas fa-undo undo"></i></div>
                     </div>';
     } else if($bs['Result'] == "Loss") {
         $profit =  '<div class="loser_detail">
+                        <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
+                            <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
+                            <input type="hidden" name="action" value="undo"/>
+                            <button type="submit">
+                                <i class="fas fa-undo undo_red"></i>
+                            </button>
+                        </form>
                         <h3>-$'.number_format((float)$bs['Amount'], 2, '.', '').'</h3>
+                        <div class="spacing"><i class="fas fa-undo undo"></i></div>
                     </div>';
     } else if($bs['Result'] == "Pending") {
         $profit =  '<div class="pending_detail">
+                        <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
+            				<input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
+            				<input type="hidden" name="action" value="thumb_up"/>
+                            <button type="submit">
+                                <i class="fas fa-thumbs-up thumbs_up"></i>
+                            </button>
+                        </form>
                         <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
+                        <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
+            				<input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
+            				<input type="hidden" name="action" value="thumb_down"/>
+                            <button type="submit">
+                                <i class="fas fa-thumbs-down thumbs_down"></i>
+                            </button>
+                        </form>
                     </div>';
     }
 

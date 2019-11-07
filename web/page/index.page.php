@@ -7,9 +7,9 @@
 		<!--a class="close" href="#"><i class="fas fa-times"></i></a-->
         <hr />
 		<div class="content">
-			<form id="new_bet_form" accept-charset="UTF-8" name="new_bet_form" action="<?=$shortcut->clean_uri($_SERVER['REQUEST_URI']);?>" method="post">
+			<form id="new_bet_form" accept-charset="UTF-8" enctype="multipart/form-data" name="new_bet_form" action="<?=$shortcut->clean_uri($_SERVER['REQUEST_URI']);?>" method="post">
 				<label class="form_label"><i class="fas fa-user"></i>
-					<select class="form_text">
+					<select class="form_text" name="user">
 						<option value="1">Simon Jackson</option>
 						<option value="2">Thomas Bye</option>
 						<option value="3">Lachlan Pound</option>
@@ -21,29 +21,33 @@
 					</select>
                 </label>
                 <label class="form_label"><i class="fas fa-comment-dollar"></i>
-                    <input type="text" class="form_text" name="name" placeholder="Description" />
+                    <input type="text" class="form_text" name="description" placeholder="Description" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input type="number" class="form_text" name="email" placeholder="Odds" />
+                    <input required type="number" class="form_text" name="odds" placeholder="Odds" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input type="number" class="form_text" name="password" placeholder="Amount" />
+                    <input required type="number" class="form_text" name="amount" placeholder="Amount" />
                 </label>
+				<!--label class="form_label">
+                    <input type="file" name="bet" id="file" class="inputfile">
+					<label for="file">Bet Slip Screenshot</label>
+                </label-->
 				<input type="hidden" name="action" value="new_bet"/>
                 <div class="sign_up_buttons">
-                    <div class="gradient_button">
-                        <a href="" id="new_bet_submit">
-                            <div class="button_content">
-                                <i class="fas fa-plus"></i>
-                                <div class="vertical_line"></div>
-                                <h5>Add Bet</h5>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cancel_sign-up">
-                        <a href="#">
-                            <p>Cancel</p>
-                        </a>
+					<button type="submit">
+	                    <div class="gradient_button">
+	                        <a href="" id="new_bet_submit">
+	                            <div class="button_content">
+	                                <i class="fas fa-plus"></i>
+	                                <div class="vertical_line"></div>
+	                                <h5>Add Bet</h5>
+	                            </div>
+	                        </a>
+	                    </div>
+					</button>
+                    <div class="cancel_new-bet">
+                        <p>Cancel</p>
                     </div>
                 </div>
             </form>
@@ -213,17 +217,15 @@
 		<div class="col-md-9">
 			<div class="bets_container">
 				<?=$pending_bets;?>
-				<div class="bet_slip_container" id="new-bet">
-					<a href="#new-bet">
-			            <div class="vertical_gradient">
-			                <div class="bet_slip new_bet">
-								<i class="fas fa-plus"></i>
-			                </div>
-							<div class="pending_detail">
-					        	<h3>Add New Bet</h3>
-					        </div>
-			            </div>
-					</a>
+				<div class="bet_slip_container new_bet new_bet_btn">
+		            <div class="vertical_gradient">
+		                <div class="bet_slip new_bet">
+							<i class="fas fa-plus"></i>
+		                </div>
+						<div class="pending_detail">
+				        	<h3>Add New Bet</h3>
+				        </div>
+		            </div>
 		        </div>
 			</div>
 			<h3 class="resulted_header">RESULTED BETS</h3>
@@ -274,22 +276,7 @@
 		</div>
 	</div>
 </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+
   <!-- content end -->
 
 <?php require(FOOT); ?>

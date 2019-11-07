@@ -98,6 +98,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
     padding-left:7px;
     height:100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -299,7 +300,7 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 }
 
 /*---Current Bets---*/
-#new-bet a:hover {
+.new_bet a:hover {
     text-decoration: none;
 }
 .bets_container {
@@ -350,6 +351,22 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 .pending_detail {
     background-color:#CCC;
     text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.pending_detail i {
+    color:white;
+    text-shadow:1px 1px 6px rgba(0,0,0,0.3);
+    cursor:pointer;
+}
+.undo_green {
+    color:#2bca17;
+    cursor:pointer;
+}
+.undo_red {
+    color:#f3494b;
+    cursor:pointer;
 }
 .pending_detail h3 {
     color:white;
@@ -358,9 +375,24 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     margin:0;
     text-shadow:1px 1px 6px rgba(0,0,0,0.3);
 }
+.thumbs_up:hover {
+    color:#81d576;
+    text-shadow:1px 1px 6px white;
+}
+.thumbs_down:hover {
+    color:#f87c7d;
+    text-shadow:1px 1px 6px white;
+}
+.undo:hover {
+    color:#777;
+    text-shadow:1px 1px 6px white;
+}
 .winner_detail {
     background-color:#81d576;
     text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .winner_detail h3 {
     color:white;
@@ -372,6 +404,9 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 .loser_detail {
     background-color:#f87c7d;
     text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .loser_detail h3 {
     color:white;
@@ -379,6 +414,10 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     padding:5px 0;
     margin:0;
     text-shadow:1px 1px 6px rgba(0,0,0,0.3);
+}
+.spacing {
+    opacity:0;
+    visibility: hidden;
 }
 .bet_slip h3 {
     font-size:16px;
@@ -508,10 +547,10 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     }
     .main_button i {
         margin: 10px 0;
-        font-size: 15px;
+        font-size: 20px;
     }
     .main_button h2 {
-        font-size: 8px;
+        font-size: 10px;
         font-family: 'Montserrat-Medium';
     }
     .main_button p {
@@ -537,6 +576,15 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 
 
     /*Bet Slips*/
+    .new_bet {
+        display:none;
+    }
+    .bet_slip hr {
+        margin: 2% 0;
+    }
+    .bet_slip p {
+        margin-bottom: 0px;
+    }
     .bet_slip_container {
         width: 100%;
         margin-bottom: 20px;
