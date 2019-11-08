@@ -206,7 +206,7 @@ $table .= '</tbody>
 
 
 
-$bets = $mysqli_db->query('select * from bets order by Date DESC', 100);
+$bets = $mysqli_db->query('select * from bets where Club = 1 order by Date DESC', 100);
 
 $pending_bets = '';
 $resulted_bets = '';
@@ -363,7 +363,7 @@ foreach($bets as $bs){
 }
 
 if(($totalWon/$total)*100 > 100) {
-    $roi = '<p class="green">ROI: <span><?=number_format((float)(($totalWon/$total)*100), 2, ".", "")?>%</span></p>';
+    $roi = '<p class="green">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
 } else if(($totalWon/$total)*100 < 100) {
     $roi = '<p class="red">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
 }
@@ -401,6 +401,7 @@ define('STYLES', '
     '.ROOT. 'web/style/typography.css,
     '.ROOT. 'web/style/datatables.css,
     '.ROOT. 'web/style/responsive.dataTables.min.css,
+    '.ROOT. 'web/style/gradientbutton.css
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
