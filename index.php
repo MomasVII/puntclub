@@ -16,11 +16,10 @@ define('ROOT', '');
 define('LOCAL', '');
 
 //name the framework libraries you need in scope (cross dependencies mean the order matters)
-$required_libraries = array();
+$required_libraries = array('upload');
 
 //name the site classes you need in scope
-$required_classes = array(
-);
+$required_classes = array();
 
 //initialize the framework
 require(ROOT . 'secure/config.php');
