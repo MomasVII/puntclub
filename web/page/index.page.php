@@ -33,10 +33,10 @@
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
                     <input required type="text" class="form_text" name="amount" placeholder="Amount" />
                 </label>
-				<!--label class="form_label">
+				<label class="form_label">
                     <input type="file" name="bet" id="file" class="inputfile">
 					<label for="file">Bet Slip Screenshot</label>
-                </label-->
+                </label>
 				<input type="hidden" name="action" value="new_bet"/>
                 <div class="sign_up_buttons">
 					<button type="submit">

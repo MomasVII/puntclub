@@ -53,19 +53,30 @@ if (!empty($_POST['action'])) {
     } else if ($_POST['action'] == 'new_bet') {
 
         /*--Upload bet slip image--*/
-        /*$target_dir = "web/uploads/";
-        $target_file = $target_dir . basename($_FILES["bet"]["name"]);
-        $uploadOk = 1;
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-        // Check if image file is a actual image or fake image
-        $check = getimagesize($_FILES["bet"]["tmp_name"]);
-        if($check !== false) {
-            echo "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image.";
-            $uploadOk = 0;
-        }*/
+        if(isset($_FILES) && !empty($_FILES)){
+            //set the destination directory
+            $upload->set_destination(LOCAL.'web/uploads');
+
+            //start the upload
+            $upload->file($_FILES['bet']);
+
+            $upload->create_new_filename('abs');
+
+            //set maximum file size in megabytes
+            $upload->set_max_file_size(1);
+
+            //set allowed mime types as array TODO:Turn back on and get working
+            //$upload->set_allowed_mime_types(array('image/png', 'image/jpeg'));
+
+            $result = $upload->upload(); //set true to retain original file name
+
+            if($result['status']){
+                $print = '<p>Validated upload succeeded.</p>';
+                //print_r($result); //uncomment to see raw data output
+            }else{
+                $print = '<p>Validated upload failed.</p>';
+            }
+        }
 
 
         $date = new DateTime();

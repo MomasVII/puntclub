@@ -283,12 +283,16 @@
 
 
         //create a unique file name
-        private function create_new_filename(){
+        public function create_new_filename($file_name = ''){
+
+            if(empty($file_name)){
+                $file_name = sha1(mt_rand(1, 9999).$this->_destination.uniqid());
+            }
 
             //retain the original file extension
             $ext = pathinfo($this->_file_post['name'], PATHINFO_EXTENSION);
             //set the file name
-            $this->_filename = sha1(mt_rand(1, 9999).$this->_destination.uniqid()).'.'.$ext;
+            $this->_filename = $file_name.'.'.$ext;
         }
 
 

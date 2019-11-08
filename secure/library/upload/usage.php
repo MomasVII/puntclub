@@ -71,6 +71,8 @@ $print = '';
         //start the upload
         $upload->file($_FILES['test']);
 
+        $upload->create_new_filename('abs');
+
         //set maximum file size in megabytes
         $upload->set_max_file_size(1);
 
