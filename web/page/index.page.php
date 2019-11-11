@@ -33,10 +33,11 @@
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
                     <input required type="number" class="form_text" step="0.10" name="amount" placeholder="Amount" />
                 </label>
-				<!--label class="form_label">
+				<label class="form_label">
                     <input type="file" name="bet" id="file" class="inputfile">
-					<label for="file">Bet Slip Screenshot</label>
-                </label-->
+					<label for="file"><i class="fas fa-folder-open"></i> Bet Slip Screenshot</label>
+                </label>
+				<label><input name="bonusbet" class="form-checkbox" type="checkbox" /> <span>Bonus Bet</span></label>
 				<input type="hidden" name="action" value="new_bet"/>
                 <div class="sign_up_buttons">
 					<button type="submit">

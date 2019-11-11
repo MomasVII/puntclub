@@ -283,9 +283,9 @@
 
 
         //create a unique file name
-        public function create_new_filename($file_name = ''){
+        public function create_new_filename($file_name = null){
 
-            if(empty($file_name)){
+            if($file_name != null){
                 $file_name = sha1(mt_rand(1, 9999).$this->_destination.uniqid());
             }
 
