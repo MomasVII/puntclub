@@ -87,14 +87,22 @@ if (!empty($_POST['action'])) {
             $desc = $_POST['description'];
         }
 
+        if($_POST['bonusbet']) {
+            $bb = 'Yes';
+        } else {
+            $bb = 'No';
+        }
+
         $insert_data = array(
             'User' => $_POST['user'],
             'Amount' => $_POST['amount'],
             'Odds' => $_POST['odds'],
             'Description' => $desc,
             'Result' => 'Pending',
+            'BonusBet' => 'test',
             'Date' => $date->format('Y-m-d H:i:s')
         );
+        print_r($insert_data);
         $insert_result = $mysqli_db->insert('bets', $insert_data);
     }
 }
@@ -147,13 +155,15 @@ foreach($users as $usr){
 
     foreach($user_bets as $ub){
 
-        if($ub['Result'] == "Win") {
-            $ub_won += $ub['Amount']*$ub['Odds'];
-            $form .= '<div class="win"></div>';
-        } else if ($ub['Result'] == "Loss") {
-            $form .= '<div class="loss"></div>';
+        if($ub['BonusBet'] == "No") {
+            if($ub['Result'] == "Win") {
+                $ub_won += $ub['Amount']*$ub['Odds'];
+                $form .= '<div class="win"></div>';
+            } else if ($ub['Result'] == "Loss") {
+                $form .= '<div class="loss"></div>';
+            }
+            $usr_total += $ub['Amount'];
         }
-        $usr_total += $ub['Amount'];
 
     }
     $form .= '</div>';
