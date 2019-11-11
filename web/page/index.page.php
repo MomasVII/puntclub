@@ -20,23 +20,23 @@
 						<option value="8">Tom Dann</option>
 					</select>
                 </label>
-				<div class="form-group">
+				<!--div class="form-group">
 					<label class="form-label" for="desc"><i class="fas fa-comment-dollar"></i>&nbsp;&nbsp;Description</label>
 					<input id="desc" class="form-input" name="description" type="text" />
-				</div>
+				</div-->
                 <label class="form_label"><i class="fas fa-comment-dollar"></i>
                     <input type="text" class="form_text" name="description" placeholder="Description" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input required type="text" class="form_text" name="odds" placeholder="Odds" />
+                    <input required type="number" class="form_text" step="0.10" name="odds" placeholder="Odds" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input required type="text" class="form_text" name="amount" placeholder="Amount" />
+                    <input required type="number" class="form_text" step="0.10" name="amount" placeholder="Amount" />
                 </label>
-				<label class="form_label">
+				<!--label class="form_label">
                     <input type="file" name="bet" id="file" class="inputfile">
 					<label for="file">Bet Slip Screenshot</label>
-                </label>
+                </label-->
 				<input type="hidden" name="action" value="new_bet"/>
                 <div class="sign_up_buttons">
 					<button type="submit">

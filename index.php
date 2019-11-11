@@ -52,7 +52,7 @@ if (!empty($_POST['action'])) {
         $update_result = $mysqli_db->update('bets', $update_data);
     } else if ($_POST['action'] == 'new_bet') {
 
-        /*--Upload bet slip image--*/
+        /*--Upload bet slip image--
         if(isset($_FILES) && !empty($_FILES)){
             //set the destination directory
             $upload->set_destination(LOCAL.'web/uploads');
@@ -76,7 +76,7 @@ if (!empty($_POST['action'])) {
             }else{
                 $print = '<p>Validated upload failed.</p>';
             }
-        }
+        }*/
 
 
         $date = new DateTime();
@@ -93,9 +93,13 @@ if (!empty($_POST['action'])) {
             'Odds' => $_POST['odds'],
             'Description' => $desc,
             'Result' => 'Pending',
+            'Club' => 1,
             'Date' => $date->format('Y-m-d H:i:s')
         );
+        //print_r($insert_data);
         $insert_result = $mysqli_db->insert('bets', $insert_data);
+
+        //if($insert_result) { echo 'good'; } else { echo 'bad'; }
     }
 }
 
