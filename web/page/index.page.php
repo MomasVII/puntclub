@@ -28,10 +28,10 @@
                     <input type="text" class="form_text" name="description" placeholder="Description" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input required type="text" class="form_text" name="odds" placeholder="Odds" />
+                    <input required type="number" class="form_text" step="0.10" name="odds" placeholder="Odds" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input required type="text" class="form_text" name="amount" placeholder="Amount" />
+                    <input required type="number" class="form_text" step="0.10" name="amount" placeholder="Amount" />
                 </label>
 				<label class="form_label">
                     <input type="file" name="bet" id="file" class="inputfile">

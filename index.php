@@ -26,6 +26,56 @@ require(ROOT . 'secure/config.php');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// WEBHOOK ///////////////////////////////
+
+/* validate verify token needed for setting up web hook */
+if (isset($_GET['hub_verify_token'])) {
+    if ($_GET['hub_verify_token'] === 'my_stupid_verify_token') {
+        echo $_GET['hub_challenge'];
+        return;
+    } else {
+        echo 'Invalid Verify Token';
+        return;
+    }
+}
+
+/* receive and send messages */
+$input = json_decode(file_get_contents('php://input'), true);
+if (isset($input['entry'][0]['messaging'][0]['sender']['id'])) {
+
+    $sender = $input['entry'][0]['messaging'][0]['sender']['id']; //sender facebook id
+    $message = $input['entry'][0]['messaging'][0]['message']['text']; //text that user sent
+
+    $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAEFv4dNPCybOTUHz7sD6illKMcoW1xghbuZCdYNPV5qLqhKt7zafINZBlrcameSq9fJYJ2YZB9ewt27s6BrJFn46nPLZAKwD1IhagzK9UEzOeTE60tMGiYkvzxHAFCVRmPs2Lu7Egcg6razk5M79DiTLZCvWHEQZDZD';
+
+    /*initialize curl*/
+    $ch = curl_init($url);
+    /*prepare response*/
+    $jsonData = '{
+    "recipient":{
+        "id":"' . $sender . '"
+        },
+        "message":{
+            "text":"Your sender id is' . $sender . '"
+        }
+    }';
+    /* curl setting to send a json post data */
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    if (!empty($message)) {
+        $result = curl_exec($ch); // user will get the message
+    }
+
+    /*if($message == "Add Me") {
+        $update_chatid = array(
+            'ChatID' => $sender,
+        );
+        $mysqli_db->where('ID', 1);
+        $update_chatid_result = $mysqli_db->update('users', $update_chatid);
+    }*/
+
+}
 
 // WEBHOOK ///////////////////////////////
 
@@ -97,7 +147,7 @@ if (!empty($_POST['action'])) {
         $update_result = $mysqli_db->update('bets', $update_data);
     } else if ($_POST['action'] == 'new_bet') {
 
-        /*--Upload bet slip image--*/
+        /*--Upload bet slip image--
         if(isset($_FILES) && !empty($_FILES)){
             //set the destination directory
             $upload->set_destination(LOCAL.'web/uploads');
@@ -121,7 +171,7 @@ if (!empty($_POST['action'])) {
             }else{
                 $print = '<p>Validated upload failed.</p>';
             }
-        }
+        }*/
 
 
         $date = new DateTime();
@@ -150,9 +200,71 @@ if (!empty($_POST['action'])) {
         );
         //print_r($insert_data);
         $insert_result = $mysqli_db->insert('bets', $insert_data);
+
+
+        //Send message
+
+        $users_to_message = $mysqli_db->query('select * from users', 100);
+        foreach($users_to_message as $utm){
+
+            $sender = $utm['ChatID']; //sender facebook id
+            if($sender != "") {
+
+                switch ($_POST['user']) {
+                    case '1':
+                        $user_bet = 'Simon Jackson';
+                        break;
+                    case '2':
+                        $user_bet = 'Thomas Bye';
+                        break;
+                    case '3':
+                        $user_bet = 'Lachlan Pound';
+                        break;
+                    case '4':
+                        $user_bet = 'Alistair Holiday';
+                        break;
+                    case '5':
+                        $user_bet = 'Angus Hillman';
+                        break;
+                    case '6':
+                        $user_bet = 'Calvin Bransdon';
+                        break;
+                    case '7':
+                        $user_bet = 'Joel Leegood';
+                        break;
+                    case '8':
+                        $user_bet = 'Tom Dann';
+                        break;
+                }
+                $total_winning = $_POST['amount']*$_POST['odds'];
+                $message = $user_bet." just placed a bet of $".$_POST['amount']." at $".$_POST['odds'].". That's a potential return of $".$total_winning."! ".$_POST['description']; //text that user sent
+
+                $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAEFv4dNPCybOTUHz7sD6illKMcoW1xghbuZCdYNPV5qLqhKt7zafINZBlrcameSq9fJYJ2YZB9ewt27s6BrJFn46nPLZAKwD1IhagzK9UEzOeTE60tMGiYkvzxHAFCVRmPs2Lu7Egcg6razk5M79DiTLZCvWHEQZDZD';
+
+                /*initialize curl*/
+                $ch = curl_init($url);
+                /*prepare response*/
+                $jsonData = '{
+                "recipient":{
+                    "id":"' . $sender . '"
+                    },
+                    "message":{
+                        "text":"' . $message . '"
+                    }
+                }';
+                /* curl setting to send a json post data */
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                if (!empty($message)) {
+                    $result = curl_exec($ch); // user will get the message
+                }
+            }
+        }
+
+        //if($insert_result) { echo 'good'; } else { echo 'bad'; }
     }
 }
-
 /*$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],
                 ["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
                 ["", -10, 31.15, -10, -10, -5, 29.50, -10, 7.15],
