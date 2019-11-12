@@ -26,102 +26,6 @@ require(ROOT . 'secure/config.php');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// WEBHOOK ///////////////////////////////
-
-/* validate verify token needed for setting up web hook */
-if (isset($_GET['hub_verify_token'])) {
-    if ($_GET['hub_verify_token'] === 'my_stupid_verify_token') {
-        echo $_GET['hub_challenge'];
-        return;
-    } else {
-        echo 'Invalid Verify Token';
-        return;
-    }
-}
-
-/* receive and send messages */
-$input = json_decode(file_get_contents('php://input'), true);
-if (isset($input['entry'][0]['messaging'][0]['sender']['id'])) {
-
-    $sender = $input['entry'][0]['messaging'][0]['sender']['id']; //sender facebook id
-    $message = $input['entry'][0]['messaging'][0]['message']['text']; //text that user sent
-
-    $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAEFv4dNPCybOTUHz7sD6illKMcoW1xghbuZCdYNPV5qLqhKt7zafINZBlrcameSq9fJYJ2YZB9ewt27s6BrJFn46nPLZAKwD1IhagzK9UEzOeTE60tMGiYkvzxHAFCVRmPs2Lu7Egcg6razk5M79DiTLZCvWHEQZDZD';
-
-    /*initialize curl*/
-    $ch = curl_init($url);
-    /*prepare response*/
-    $jsonData = '{
-    "recipient":{
-        "id":"' . $sender . '"
-        },
-        "message":{
-            "text":"Your sender id is' . $sender . '"
-        }
-    }';
-    /* curl setting to send a json post data */
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    if (!empty($message)) {
-        $result = curl_exec($ch); // user will get the message
-    }
-
-    /*if($message == "Add Me") {
-        $update_chatid = array(
-            'ChatID' => $sender,
-        );
-        $mysqli_db->where('ID', 1);
-        $update_chatid_result = $mysqli_db->update('users', $update_chatid);
-    }*/
-
-}
-
-// WEBHOOK ///////////////////////////////
-
-/* validate verify token needed for setting up web hook */
-if (isset($_GET['hub_verify_token'])) {
-    if ($_GET['hub_verify_token'] === 'my_stupid_verify_token') {
-        echo $_GET['hub_challenge'];
-        return;
-    } else {
-        echo 'Invalid Verify Token';
-        return;
-    }
-}
-
-/* receive and send messages */
-$input = json_decode(file_get_contents('php://input'), true);
-if (isset($input['entry'][0]['messaging'][0]['sender']['id'])) {
-
-    $sender = $input['entry'][0]['messaging'][0]['sender']['id']; //sender facebook id
-    $message = $input['entry'][0]['messaging'][0]['message']['text']; //text that user sent
-
-    $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAEFv4dNPCybOTUHz7sD6illKMcoW1xghbuZCdYNPV5qLqhKt7zafINZBlrcameSq9fJYJ2YZB9ewt27s6BrJFn46nPLZAKwD1IhagzK9UEzOeTE60tMGiYkvzxHAFCVRmPs2Lu7Egcg6razk5M79DiTLZCvWHEQZDZD';
-
-    /*initialize curl*/
-    $ch = curl_init($url);
-    /*prepare response*/
-    $jsonData = '{
-    "recipient":{
-        "id":"' . $sender . '"
-        },
-        "message":{
-            "text":"You said, ' . $message . '"
-        }
-    }';
-    /* curl setting to send a json post data */
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    if (!empty($message)) {
-        $result = curl_exec($ch); // user will get the message
-    }
-    
-}
-
-
-
 // LOGIC ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //set default logic response
@@ -202,8 +106,7 @@ if (!empty($_POST['action'])) {
         $insert_result = $mysqli_db->insert('bets', $insert_data);
 
 
-        //Send message
-
+        //Send message to Facebook
         $users_to_message = $mysqli_db->query('select * from users', 100);
         foreach($users_to_message as $utm){
 
@@ -239,7 +142,7 @@ if (!empty($_POST['action'])) {
                 $total_winning = $_POST['amount']*$_POST['odds'];
                 $message = $user_bet." just placed a bet of $".$_POST['amount']." at $".$_POST['odds'].". That's a potential return of $".$total_winning."! ".$_POST['description']; //text that user sent
 
-                $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAEFv4dNPCybOTUHz7sD6illKMcoW1xghbuZCdYNPV5qLqhKt7zafINZBlrcameSq9fJYJ2YZB9ewt27s6BrJFn46nPLZAKwD1IhagzK9UEzOeTE60tMGiYkvzxHAFCVRmPs2Lu7Egcg6razk5M79DiTLZCvWHEQZDZD';
+                $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BACRboVZAQS6ajFHPpl2SqOVDzy2rrfIIaLHZCJtwlL9fLZAAFhbR2CEFiZC3HhUf1Y6AOfO0GtNWYvFRxosrxwT1bqnmeJD4ThFHZCK0ZCoK8PpZBawrZAMOFWWzwyVNUmEBo4pVRAX34JXmNvYGepjqsnVBK0HLWAZDZD';
 
                 /*initialize curl*/
                 $ch = curl_init($url);
@@ -503,10 +406,13 @@ foreach($bets as $bs){
             </div>
         </div>';
     } else if($bs['Result'] != "Pending") {
-        if($bs['Result'] != "Win") {
-            $totalWon += $bs['Amount'];
+
+        if($bs['BonusBet'] == "No") {
+            if($bs['Result'] != "Win") {
+                $totalWon += $bs['Amount'];
+            }
+            $total += $bs['Amount'];
         }
-        $total += $bs['Amount'];
         $resulted_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
                 <div class="bet_slip '.$winloss.'">
