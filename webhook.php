@@ -1,6 +1,12 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//configure relative location to root directory eg: '../' or ''
+define('ROOT', '');
+
+//initialize the framework
+require(ROOT . 'secure/config.php');
+
 // WEBHOOK ///////////////////////////////
 /* validate verify token needed for setting up web hook */
 if (isset($_GET['hub_verify_token'])) {
@@ -19,6 +25,24 @@ if (isset($input['entry'][0]['messaging'][0]['message'])) {
 
     $sender = $input['entry'][0]['messaging'][0]['sender']['id']; //sender facebook id
     $message = $input['entry'][0]['messaging'][0]['message']['text']; //text that user sent
+    $response = "Name not found. Please head to our website and sign-up first.";
+
+    $sql = 'select * from users where Name = "'.$message.'"';
+    $users_check = $mysqli_db->query($sql);
+
+    //Check if user matches user message
+    foreach($users_check as $uc){
+        if($uc['Name'] == $message) {
+            //If user found add chat ID
+            $update_data = array(
+                'ChatID' => 'asdfg',
+            );
+            $mysqli_db->where('Name', $message);
+            $update_result = $mysqli_db->update('users', $update_data);
+
+            $response = "Thank you. You will now receive updates when bets are placed.";
+        }
+    }
 
     $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BACRboVZAQS6ajFHPpl2SqOVDzy2rrfIIaLHZCJtwlL9fLZAAFhbR2CEFiZC3HhUf1Y6AOfO0GtNWYvFRxosrxwT1bqnmeJD4ThFHZCK0ZCoK8PpZBawrZAMOFWWzwyVNUmEBo4pVRAX34JXmNvYGepjqsnVBK0HLWAZDZD';
 
@@ -30,7 +54,7 @@ if (isset($input['entry'][0]['messaging'][0]['message'])) {
         "id":"' . $sender . '"
         },
         "message":{
-            "text":"Your sender id is ' . $sender . '"
+            "text":"' . $response . '"
         }
     }';
     /* curl setting to send a json post data */
