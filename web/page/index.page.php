@@ -9,7 +9,8 @@
 		<div class="content">
 			<form id="new_bet_form" accept-charset="UTF-8" enctype="multipart/form-data" name="new_bet_form" action="<?=$shortcut->clean_uri($_SERVER['REQUEST_URI']);?>" method="post">
 				<label class="form_label"><i class="fas fa-user"></i>
-					<select class="form_text" name="user">
+					<select required class="form_text" name="user">
+						<option value="">Please Select</option>
 						<option value="1">Simon Jackson</option>
 						<option value="2">Thomas Bye</option>
 						<option value="3">Lachlan Pound</option>

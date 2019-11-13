@@ -49,6 +49,9 @@ if (!empty($_POST['action'])) {
         );
         $mysqli_db->where('ID', $_POST['bet_id']);
         $update_result = $mysqli_db->update('bets', $update_data);
+    } else if ($_POST['action'] == 'delete') {
+        $mysqli_db->where('ID', $_POST['bet_id']);
+        $delete_result = $mysqli_db->delete('bets');
     } else if ($_POST['action'] == 'new_bet') {
 
         /*--Upload bet slip image--
@@ -287,7 +290,7 @@ $table .= '</tbody>
 
 
 
-$bets = $mysqli_db->query('select * from bets where Club = 1 order by Date DESC', 100);
+$bets = $mysqli_db->query('select * from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date DESC', 100);
 
 $pending_bets = '';
 $resulted_bets = '';
@@ -295,34 +298,6 @@ $total = 0;
 $totalWon = 0;
 
 foreach($bets as $bs){
-
-
-    switch ($bs['User']) {
-        case '1':
-            $user_bet = 'Simon Jackson';
-            break;
-        case '2':
-            $user_bet = 'Thomas Bye';
-            break;
-        case '3':
-            $user_bet = 'Lachlan Pound';
-            break;
-        case '4':
-            $user_bet = 'Alistair Holiday';
-            break;
-        case '5':
-            $user_bet = 'Angus Hillman';
-            break;
-        case '6':
-            $user_bet = 'Calvin Bransdon';
-            break;
-        case '7':
-            $user_bet = 'Joel Leegood';
-            break;
-        case '8':
-            $user_bet = 'Tom Dann';
-            break;
-    }
 
     if($bs['Description'] == "") { $desc = "None"; }
     else { $desc = $bs['Description']; }
@@ -352,7 +327,13 @@ foreach($bets as $bs){
                             </button>
                         </form>
                         <h3>-$'.number_format((float)$bs['Amount'], 2, '.', '').'</h3>
-                        <div class="spacing"><i class="fas fa-undo undo"></i></div>
+                        <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
+                            <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
+                            <input type="hidden" name="action" value="delete"/>
+                            <button type="submit">
+                                <i class="fas fa-times undo_red"></i>
+                            </button>
+                        </form>
                     </div>';
     } else if($bs['Result'] == "Pending") {
         $profit =  '<div class="pending_detail">
@@ -379,7 +360,7 @@ foreach($bets as $bs){
         $pending_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
                 <div class="bet_slip">
-                    <h3>'.$user_bet.'</h3>
+                    <h3>'.$bs['Name'].'</h3>
                     <hr />
                     <h5>Description:</h5>
                     <p>'.$desc.'</p>
@@ -416,7 +397,7 @@ foreach($bets as $bs){
         $resulted_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
                 <div class="bet_slip '.$winloss.'">
-                    <h3>'.$user_bet.'</h3>
+                    <h3>'.$bs['Name'].'</h3>
                     <hr />
                     <h5>Description:</h5>
                     <p>'.$desc.'</p>
