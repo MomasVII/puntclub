@@ -45,7 +45,7 @@
 
 
         //check and save uploaded file, returns data about current upload.
-        public function upload($retain_filename = false){
+        public function upload($retain_filename = null){
 
             //perform file check before saving
             if($this->check()){
@@ -134,7 +134,7 @@
             $this->create_new_filename();
 
             //check if we need to generate a new file name or use the same as uploaded
-            if($retain_filename){
+            if($retain_filename == null){
                 //do a quick file name sanitise
                 $clean_file_name = preg_replace(
                     array('/\s/', '/\.[\.]+/', '/[^\w_\.\-]/'),
@@ -145,7 +145,8 @@
                 $this->_file['filename'] = $clean_file_name;
             }else{
                 //set filename to state data
-                $this->_file['filename'] = $this->_filename;
+                $ext = pathinfo($this->_file_post['name'], PATHINFO_EXTENSION);
+                $this->_file['filename'] = $retain_filename.'.'.$ext;
             }
 
             //set full path to state data

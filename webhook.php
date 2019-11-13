@@ -35,7 +35,7 @@ if (isset($input['entry'][0]['messaging'][0]['message'])) {
         if($uc['Name'] == $message) {
             //If user found add chat ID
             $update_data = array(
-                'ChatID' => 'asdfg',
+                'ChatID' => $sender,
             );
             $mysqli_db->where('Name', $message);
             $update_result = $mysqli_db->update('users', $update_data);
