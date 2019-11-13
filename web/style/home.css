@@ -169,6 +169,9 @@
 }
 
 /*--Sign-up---*/
+.cancel_new-bet {
+    cursor:pointer;
+}
 .sign_up_buttons {
     display:flex;
     align-items:baseline;
@@ -315,6 +318,7 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     align-items:center;
     justify-content: center;
     color:#CCC;
+    cursor:pointer;
 }
 .bet_slip_container {
     width:32%;

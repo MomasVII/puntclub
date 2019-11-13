@@ -51,15 +51,13 @@ if (!empty($_POST['action'])) {
         $update_result = $mysqli_db->update('bets', $update_data);
     } else if ($_POST['action'] == 'new_bet') {
 
-        /*--Upload bet slip image--
+        /*--Upload bet slip image--*/
         if(isset($_FILES) && !empty($_FILES)){
             //set the destination directory
             $upload->set_destination(LOCAL.'web/uploads');
 
             //start the upload
-            $upload->file($_FILES['bet']);
-
-            $upload->create_new_filename('abs');
+            $upload->file($_FILES['file']);
 
             //set maximum file size in megabytes
             $upload->set_max_file_size(1);
@@ -67,7 +65,7 @@ if (!empty($_POST['action'])) {
             //set allowed mime types as array TODO:Turn back on and get working
             //$upload->set_allowed_mime_types(array('image/png', 'image/jpeg'));
 
-            $result = $upload->upload(); //set true to retain original file name
+            $result = $upload->upload($_FILES['file']['name']); //set true to retain original file name
 
             if($result['status']){
                 $print = '<p>Validated upload succeeded.</p>';
@@ -75,7 +73,7 @@ if (!empty($_POST['action'])) {
             }else{
                 $print = '<p>Validated upload failed.</p>';
             }
-        }*/
+        }
 
 
         $date = new DateTime();
@@ -85,8 +83,7 @@ if (!empty($_POST['action'])) {
         } else {
             $desc = $_POST['description'];
         }
-
-        if($_POST['bonusbet']) {
+        if(isset($_POST['bonusbet'])) {
             $bb = 'Yes';
         } else {
             $bb = 'No';
@@ -144,9 +141,9 @@ if (!empty($_POST['action'])) {
 
                 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BACRboVZAQS6ajFHPpl2SqOVDzy2rrfIIaLHZCJtwlL9fLZAAFhbR2CEFiZC3HhUf1Y6AOfO0GtNWYvFRxosrxwT1bqnmeJD4ThFHZCK0ZCoK8PpZBawrZAMOFWWzwyVNUmEBo4pVRAX34JXmNvYGepjqsnVBK0HLWAZDZD';
 
-                /*initialize curl*/
+                /*initialize curl
                 $ch = curl_init($url);
-                /*prepare response*/
+                /*prepare response
                 $jsonData = '{
                 "recipient":{
                     "id":"' . $sender . '"
@@ -155,13 +152,13 @@ if (!empty($_POST['action'])) {
                         "text":"' . $message . '"
                     }
                 }';
-                /* curl setting to send a json post data */
+                /* curl setting to send a json post data
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                 if (!empty($message)) {
                     $result = curl_exec($ch); // user will get the message
-                }
+                }*/
             }
         }
 

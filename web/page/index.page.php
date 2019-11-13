@@ -28,16 +28,18 @@
                     <input type="text" class="form_text" name="description" placeholder="Description" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input required type="number" class="form_text" step="0.10" name="odds" placeholder="Odds" />
+                    <input required type="number" class="form_text" step="0.01" name="odds" placeholder="Odds" />
                 </label>
                 <label class="form_label"><i class="fas fa-dollar-sign"></i>
-                    <input required type="number" class="form_text" step="0.10" name="amount" placeholder="Amount" />
+                    <input required type="number" class="form_text" step="0.01" name="amount" placeholder="Amount" />
                 </label>
 				<label class="form_label">
-                    <input type="file" name="bet" id="file" class="inputfile">
-					<label for="file"><i class="fas fa-folder-open"></i> Bet Slip Screenshot</label>
+					<input type="file" name="file" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+					<label for="file"><span><i class="fas fa-folder-open"></i> Bet Slip Screenshot</span></label>
                 </label>
-				<label><input name="bonusbet" class="form-checkbox" type="checkbox" /> <span>Bonus Bet</span></label>
+				<label class="form_label">
+					<input name="bonusbet" class="form-checkbox" type="checkbox" value="bb" /> <span>Bonus Bet</span>
+				</label>
 				<input type="hidden" name="action" value="new_bet"/>
                 <div class="sign_up_buttons">
 					<button type="submit">

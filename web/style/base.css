@@ -76,17 +76,17 @@ form { margin:0 !important; }
 
 .inputfile + label {
     font-size: 14px;
-    color: white;
-    background-color:#777;
+    color: #616161;
+    background-color:white;
     display: inline-block;
     cursor: pointer; /* "hand" cursor */
     cursor: pointer;
-    padding: 4px;
+    padding: 4px 4px 4px 0;
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-    background-color: grey;
+    text-decoration:underline;
 }
 
 
