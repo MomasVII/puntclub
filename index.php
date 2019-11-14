@@ -173,13 +173,19 @@ if (!empty($_POST['action'])) {
                 ["", -10, -3, -10, -10, -10, 29.50, -10, 4.80],
                 ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';*/
 
-
 // Get Club Details ////////////////////////////////////////////////////////////
 
 $myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
 $myClubID = $myClub[0]['ID'];
 $myClubname = $myClub[0]['Name'];
 $myClubStartDay = $myClub[0]['WeekStart'];
+
+
+// Get Up Next Betters /////////////////////////////////////////////////////////
+
+ //echo date("l"); get day
+//echo strtotime("last Monday");
+echo date('Y-m-d',strtotime('last monday'));
 
 // Build Datatable /////////////////////////////////////////////////////////////
 
