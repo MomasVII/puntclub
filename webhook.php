@@ -27,20 +27,61 @@ if (isset($input['entry'][0]['messaging'][0]['message'])) {
     $message = $input['entry'][0]['messaging'][0]['message']['text']; //text that user sent
     $response = "Name not found. Please head to our website and sign-up first.";
 
-    $sql = 'select * from users where Name = "'.$message.'"';
-    $users_check = $mysqli_db->query($sql);
 
-    //Check if user matches user message
-    foreach($users_check as $uc){
-        if($uc['Name'] == $message) {
-            //If user found add chat ID
-            $update_data = array(
-                'ChatID' => $sender,
-            );
-            $mysqli_db->where('Name', $message);
-            $update_result = $mysqli_db->update('users', $update_data);
+    if($message == "/help") {
 
-            $response = "Thank you. You will now receive updates when bets are placed.";
+        $response = "/captain: Print highest ROI.";
+
+    } else if($message == "/captain") {
+
+        //Get all users in club
+        $bestROI = 0;
+        $bestUser = '';
+
+        $users = $mysqli_db->query('select * from clubs inner join users ON clubs.UserID = users.ID where ClubID = 1', 100);
+        foreach($users as $usr){
+            $query = 'select * from bets where User = '.$usr['UserID'].' order by Date desc';
+            $user_bets = $mysqli_db->query($query, 100);
+
+            $ub_won = 0;
+            $usr_total = 0;
+
+            foreach($user_bets as $ub){
+
+                if($ub['BonusBet'] == "No") {
+                    if($ub['Result'] == "Win") {
+                        $ub_won += $ub['Amount']*$ub['Odds'];
+                    }
+                    $usr_total += $ub['Amount'];
+                }
+
+            }
+
+            $thisROI = (float)(($ub_won/$usr_total)*100);
+            if($thisROI > $bestROI) {
+                $bestROI = $thisROI;
+                $bestUser = $usr['Name'];
+            }
+        }
+
+        $response = "Look at me...".$bestUser." is the captain now. ROI: ".$bestROI."%.";
+    } else {
+
+        $sql = 'select * from users where Name = "'.$message.'"';
+        $users_check = $mysqli_db->query($sql);
+
+        //Check if user matches user message
+        foreach($users_check as $uc){
+            if($uc['Name'] == $message) {
+                //If user found add chat ID
+                $update_data = array(
+                    'ChatID' => $sender,
+                );
+                $mysqli_db->where('Name', $message);
+                $update_result = $mysqli_db->update('users', $update_data);
+
+                $response = "Thank you. You will now receive updates when bets are placed.";
+            }
         }
     }
 
