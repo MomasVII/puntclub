@@ -144,9 +144,9 @@ if (!empty($_POST['action'])) {
 
                 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BACRboVZAQS6ajFHPpl2SqOVDzy2rrfIIaLHZCJtwlL9fLZAAFhbR2CEFiZC3HhUf1Y6AOfO0GtNWYvFRxosrxwT1bqnmeJD4ThFHZCK0ZCoK8PpZBawrZAMOFWWzwyVNUmEBo4pVRAX34JXmNvYGepjqsnVBK0HLWAZDZD';
 
-                /*initialize curl
+                /* initialize curl */
                 $ch = curl_init($url);
-                /*prepare response
+                /* prepare response */
                 $jsonData = '{
                 "recipient":{
                     "id":"' . $sender . '"
@@ -155,17 +155,16 @@ if (!empty($_POST['action'])) {
                         "text":"' . $message . '"
                     }
                 }';
-                /* curl setting to send a json post data
+                /* curl setting to send a json post data */
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                 if (!empty($message)) {
                     $result = curl_exec($ch); // user will get the message
-                }*/
+                }
             }
         }
 
-        //if($insert_result) { echo 'good'; } else { echo 'bad'; }
     }
 }
 /*$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],
@@ -174,7 +173,17 @@ if (!empty($_POST['action'])) {
                 ["", -10, -3, -10, -10, -10, 29.50, -10, 4.80],
                 ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';*/
 
-$users = $mysqli_db->query('select * from clubs where ClubID = 1', 100);
+
+// Get Club Details ////////////////////////////////////////////////////////////
+
+$myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
+$myClubID = $myClub[0]['ID'];
+$myClubname = $myClub[0]['Name'];
+$myClubStartDay = $myClub[0]['WeekStart'];
+
+// Build Datatable /////////////////////////////////////////////////////////////
+
+$users = $mysqli_db->query('select * from clubusers where ClubID = 1', 100);
 
 $table = '';
 $name = '';
@@ -199,17 +208,14 @@ foreach($users as $usr){
 
     $graph_title .= '", "';
 
-    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date desc';
+    $query = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$usr['UserID'].' order by Date desc';
     $user_bets = $mysqli_db->query($query, 100);
     $form = '<div class="form">';
 
     //Get current betters real name
-    $queryName = 'select * from users where ID = '.$usr['UserID'];
-    $user_name = $mysqli_db->query($queryName, 10);
-    foreach($user_name as $un){
-        $name = $un['Name'];
-        $graph_title .= $name;
-    }
+    $name = $user_bets[0]['Name'];
+    $graph_title .= $name;
+
 
     $ub_won = 0;
     $usr_total = 0;
@@ -243,51 +249,12 @@ $graph_title .= '"],';
 $table .= '</tbody>
 </table>';
 
-/*foreach($users as $usr){
-
-    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date';
-    $user_bets = $mysqli_db->query($query, 100);
-    $form = '<div class="form">';
-
-    $ub_won = 0;
-    $usr_total = 0;
-
-    foreach($user_bets as $ub){
-
-        if($ub['Result'] == "Win") {
-            $ub_won += $ub['Amount']*$ub['Odds'];
-            $form .= '<div class="win"></div>';
-        } else if ($ub['Result'] == "Loss") {
-            $form .= '<div class="loss"></div>';
-        }
-        $usr_total += $ub['Amount'];
-
-    }
-    $form .= '</div>';
+/////////////////////////////////////////////////////////////////
 
 
 
 
-    $queryName = 'select * from users where ID = '.$usr['UserID'];
-    $user_name = $mysqli_db->query($queryName, 10);
-    foreach($user_name as $un){
-        $name = $un['Name'];
-    }
-
-    $table .= '<div class="leaderboard_content">
-        <h4>'.$name.'</h4>
-        <h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4>
-        <h4>$'.number_format((float)$usr_total, 2, '.', '').'</h4>
-        <h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4>
-        '.$form.'
-    </div>';
-
-}*/
-
-
-
-
-$bets = $mysqli_db->query('select * from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date DESC', 100);
+$bets = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date DESC', 100);
 
 $pending_bets = '';
 $resulted_bets = '';
@@ -432,6 +399,47 @@ if(($totalWon/$total)*100 > 100) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+/*foreach($users as $usr){
+
+    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date';
+    $user_bets = $mysqli_db->query($query, 100);
+    $form = '<div class="form">';
+
+    $ub_won = 0;
+    $usr_total = 0;
+
+    foreach($user_bets as $ub){
+
+        if($ub['Result'] == "Win") {
+            $ub_won += $ub['Amount']*$ub['Odds'];
+            $form .= '<div class="win"></div>';
+        } else if ($ub['Result'] == "Loss") {
+            $form .= '<div class="loss"></div>';
+        }
+        $usr_total += $ub['Amount'];
+
+    }
+    $form .= '</div>';
+
+
+
+
+    $queryName = 'select * from users where ID = '.$usr['UserID'];
+    $user_name = $mysqli_db->query($queryName, 10);
+    foreach($user_name as $un){
+        $name = $un['Name'];
+    }
+
+    $table .= '<div class="leaderboard_content">
+        <h4>'.$name.'</h4>
+        <h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4>
+        <h4>$'.number_format((float)$usr_total, 2, '.', '').'</h4>
+        <h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4>
+        '.$form.'
+    </div>';
+
+}*/
 
 // INCLUDE DEFINITIONS /////////////////////////////////////////////////////////////////////////////////////////////
 

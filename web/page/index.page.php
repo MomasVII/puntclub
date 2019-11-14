@@ -155,7 +155,7 @@
         <div class="col-md-6">
             <div class="vertical_gradient">
                 <div class="club_details">
-                    <h1>MY PUNT CLUB</h1>
+                    <h1><?=$myClubname?></h1>
                     <p>Total Won: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
 					<p>Total Bet: $<?=number_format((float)$total, 2, '.', '')?></p>
                     <?=$roi?>
