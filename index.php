@@ -54,6 +54,8 @@ if (!empty($_POST['action'])) {
         $delete_result = $mysqli_db->delete('bets');
     } else if ($_POST['action'] == 'new_bet') {
 
+        $uploaded = false;
+        $imageURL = '';
         /*--Upload bet slip image--*/
         if(isset($_FILES) && !empty($_FILES)){
             //set the destination directory
@@ -69,11 +71,13 @@ if (!empty($_POST['action'])) {
             //$upload->set_allowed_mime_types(array('image/png', 'image/jpeg'));
 
             $result = $upload->upload($_FILES['file']['name']); //set true to retain original file name
+            $imageURL = 'http://puntclub.undivided.games/web/uploads/'.$_FILES['file']['name'];
+            $uploaded = true;
 
             if($result['status']){
                 $print = '<p>Validated upload succeeded.</p>';
                 //print_r($result); //uncomment to see raw data output
-            }else{
+            } else {
                 $print = '<p>Validated upload failed.</p>';
             }
         }
@@ -162,6 +166,34 @@ if (!empty($_POST['action'])) {
                 if (!empty($message)) {
                     $result = curl_exec($ch); // user will get the message
                 }
+
+
+                // Send Image////////////////////
+
+                if($uploaded){
+                    $jsonData = '{
+                    "recipient":{
+                        "id":"' . $sender . '"
+                        },
+                        "message":{
+                            "attachment":{
+                                "type":"image",
+                                "payload":{
+                                    "url": "'.$imageURL.'",
+                                    "is_reusable":true
+                                }
+                            }
+                        }
+                    }';
+                    /* curl setting to send a json post data */
+                    curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                    if (!empty($imageURL)) {
+                        $result = curl_exec($ch); // user will get the message
+                    }
+                }
+
             }
         }
 
@@ -178,19 +210,51 @@ if (!empty($_POST['action'])) {
 $myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
 $myClubID = $myClub[0]['ID'];
 $myClubname = $myClub[0]['Name'];
-$myClubStartDay = $myClub[0]['WeekStart'];
+$myClubStartDay = 'last '.strtolower($myClub[0]['WeekStart']);
 
 
 // Get Up Next Betters /////////////////////////////////////////////////////////
 
- //echo date("l"); get day
-//echo strtotime("last Monday");
-echo date('Y-m-d',strtotime('last monday'));
+$weekStart = date('Y-m-d H:i:s', strtotime($myClubStartDay.' -7 days'));
+$weekEnd = date('Y-m-d H:i:s', strtotime($myClubStartDay));
+
+
+$betters_next_week = '';
+
+//First get all the betters
+$nextWeek = $mysqli_db->query('select clubusers.*, users.Name from clubusers inner join users on clubusers.UserID = users.ID where ClubID = 1', 100);
+foreach($nextWeek as $nw){
+
+    $dateSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekStart.'" and Date < "'.$weekEnd.'"';
+    $dateQuery = $mysqli_db->query($dateSql, 100);
+
+    $lw_won = 0;
+    $lw_usr_total = 0;
+    $weekROI = 0;
+
+    if($dateQuery) {
+        foreach($dateQuery as $dq){
+            if($dq['BonusBet'] == "No") {
+                if($dq['Result'] == "Win") {
+                    $lw_won += $dq['Amount']*$dq['Odds'];
+                }
+                $lw_usr_total += $dq['Amount'];
+            }
+        }
+    } else {
+        $lw_usr_total = 1;
+        $lw_won = 2;
+    }
+
+    $weekROI = ($lw_won/$lw_usr_total)*100;
+    if($weekROI > 100) {
+        $betters_next_week .= '<li>'.$nw['Name'].'</li>';
+    }
+}
 
 // Build Datatable /////////////////////////////////////////////////////////////
 
 $users = $mysqli_db->query('select * from clubusers where ClubID = 1', 100);
-
 $table = '';
 $name = '';
 $table = '<table id="table_id" class="display">

@@ -179,10 +179,7 @@
 						<li>Angus Hillman</li>
 					</ul>
 					<ul class="next_up_punters_list">
-						<li>Thomas Bye</li>
-						<li>Lachy Pound</li>
-						<li>Simon Jackson</li>
-						<li>Alistair Holliday</li>
+						<?=$betters_next_week?>
 					</ul>
 				</div>
 			</div>
