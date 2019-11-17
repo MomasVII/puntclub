@@ -565,8 +565,19 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
     .club_details h1 {
         font-size: 27px;
     }
-    .tabs_col {
-        display:none;
+    .tab_headers {
+        justify-content: space-between;
+        margin-top:20px;
+    }
+    .punter_list {
+        position: initial;
+        margin-right: 0px;
+    }
+    .current_punters_list li {
+        text-align: left !important;
+    }
+    .next_up_punters_list li {
+        text-align: right;
     }
 
     /*Datatable*/

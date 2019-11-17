@@ -161,6 +161,7 @@
                     <?=$roi?>
                     <!--p>Bank: $000.00</p-->
                     <p>Total: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
+					<p>Week Starts: <?=$weekStarts?></p>
                 </div>
             </div>
         </div>
@@ -172,11 +173,7 @@
 				</div>
 				<div class="punter_list">
 					<ul class="current_punters_list">
-						<li>Thomas Bye</li>
-						<li>Lachy Pound</li>
-						<li>Simon Jackson</li>
-						<li>Alistair Holliday</li>
-						<li>Angus Hillman</li>
+						<?=$betters_this_week?>
 					</ul>
 					<ul class="next_up_punters_list">
 						<?=$betters_next_week?>

@@ -210,7 +210,8 @@ if (!empty($_POST['action'])) {
 $myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
 $myClubID = $myClub[0]['ID'];
 $myClubname = $myClub[0]['Name'];
-$myClubStartDay = 'last '.strtolower($myClub[0]['WeekStart']);
+$weekStarts = $myClub[0]['WeekStart'];
+$myClubStartDay = 'last '.strtolower($weekStarts);
 
 
 // Get Up Next Betters /////////////////////////////////////////////////////////
@@ -219,6 +220,7 @@ $weekStart = date('Y-m-d H:i:s', strtotime($myClubStartDay.' -7 days'));
 $weekEnd = date('Y-m-d H:i:s', strtotime($myClubStartDay));
 
 
+$betters_this_week = '';
 $betters_next_week = '';
 
 //First get all the betters
@@ -226,7 +228,7 @@ $nextWeek = $mysqli_db->query('select clubusers.*, users.Name from clubusers inn
 foreach($nextWeek as $nw){
 
     $dateSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekStart.'" and Date < "'.$weekEnd.'"';
-    $dateQuery = $mysqli_db->query($dateSql, 100);
+    $dateQuery = $mysqli_db->raw_query($dateSql, 100);
 
     $lw_won = 0;
     $lw_usr_total = 0;
@@ -246,10 +248,43 @@ foreach($nextWeek as $nw){
         $lw_won = 2;
     }
 
+
     $weekROI = ($lw_won/$lw_usr_total)*100;
-    if($weekROI > 100) {
+    if($weekROI >= 100) {
+        $betters_this_week .= '<li>'.$nw['Name'].'</li>';
+    }
+
+    //Next Week
+    $dateNextSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekEnd.'"';
+    $dateNextQuery = $mysqli_db->raw_query($dateNextSql, 100);
+
+    $nw_won = 0;
+    $nw_usr_total = 0;
+    $nextWeekROI = 0;
+
+    if($dateNextQuery) {
+        foreach($dateNextQuery as $dq2){
+            if($dq2['BonusBet'] == "No") {
+                if($dq2['Result'] == "Win") {
+                    $nw_won += $dq2['Amount']*$dq2['Odds'];
+                }
+                $nw_usr_total += $dq2['Amount'];
+            }
+        }
+    } else {
+        $nw_usr_total = 1;
+        $nw_won = 2;
+    }
+
+
+    $nextWeekROI = ($nw_won/$nw_usr_total)*100;
+    if($nextWeekROI >= 100) {
         $betters_next_week .= '<li>'.$nw['Name'].'</li>';
     }
+
+
+
+
 }
 
 // Build Datatable /////////////////////////////////////////////////////////////
