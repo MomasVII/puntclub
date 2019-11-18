@@ -214,7 +214,12 @@ $myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
 $myClubID = $myClub[0]['ID'];
 $myClubname = $myClub[0]['Name'];
 $weekStarts = $myClub[0]['WeekStart'];
-$myClubStartDay = 'last '.strtolower($weekStarts);
+$todaysDay = date("l");
+if($todaysDay != $weekStarts) {
+    $myClubStartDay = 'last '.strtolower($weekStarts);
+} else {
+    $myClubStartDay = date('Y-m-d H:i:s', strtotime($weekStarts));
+}
 
 
 // Get Up Next Betters /////////////////////////////////////////////////////////
@@ -230,7 +235,39 @@ $betters_next_week = '';
 $nextWeek = $mysqli_db->query('select clubusers.*, users.Name from clubusers inner join users on clubusers.UserID = users.ID where ClubID = 1', 100);
 foreach($nextWeek as $nw){
 
+    //Next Week
+    $dateNextSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekEnd.'"';
+    $dateNextQuery = $mysqli_db->raw_query($dateNextSql, 100);
+
+    $nw_won = 0;
+    $nw_usr_total = 0;
+    $nextWeekROI = 0;
+    $leftToSpend = 10;
+
+    if($dateNextQuery) {
+        foreach($dateNextQuery as $dq2){
+            if($dq2['BonusBet'] == "No") {
+                if($dq2['Result'] == "Win") {
+                    $nw_won += $dq2['Amount']*$dq2['Odds'];
+                }
+                $nw_usr_total += $dq2['Amount'];
+                $leftToSpend -= $dq2['Amount'];
+            }
+        }
+    } else {
+        $nw_usr_total = 1;
+        $nw_won = 2;
+    }
+
+
+    $nextWeekROI = ($nw_won/$nw_usr_total)*100;
+    if($nextWeekROI >= 100) {
+        $betters_next_week .= '<li>'.$nw['Name'].'</li>';
+    }
+
     $dateSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekStart.'" and Date < "'.$weekEnd.'"';
+    //select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = 1 and Date > "2019-11-04 00:00:00" and Date < "2019-11-11 00:00:00"
+
     $dateQuery = $mysqli_db->raw_query($dateSql, 100);
 
     $lw_won = 0;
@@ -254,37 +291,8 @@ foreach($nextWeek as $nw){
 
     $weekROI = ($lw_won/$lw_usr_total)*100;
     if($weekROI >= 100) {
-        $betters_this_week .= '<li>'.$nw['Name'].'</li>';
+        $betters_this_week .= '<li>'.$nw['Name'].' ($'.$leftToSpend.')</li>'; //
     }
-
-    //Next Week
-    $dateNextSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekEnd.'"';
-    $dateNextQuery = $mysqli_db->raw_query($dateNextSql, 100);
-
-    $nw_won = 0;
-    $nw_usr_total = 0;
-    $nextWeekROI = 0;
-
-    if($dateNextQuery) {
-        foreach($dateNextQuery as $dq2){
-            if($dq2['BonusBet'] == "No") {
-                if($dq2['Result'] == "Win") {
-                    $nw_won += $dq2['Amount']*$dq2['Odds'];
-                }
-                $nw_usr_total += $dq2['Amount'];
-            }
-        }
-    } else {
-        $nw_usr_total = 1;
-        $nw_won = 2;
-    }
-
-
-    $nextWeekROI = ($nw_won/$nw_usr_total)*100;
-    if($nextWeekROI >= 100) {
-        $betters_next_week .= '<li>'.$nw['Name'].'</li>';
-    }
-
 
 
 
@@ -387,7 +395,13 @@ foreach($bets as $bs){
                             </button>
                         </form>
                         <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
-                        <div class="spacing"><i class="fas fa-undo undo"></i></div>
+                        <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
+                            <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
+                            <input type="hidden" name="action" value="delete"/>
+                            <button type="submit">
+                                <i class="fas fa-times undo_red"></i>
+                            </button>
+                        </form>
                     </div>';
     } else if($bs['Result'] == "Loss") {
         $profit =  '<div class="loser_detail">
