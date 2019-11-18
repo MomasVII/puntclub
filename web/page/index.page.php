@@ -1,5 +1,12 @@
 <?php require(HEAD); ?>
 
+<div id="myModal" class="img_modal">
+  <!-- The Close Button -->
+  <span class="close_btn">&times;</span>
+  <!-- Modal Content (The Image) -->
+  <img class="modal_content" id="img01">
+</div>
+
 
 <div id="new-bet" class="overlay">
 	<div class="popup">

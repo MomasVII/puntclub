@@ -146,7 +146,7 @@
             }else{
                 //set filename to state data
                 $ext = pathinfo($this->_file_post['name'], PATHINFO_EXTENSION);
-                $this->_file['filename'] = $retain_filename.'.'.$ext;
+                $this->_file['filename'] = $retain_filename; //.'.'.$ext
             }
 
             //set full path to state data

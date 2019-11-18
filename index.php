@@ -56,6 +56,7 @@ if (!empty($_POST['action'])) {
 
         $uploaded = false;
         $imageURL = '';
+        $imageName = '';
         /*--Upload bet slip image--*/
         if(isset($_FILES) && !empty($_FILES)){
             //set the destination directory
@@ -71,6 +72,7 @@ if (!empty($_POST['action'])) {
             //$upload->set_allowed_mime_types(array('image/png', 'image/jpeg'));
 
             $result = $upload->upload($_FILES['file']['name']); //set true to retain original file name
+            $imageName = $_FILES['file']['name'];
             $imageURL = 'http://puntclub.undivided.games/web/uploads/'.$_FILES['file']['name'];
             $uploaded = true;
 
@@ -103,6 +105,7 @@ if (!empty($_POST['action'])) {
             'Description' => $desc,
             'Result' => 'Pending',
             'Club' => 1,
+            'Image' => $imageName,
             'BonusBet' => $bb,
             'Date' => $date->format('Y-m-d H:i:s')
         );
@@ -424,12 +427,19 @@ foreach($bets as $bs){
                     </div>';
     }
 
+    $imageCode = '';
+    if($bs['Image'] != "") {
+        $imageCode = '<i class="fas fa-camera myImg" data-src="'.ROOT.'/web/uploads/'.$bs['Image'].'"></i>';
+    }
 
     if($bs['Result'] == "Pending") {
         $pending_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
                 <div class="bet_slip">
-                    <h3>'.$bs['Name'].'</h3>
+                    <div class="bet_header">
+                        <h3>'.$bs['Name'].'</h3>
+                        '.$imageCode.'
+                    </div>
                     <hr />
                     <h5>Description:</h5>
                     <p>'.$desc.'</p>
