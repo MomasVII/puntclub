@@ -201,6 +201,10 @@ if (!empty($_POST['action'])) {
         }
 
     }
+
+    header('Location: '.$_SERVER['REQUEST_URI']);
+    die;
+
 }
 /*$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],
                 ["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
@@ -399,7 +403,7 @@ foreach($bets as $bs){
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
                             <input type="hidden" name="action" value="delete"/>
                             <button type="submit">
-                                <i class="fas fa-times undo_red"></i>
+                                <i class="fas fa-times undo_green"></i>
                             </button>
                         </form>
                     </div>';
