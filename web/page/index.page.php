@@ -208,9 +208,9 @@
 			</div-->
 			<div class="tables_graphs_awards">
 				<?=$table?>
-				<!--div class="graphs">
+				<div class="graphs">
 					<div id="curve_chart"></div>
-				</div-->
+				</div>
 			</div>
 		</div>
 	</div>
