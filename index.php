@@ -201,6 +201,10 @@ if (!empty($_POST['action'])) {
         }
 
     }
+
+    header('Location: '.$_SERVER['REQUEST_URI']);
+    die;
+
 }
 
 
@@ -395,7 +399,7 @@ foreach($bets as $bs){
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
                             <input type="hidden" name="action" value="delete"/>
                             <button type="submit">
-                                <i class="fas fa-times undo_red"></i>
+                                <i class="fas fa-times undo_green"></i>
                             </button>
                         </form>
                     </div>';
