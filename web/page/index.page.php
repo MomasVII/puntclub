@@ -196,8 +196,8 @@
         <div class="col-md-12 table_col">
 			<div class="table_headers">
 				<h3 class="active">LEADERBOARD</h3>
-				<!--h3>GRAPHS</h3>
-				<h3>AWARDS</h3-->
+				<!--h3>GRAPHS</h3-->
+				<h3>AWARDS</h3>
 			</div>
 			<!--div class="leaderboard_header">
 				<h4>Name</h4>
@@ -208,9 +208,76 @@
 			</div-->
 			<div class="tables_graphs_awards">
 				<?=$table?>
-				<div class="graphs">
+				<!--div class="graphs">
 					<div id="curve_chart"></div>
-				</div>
+				</div-->
+                <div class="awards_container">
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Highest Odds Bet</h5>
+                        <p>$5.34</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge2.png" class="my_badge" />
+                        <h5>Highest Odds Won</h5>
+                        <p>$5.34</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Lowest Odds Lost</h5>
+                        <p>$1.34</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Contrubutor</h5>
+                        <p>5 Wins in a row</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Look at me...</h5>
+                        <p>10 Wins in a row</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>I am the Captain now</h5>
+                        <p>Top the leaderboard</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Loser</h5>
+                        <p>Last Place at least once</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Dead Weight</h5>
+                        <p>5 Losses in a row</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Just Stop</h5>
+                        <p>10 Losses in a row</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Biggest Win</h5>
+                        <p>$10.54</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Double Down</h5>
+                        <p>Reach 200% ROI</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Longest Win Streak</h5>
+                        <p>4 Wins</p>
+                    </div>
+                    <div class="award">
+                        <img src="/web/image/badges/badge1.png" class="my_badge" />
+                        <h5>Longest Loss Streak</h5>
+                        <p>6 Losses</p>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>
@@ -296,10 +363,10 @@
 	function drawChart() {
 		var data = google.visualization.arrayToDataTable([
 			<?=$graph_title?>
-			["1", 		-5, 		16.80, 		-10, 	-10, 	-5, 		21.50, 	-5, 		-2],
-			["2", 		-10, 		31.15, 		-10, 	-10, 	-5, 		29.50, 	-10, 		7.15],
-			["3", 		-10, 		-3, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80],
-			["4", 		-10, 		-5, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80]
+			["5", 		-5, 		16.80, 		-10, 	-10, 	-5, 		21.50, 	-5, 		-2],
+			["10", 		-10, 		31.15, 		-10, 	-10, 	-5, 		29.50, 	-10, 		7.15],
+			["15", 		-10, 		-3, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80],
+			["20", 		-10, 		-5, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80]
 		]);
 
 		var options = {
