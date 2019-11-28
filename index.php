@@ -338,14 +338,21 @@ foreach($users as $usr){
 
     foreach($user_bets as $ub){
 
-        if($ub['BonusBet'] == "No") {
+
+        if($ub['Result'] != "Pending") {
             if($ub['Result'] == "Win") {
-                $ub_won += $ub['Amount']*$ub['Odds'];
+                if($ub['BonusBet'] == "No") {
+                    $ub_won += $ub['Amount']*$ub['Odds'];
+                } else {
+                    $ub_won += ($ub['Amount']*$ub['Odds'])-$ub['Amount'];
+                }
                 $form .= '<div class="win"></div>';
             } else if ($ub['Result'] == "Loss") {
                 $form .= '<div class="loss"></div>';
             }
-            $usr_total += $ub['Amount'];
+            if($ub['BonusBet'] == "No") {
+                $usr_total += $ub['Amount'];
+            }
         }
 
     }
