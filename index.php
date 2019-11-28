@@ -535,9 +535,14 @@ if(($totalWon/$total)*100 > 100) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$betsChart = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date ASC', 100);
+/*$betsChart = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date ASC', 100);
 
-$money = 5;
+$arr = array(0 => array(id=>5,name=>"cat 1"),
+             1 => array(id=>2,name=>"cat 2"),
+             2 => array(id=>6,name=>"cat 1")
+);
+
+$money = 1;
 foreach($betsChart as $bc){
 
     $chartData .= '["'.$money.'", ';
@@ -573,7 +578,7 @@ $chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", 
                 /*["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
                 ["", -10, 31.15, -10, -10, -5, 29.50, -10, 7.15],
                 ["", -10, -3, -10, -10, -10, 29.50, -10, 4.80],
-                ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';*/
+                ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';
 
 
 
@@ -583,14 +588,14 @@ while($money < 100) {
     $chartData .= '["'.$money.'", ';
 
     for($x = 0; $x < 8; $x++) {
-        if($arr[0] )
+        //if($arr[0] )
     }
-    ["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
+    //["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
 
     $money += 5;
 }
 
-print_r($arr);
+print_r($arr);*/
 
 /*foreach($users as $usr){
 

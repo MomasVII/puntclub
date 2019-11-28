@@ -194,6 +194,41 @@
     color:#c7c7c7;
 }
 
+/*---Badges---*/
+.awards_container {
+    padding:2%;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.award {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    margin:20px;
+    text-align: center;
+    width:120px;
+}
+
+
+.award h5 {
+    color:black;
+    font-family: 'Montserrat-Black';
+    font-size:14px;
+    margin-top:6px;
+}
+.award p {
+    color:black;
+    font-family: 'Montserrat-Medium';
+    font-size:12px;
+}
+
+.my_badge {
+    width:85%;
+}
+
+
 /*---table---*/
 .form {
     display: flex;
