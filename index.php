@@ -220,6 +220,7 @@ if($todaysDay != $weekStarts) {
 } else {
     $myClubStartDay = date('Y-m-d H:i:s', strtotime($weekStarts));
 }
+$firstDaye = $myClub[0]['Date'];
 
 
 // Get Up Next Betters /////////////////////////////////////////////////////////
@@ -320,7 +321,12 @@ $graph_title = '["Week';
 $graph_weeks = array();
 $weeks_count = 0;
 
+$userWeeksArr = array();
+
+//Loop through every user in the club
 foreach($users as $usr){
+
+    $currentWeek = 0;
 
     $graph_title .= '", "';
 
@@ -336,6 +342,7 @@ foreach($users as $usr){
     $ub_won = 0;
     $usr_total = 0;
 
+    //Loop through every bet for this user
     foreach($user_bets as $ub){
 
 
@@ -355,7 +362,16 @@ foreach($users as $usr){
             }
         }
 
+        //Get current week of bet total.
+        //If we are in between the start of a week and the end
+        //if() {
+            //Set whatever we have as that weeks ROI etc.
+            //$userWeeksArr[$usr['UserID']][$weeks_count] =
+            //Increment new week
+        //}
+
     }
+
     $form .= '</div>';
 
 
@@ -497,7 +513,10 @@ foreach($bets as $bs){
         $resulted_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
                 <div class="bet_slip '.$winloss.'">
-                    <h3>'.$bs['Name'].'</h3>
+                    <div class="bet_header">
+                        <h3>'.$bs['Name'].'</h3>
+                        '.$imageCode.'
+                    </div>
                     <hr />
                     <h5>Description:</h5>
                     <p>'.$desc.'</p>

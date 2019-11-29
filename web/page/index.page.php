@@ -211,7 +211,7 @@
 				<!--div class="graphs">
 					<div id="curve_chart"></div>
 				</div-->
-                <div class="awards_container">
+                <!--div class="awards_container">
                     <div class="award">
                         <img src="/web/image/badges/badge1.png" class="my_badge" />
                         <h5>Highest Odds Bet</h5>
@@ -277,7 +277,7 @@
                         <h5>Longest Loss Streak</h5>
                         <p>6 Losses</p>
                     </div>
-                </div>
+                </div-->
 			</div>
 		</div>
 	</div>
@@ -288,7 +288,7 @@
 			<h3>CURRENT BETS</h3>
 		</div>
 		<div class="col-md-3 chat_header">
-			<h3>CHAT</h3>
+			<h3>REPORT</h3>
 		</div>
 		<div class="col-md-9">
 			<div class="bets_container">
@@ -312,7 +312,11 @@
 		<div class="col-md-3">
 			<div class="vertical_gradient">
 				<div class="chat_container">
-					<form class="chat_form">
+
+
+
+
+					<!--form class="chat_form">
 						<textarea type="text" class="chat_box"></textarea>
 						<div class="gradient_button grd_btn_small">
 							<a href="#">
@@ -346,7 +350,7 @@
 						<h4 class="chatter">Calvin</p>
 							<hr />
 						<p>I value bonus bets at around half their amount in cash</p>
-					</div>
+					</div-->
 				</div>
 			</div>
 		</div>
