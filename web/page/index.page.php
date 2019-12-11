@@ -167,6 +167,7 @@
 					<p>Total Bet: $<?=number_format((float)$total, 2, '.', '')?></p>
                     <?=$roi?>
                     <!--p>Bank: $000.00</p-->
+					<p>Bonus Bets: Won $<?=number_format((float)$totalWonBB, 2, '.', '')?> out of $<?=number_format((float)$totalBB, 2, '.', '')?></p>
                     <p>Total: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
 					<p>Week Starts: <?=$weekStarts?></p>
                 </div>
@@ -211,7 +212,7 @@
 				<!--div class="graphs">
 					<div id="curve_chart"></div>
 				</div-->
-                <div class="awards_container">
+                <!--div class="awards_container">
                     <div class="award">
                         <img src="/web/image/badges/badge1.png" class="my_badge" />
                         <h5>Highest Odds Bet</h5>
@@ -277,7 +278,7 @@
                         <h5>Longest Loss Streak</h5>
                         <p>6 Losses</p>
                     </div>
-                </div>
+                </div-->
 			</div>
 		</div>
 	</div>

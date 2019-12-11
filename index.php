@@ -376,6 +376,8 @@ $pending_bets = '';
 $resulted_bets = '';
 $total = 0;
 $totalWon = 0;
+$totalBB = 0;
+$totalWonBB = 0;
 
 foreach($bets as $bs){
 
@@ -482,10 +484,15 @@ foreach($bets as $bs){
     } else if($bs['Result'] != "Pending") {
 
         if($bs['BonusBet'] == "No") {
-            if($bs['Result'] != "Win") {
-                $totalWon += $bs['Amount'];
+            if($bs['Result'] == "Win") {
+                $totalWon += $bs['Amount']*$bs['Odds'];
             }
             $total += $bs['Amount'];
+        } else if($bs['BonusBet'] == "Yes") {
+            if($bs['Result'] == "Win") {
+                $totalWonBB += ($bs['Amount']*$bs['Odds'])-$bs['Amount'];
+            }
+            $totalBB += $bs['Amount'];
         }
         $resulted_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
