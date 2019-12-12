@@ -167,6 +167,7 @@
 					<p>Total Bet: $<?=number_format((float)$total, 2, '.', '')?></p>
                     <?=$roi?>
                     <!--p>Bank: $000.00</p-->
+					<p>Bonus Bets: Won $<?=number_format((float)$totalWonBB, 2, '.', '')?> out of $<?=number_format((float)$totalBB, 2, '.', '')?></p>
                     <p>Total: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
 					<p>Week Starts: <?=$weekStarts?></p>
                 </div>
