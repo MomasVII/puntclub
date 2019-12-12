@@ -370,7 +370,7 @@ $table .= '</tbody>
 
 
 
-$bets = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date DESC', 10000);
+$bets = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date DESC', 100);
 
 $pending_bets = '';
 $resulted_bets = '';
