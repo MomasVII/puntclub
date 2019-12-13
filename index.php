@@ -214,6 +214,7 @@ $myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
 $myClubID = $myClub[0]['ID'];
 $myClubname = $myClub[0]['Name'];
 $weekStarts = $myClub[0]['WeekStart'];
+$clubStarted = $myClub[0]['Date'];
 $todaysDay = date("l");
 if($todaysDay != $weekStarts) {
     $myClubStartDay = 'last '.strtolower($weekStarts);
@@ -379,7 +380,38 @@ $totalWon = 0;
 $totalBB = 0;
 $totalWonBB = 0;
 
+//$clubStarted
+//Get one week from start week
+
+$thisClubWeek = date('Y/m/d', strtotime($weekEnd)); //Get next Monday as start date
+
+//Get current week -7 days
+$prevWeek = strtotime($thisClubWeek);
+$prevClubWeek = date('Y/m/d', $prevWeek);
+
+$currentWeek = 0;
+$totalWeekBet = 0; //Keep track of the total amount bet for the week
+$totalWeekWon = 0; //Keep track of total amount won for the week
+$weeksROI = array();
+$weekSummary = '';
+
 foreach($bets as $bs){
+    if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet is within the current week
+
+        $weekSummary .= "<h3 class='resulted_header'>WEEK STARTING ".$prevClubWeek."</h3>";
+        $weekSummary .= "ROI: ".number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "")."%";
+
+        $weeksROI[$currentWeek] = number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "");
+        $currentWeek++; //Increment current week
+        $nextDate = strtotime("-7 day", strtotime($prevClubWeek));
+        $prevClubWeek = date('Y/m/d', $nextDate); //Find next weeks start date
+
+        $totalWeekBet = 0; //Reset values for new week
+        $totalWeekWon = 0;
+
+    }
+
+    $totalWeekBet += $bs['Amount']; //Keep track of total amount bet for the current week
 
     if($bs['Description'] == "") { $desc = "None"; }
     else { $desc = $bs['Description']; }
@@ -388,6 +420,7 @@ foreach($bets as $bs){
     else if($bs['Result'] == "Loss") { $winloss = "loser"; }
 
     if($bs['Result'] == "Win") {
+        $totalWeekWon += $bs['Amount']*$bs['Odds'];
         $profit =  '<div class="winner_detail">
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>

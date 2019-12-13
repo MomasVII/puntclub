@@ -313,45 +313,7 @@
 		<div class="col-md-3">
 			<div class="vertical_gradient">
 				<div class="chat_container">
-
-
-
-
-					<!--form class="chat_form">
-						<textarea type="text" class="chat_box"></textarea>
-						<div class="gradient_button grd_btn_small">
-							<a href="#">
-								<div class="button_content btn_small">
-									<h5>Send</h5>
-								</div>
-							</a>
-						</div>
-					</form>
-					<div class="other_chat">
-						<h4 class="chatter">Thomas</p>
-							<hr />
-						<p>Agree. No one uses a BB on $1.50 odds. You have to double your money to get worth. As cal said, half their value</p>
-					</div>
-					<div class="other_chat">
-						<h4 class="chatter">Lachy</p>
-							<hr />
-						<p>“Free money” syndrome</p>
-					</div>
-					<div class="other_chat">
-						<h4 class="chatter">Lachy</p>
-							<hr />
-						<p>People throw bonus bets away afaik</p>
-					</div>
-					<div class="other_chat">
-						<h4 class="chatter">Calvin</p>
-							<hr />
-						<p>I value bonus bets at around half their amount in cash</p>
-					</div>
-					<div class="my_chat">
-						<h4 class="chatter">Calvin</p>
-							<hr />
-						<p>I value bonus bets at around half their amount in cash</p>
-					</div-->
+                    <?=$weekSummary?>
 				</div>
 			</div>
 		</div>
