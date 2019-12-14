@@ -507,55 +507,28 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 /*---Chat---*/
 .chat_container {
     background-color:#f7f7f7;
-    padding:0 0 30px;
+    padding:0 5% 30px;
     height:100%;
 }
 
-.chat_box {
-    border-radius:3px;
-    border:1px solid #CCC;
-    width:86%;
-    margin:10px 7%;
-    padding:4px;
-    font-size:10px;
-    transition: 0.4s ease all;
-    height:25px;
-}
-.chat_box:focus {
-    height: 55px !important;
+.summary_header {
+    margin:10px 0;
 }
 
-.chat_form .gradient_button {
-    margin:0 7%;
+.chat_container hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.other_chat {
-    width:70%;
-    border:1px solid #ccc;
-    margin:8px 7%;
-    padding:4px 3%;
-    background-color:white;
-}
-.my_chat {
-    width:70%;
-    border:1px solid #ccc;
-    margin: 8px 7% 0 auto;
-    padding:4px 3%;
-    background-color:#edfbff;
-}
-.chatter {
+.chat_container p {
     color:black;
-    font-size:10px;
-    margin:0;
+    font-size:12px;
 }
-.other_chat hr, .my_chat hr {
-    margin:4px 0;
-}
-.other_chat p, .my_chat p {
-  font-family: 'Montserrat-Medium';
-    color:black;
-    font-size:10px;
-    margin:0;
+
+.peoplesROI {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 

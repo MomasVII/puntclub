@@ -393,13 +393,23 @@ $currentWeek = 0;
 $totalWeekBet = 0; //Keep track of the total amount bet for the week
 $totalWeekWon = 0; //Keep track of total amount won for the week
 $weeksROI = array();
+$peoplesTotalBet = array();
+$peoplesTotalWon = array();
 $weekSummary = '';
+
+
 
 foreach($bets as $bs){
     if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet is within the current week
 
-        $weekSummary .= "<h3 class='resulted_header'>WEEK STARTING ".$prevClubWeek."</h3>";
-        $weekSummary .= "ROI: ".number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "")."%";
+        $weekSummary .= "<h3 class='summary_header'>WEEK STARTING ".$prevClubWeek."</h3><hr />";
+        $weekSummary .= "<p>ROI: ".number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "")."%</p>";
+        foreach ($peoplesTotalBet as $key => $value) {
+            $weekSummary .= "<div class='peoplesROI'>";
+            $weekSummary .= "<p>".$key.": ".number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "")."%</p>";
+            $weekSummary .= "<p>+$".number_format((float)$peoplesTotalWon[$key], 2, ".", "")."</p>";
+            $weekSummary .= "</div>";
+        }
 
         $weeksROI[$currentWeek] = number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "");
         $currentWeek++; //Increment current week
@@ -408,10 +418,20 @@ foreach($bets as $bs){
 
         $totalWeekBet = 0; //Reset values for new week
         $totalWeekWon = 0;
+        $peoplesTotalBet = array();
+        $peoplesTotalWon = array();
 
     }
 
+    if(!isset($peoplesTotalBet[$bs['Name']])) {
+        $peoplesTotalBet[$bs['Name']] = 0;
+    }
+    if(!isset($peoplesTotalWon[$bs['Name']])) {
+        $peoplesTotalWon[$bs['Name']] = 0;
+    }
+
     $totalWeekBet += $bs['Amount']; //Keep track of total amount bet for the current week
+    $peoplesTotalBet[$bs['Name']] += $bs['Amount']; //Keep track of each persons total amount bet for the week
 
     if($bs['Description'] == "") { $desc = "None"; }
     else { $desc = $bs['Description']; }
@@ -421,6 +441,7 @@ foreach($bets as $bs){
 
     if($bs['Result'] == "Win") {
         $totalWeekWon += $bs['Amount']*$bs['Odds'];
+        $peoplesTotalWon[$bs['Name']] += $bs['Amount']*$bs['Odds'];
         $profit =  '<div class="winner_detail">
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
