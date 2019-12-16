@@ -551,7 +551,10 @@ foreach($bets as $bs){
         $resulted_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
                 <div class="bet_slip '.$winloss.'">
-                    <h3>'.$bs['Name'].'</h3>
+                    <div class="bet_header">
+                        <h3>'.$bs['Name'].'</h3>
+                        '.$imageCode.'
+                    </div>
                     <hr />
                     <h5>Description:</h5>
                     <p>'.$desc.'</p>
