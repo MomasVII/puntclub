@@ -397,7 +397,10 @@ $peoplesTotalBet = array();
 $peoplesTotalWon = array();
 $weekSummary = '';
 
-
+//Awards
+$highestOdds = 0;
+$lowestOddsLost = 0;
+$highestOddsWon = 0;
 
 foreach($bets as $bs){
     if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet is within the current week
@@ -580,6 +583,28 @@ foreach($bets as $bs){
                 '.$profit.'
             </div>
         </div>';
+
+
+        if($bs['Result'] == "Loss") {
+            //Track lowest odds lost
+            if($bs['Odds'] < $lowestOddsLost) {
+                $lowestOddsLost = $bs['Odds'];
+                $lowestOddsLostText = "<h3>Lowest Odds Lost</h3><h4>".$bs['Name']."</h4><p>".$bs['Odds']."</p>";
+            }
+        } else if($bs['Result'] == "Win") {
+            //Track highest odds won
+            if($bs['Odds'] > $highestOddsWon) {
+                $highestOddsWon = $bs['Odds'];
+                $highestOddsWonText = "<h3>Highest Odds Won</h3><h4>".$bs['Name']."</h4><p>".$bs['Odds']."</p>";
+            }
+        }
+
+    }
+
+    //Track highest odds gambled
+    if($bs['Odds'] > $highestOdds) {
+        $highestOdds = $bs['Odds'];
+        $highestOddsText = "<h3>Highest Odds Bet</h3><h4>".$bs['Name']."</h4><p>".$bs['Odds']."</p>";
     }
 
 }
