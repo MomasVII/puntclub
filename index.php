@@ -347,6 +347,13 @@ foreach($users as $usr){
                 $form .= '<div class="loss"></div>';
             }
             $usr_total += $ub['Amount'];
+        } else if($ub['BonusBet'] == "Yes") {
+            if($ub['Result'] == "Win") {
+                $ub_won += ($ub['Amount']*$ub['Odds'])-$ub['Amount'];
+                $form .= '<div class="win"></div>';
+            } else if ($ub['Result'] == "Loss") {
+                $form .= '<div class="loss"></div>';
+            }
         }
 
     }
@@ -442,9 +449,16 @@ foreach($bets as $bs){
     if($bs['Result'] == "Win") { $winloss = "winner"; }
     else if($bs['Result'] == "Loss") { $winloss = "loser"; }
 
+
+    ///////Build thumbs up/down and revert forms
     if($bs['Result'] == "Win") {
         $totalWeekWon += $bs['Amount']*$bs['Odds'];
         $peoplesTotalWon[$bs['Name']] += $bs['Amount']*$bs['Odds'];
+        if($bs['BonusBet'] == "Yes") {
+            $totalWonCard = number_format((float)(($bs['Odds']*$bs['Amount'])-$bs['Amount']), 2, '.', '');
+        } else {
+            $totalWonCard = number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '');
+        }
         $profit =  '<div class="winner_detail">
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
@@ -453,7 +467,7 @@ foreach($bets as $bs){
                                 <i class="fas fa-undo undo_green"></i>
                             </button>
                         </form>
-                        <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
+                        <h3>+$'.$totalWonCard.'</h3>
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
                             <input type="hidden" name="action" value="delete"/>
@@ -463,6 +477,11 @@ foreach($bets as $bs){
                         </form>
                     </div>';
     } else if($bs['Result'] == "Loss") {
+        if($bs['BonusBet'] == "Yes") {
+            $totalLostCard = "Bonus Bet";
+        } else {
+            $totalLostCard = number_format((float)$bs['Amount'], 2, '.', '');
+        }
         $profit =  '<div class="loser_detail">
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
@@ -471,7 +490,7 @@ foreach($bets as $bs){
                                 <i class="fas fa-undo undo_red"></i>
                             </button>
                         </form>
-                        <h3>-$'.number_format((float)$bs['Amount'], 2, '.', '').'</h3>
+                        <h3>-$'.$totalLostCard.'</h3>
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
                             <input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
                             <input type="hidden" name="action" value="delete"/>
@@ -481,6 +500,11 @@ foreach($bets as $bs){
                         </form>
                     </div>';
     } else if($bs['Result'] == "Pending") {
+        if($bs['BonusBet'] == "Yes") {
+            $totalPendingWon = number_format((float)(($bs['Odds']*$bs['Amount'])-$bs['Amount']), 2, '.', '');
+        } else {
+            $totalPendingWon = number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '');
+        }
         $profit =  '<div class="pending_detail">
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
             				<input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
@@ -489,7 +513,7 @@ foreach($bets as $bs){
                                 <i class="fas fa-thumbs-up thumbs_up"></i>
                             </button>
                         </form>
-                        <h3>+$'.number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').'</h3>
+                        <h3>+$'.$totalPendingWon.'</h3>
                         <form accept-charset="UTF-8" name="thumbs_up_form" action="'.$shortcut->clean_uri($_SERVER['REQUEST_URI']).'" method="post">
             				<input type="hidden" name="bet_id" value="'.$bs['ID'].'"/>
             				<input type="hidden" name="action" value="thumb_down"/>
@@ -499,12 +523,14 @@ foreach($bets as $bs){
                         </form>
                     </div>';
     }
+    ////End Building forms
 
     $imageCode = '';
     if($bs['Image'] != "") {
         $imageCode = '<i class="fas fa-camera myImg" data-src="'.ROOT.'/web/uploads/'.$bs['Image'].'"></i>';
     }
 
+    //Build Pending bets cards
     if($bs['Result'] == "Pending") {
         $pending_bets .= '<div class="bet_slip_container">
             <div class="vertical_gradient">
@@ -540,6 +566,7 @@ foreach($bets as $bs){
         </div>';
     } else if($bs['Result'] != "Pending") {
 
+        //Calculate teams total won and total bonus bets won
         if($bs['BonusBet'] == "No") {
             if($bs['Result'] == "Win") {
                 $totalWon += $bs['Amount']*$bs['Odds'];
