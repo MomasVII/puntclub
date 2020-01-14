@@ -170,6 +170,12 @@
 					<p>Bonus Bets: Won $<?=number_format((float)$totalWonBB, 2, '.', '')?> out of $<?=number_format((float)$totalBB, 2, '.', '')?></p>
                     <p>Total: $<?=number_format((float)$totalWon, 2, '.', '')?></p>
 					<p>Week Starts: <?=$weekStarts?></p>
+                    <p><?=$lowestOddsLostText?></p>
+                    <p><?=$highestOddsWonText?></p>
+                    <p><?=$highestAmountWonText?></p>
+                    <p><?=$highestOddsText?></p>
+                    <p><?=$winStreakText?></p>
+                    <p><?=$lossStreakText?></p>
                 </div>
             </div>
         </div>

@@ -321,6 +321,16 @@ $graph_title = '["Week';
 $graph_weeks = array();
 $weeks_count = 0;
 
+$winStreak = 0; //Track longest win streak
+$winStreakBool = false;
+$winStreakRecord = 0;
+$winStreakText = "";
+
+$lossStreak = 0; //Track longest loss streak
+$lossStreakBool = false;
+$lossStreakRecord = 0;
+$lossStreakText = "";
+
 foreach($users as $usr){
 
     $graph_title .= '", "';
@@ -337,22 +347,49 @@ foreach($users as $usr){
     $ub_won = 0;
     $usr_total = 0;
 
+    $winStreak = 0; //Reset win streak for next user
+    $lossStreak = 0; //Reset win streak for next user
+
     foreach($user_bets as $ub){
 
         if($ub['BonusBet'] == "No") {
             if($ub['Result'] == "Win") {
+                $winStreakBool = true;
                 $ub_won += $ub['Amount']*$ub['Odds'];
                 $form .= '<div class="win"></div>';
             } else if ($ub['Result'] == "Loss") {
+                $winStreakBool = false;
                 $form .= '<div class="loss"></div>';
             }
             $usr_total += $ub['Amount'];
         } else if($ub['BonusBet'] == "Yes") {
             if($ub['Result'] == "Win") {
+                $winStreakBool = true;
                 $ub_won += ($ub['Amount']*$ub['Odds'])-$ub['Amount'];
                 $form .= '<div class="win"></div>';
             } else if ($ub['Result'] == "Loss") {
+                $winStreakBool = false;
                 $form .= '<div class="loss"></div>';
+            }
+        }
+
+        if($winStreakBool) {
+            $lossStreak = 0;
+            $winStreak++;
+            if($winStreak > $winStreakRecord) {
+                $winStreakText = "Longest win streak: ".$name." (".$winStreak." wins)";
+                $winStreakRecord = $winStreak;
+            } else if($winStreak == $winStreakRecord) {
+                $winStreakText .= " and ".$name." (".$winStreak." wins)";
+            }
+        } else {
+            $winStreak = 0;
+            $lossStreak++;
+            if($lossStreak > $lossStreakRecord) {
+                $lossStreakText = "Longest loss streak: ".$name." (".$lossStreak." losses)";
+                $lossStreakRecord = $lossStreak;
+            } else if($lossStreak == $lossStreakRecord) {
+                $lossStreakText .= " and ".$name." (".$lossStreak." losses)";
             }
         }
 
@@ -406,7 +443,8 @@ $weekSummary = '';
 
 //Awards
 $highestOdds = 0;
-$lowestOddsLost = 0;
+$highestAmountWon = 0;
+$lowestOddsLost = 100;
 $highestOddsWon = 0;
 
 foreach($bets as $bs){
@@ -616,13 +654,18 @@ foreach($bets as $bs){
             //Track lowest odds lost
             if($bs['Odds'] < $lowestOddsLost) {
                 $lowestOddsLost = $bs['Odds'];
-                $lowestOddsLostText = "<h3>Lowest Odds Lost</h3><h4>".$bs['Name']."</h4><p>".$bs['Odds']."</p>";
+                $lowestOddsLostText = "Lowest Odds Lost: ".$bs['Name']." (Bet $".$bs['Amount']." at $".$bs['Odds'].")";
             }
         } else if($bs['Result'] == "Win") {
             //Track highest odds won
             if($bs['Odds'] > $highestOddsWon) {
                 $highestOddsWon = $bs['Odds'];
-                $highestOddsWonText = "<h3>Highest Odds Won</h3><h4>".$bs['Name']."</h4><p>".$bs['Odds']."</p>";
+                $highestOddsWonText = "Highest Odds Won: ".$bs['Name']." (Bet $".$bs['Amount']." at $".$bs['Odds'].")";
+            }
+
+            if(($bs['Odds']*$bs['Amount']) > $highestAmountWon) {
+                $highestAmountWon = $bs['Odds']*$bs['Amount'];
+                $highestAmountWonText = "Highest Amount Won: ".$bs['Name']." (Bet $".$bs['Amount']." at $".$bs['Odds']." to win ".number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '').")";
             }
         }
 
@@ -631,7 +674,7 @@ foreach($bets as $bs){
     //Track highest odds gambled
     if($bs['Odds'] > $highestOdds) {
         $highestOdds = $bs['Odds'];
-        $highestOddsText = "<h3>Highest Odds Bet</h3><h4>".$bs['Name']."</h4><p>".$bs['Odds']."</p>";
+        $highestOddsText = "Highest Odds Bet: ".$bs['Name']." ($".$bs['Odds'].", ".$bs['Result'].")";
     }
 
 }
