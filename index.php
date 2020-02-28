@@ -213,10 +213,10 @@ if (!empty($_POST['action'])) {
 $myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
 $myClubID = $myClub[0]['ID'];
 $myClubname = $myClub[0]['Name'];
-$weekStarts = $myClub[0]['WeekStart'];
-$clubStarted = $myClub[0]['Date'];
-$todaysDay = date("l");
-if($todaysDay != $weekStarts) {
+$weekStarts = $myClub[0]['WeekStart'];  //Day of the week each week starts on i.e. 'Monday'
+$clubStarted = $myClub[0]['Date'];  //Date the club started
+$todaysDay = date("l"); //Get the day i.e. Tuesday
+if($todaysDay != $weekStarts) { //Either get last Monday or the start of the week is today
     $myClubStartDay = 'last '.strtolower($weekStarts);
 } else {
     $myClubStartDay = date('Y-m-d H:i:s', strtotime($weekStarts));
@@ -225,25 +225,27 @@ if($todaysDay != $weekStarts) {
 
 // Get Up Next Betters /////////////////////////////////////////////////////////
 
+//weekStart is the last full weeks start day
+//weekEnd is the last full weeks end day
 $weekStart = date('Y-m-d H:i:s', strtotime($myClubStartDay.' -7 days'));
 $weekEnd = date('Y-m-d H:i:s', strtotime($myClubStartDay));
-
 
 $betters_this_week = '';
 $betters_next_week = '';
 
-//First get all the betters
+//First get and loop through all the betters
 $nextWeek = $mysqli_db->query('select clubusers.*, users.Name from clubusers inner join users on clubusers.UserID = users.ID where ClubID = 1', 100);
 foreach($nextWeek as $nw){
 
-    //Next Week
+    //Next Week ---------------
+    //Select all bets from a certain user where the date equals this weeks current betting
     $dateNextSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekEnd.'"';
     $dateNextQuery = $mysqli_db->raw_query($dateNextSql, 100);
 
-    $nw_won = 0;
-    $nw_usr_total = 0;
-    $nextWeekROI = 0;
-    $leftToSpend = 10;
+    $nw_won = 0;         //Amount the user has won
+    $nw_usr_total = 0;   //Total amount bet
+    $nextWeekROI = 0;    //Amount won / Total Bet
+    $leftToSpend = 10;   //Current amount bet this week so far
 
     if($dateNextQuery) {
         foreach($dateNextQuery as $dq2){
@@ -255,25 +257,27 @@ foreach($nextWeek as $nw){
                 $leftToSpend -= $dq2['Amount'];
             }
         }
-    } else {
+    } else { //Set $nextWeekROI to positive to show if they aren't betting this week they definetely will next week
         $nw_usr_total = 1;
         $nw_won = 2;
     }
-
 
     $nextWeekROI = ($nw_won/$nw_usr_total)*100;
     if($nextWeekROI >= 100) {
         $betters_next_week .= '<li>'.$nw['Name'].'</li>';
     }
 
+
+    ///Last weeks ROI ----------------
+    //Select all bets that equal the start to last week to the end of last week
     $dateSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekStart.'" and Date < "'.$weekEnd.'"';
     //select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = 1 and Date > "2019-11-04 00:00:00" and Date < "2019-11-11 00:00:00"
 
     $dateQuery = $mysqli_db->raw_query($dateSql, 100);
 
-    $lw_won = 0;
-    $lw_usr_total = 0;
-    $weekROI = 0;
+    $lw_won = 0;         //Last weeks won total
+    $lw_usr_total = 0;   //Last weeks betting total
+    $weekROI = 0;        //Last weeks ROI
 
     if($dateQuery) {
         foreach($dateQuery as $dq){
@@ -289,14 +293,10 @@ foreach($nextWeek as $nw){
         $lw_won = 2;
     }
 
-
     $weekROI = ($lw_won/$lw_usr_total)*100;
     if($weekROI >= 100) {
         $betters_this_week .= '<li>'.$nw['Name'].' ($'.$leftToSpend.')</li>'; //
     }
-
-
-
 }
 
 // Build Datatable /////////////////////////////////////////////////////////////
@@ -317,9 +317,6 @@ $table = '<table id="table_id" class="display">
     <tbody>';
 
 
-$graph_title = '["Week';
-$graph_weeks = array();
-$weeks_count = 0;
 
 $winStreak = 0; //Track longest win streak
 $winStreakBool = false;
@@ -332,8 +329,6 @@ $lossStreakRecord = 0;
 $lossStreakText = "";
 
 foreach($users as $usr){
-
-    $graph_title .= '", "';
 
     $query = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$usr['UserID'].' order by Date desc';
     $user_bets = $mysqli_db->query($query, 100);
@@ -405,7 +400,6 @@ foreach($users as $usr){
             <td>'.$form.'</td>
         </tr>';
 }
-$graph_title .= '"],';
 
 $table .= '</tbody>
 </table>';
@@ -447,8 +441,35 @@ $highestAmountWon = 0;
 $lowestOddsLost = 100;
 $highestOddsWon = 0;
 
+
+
+$clubWeek = strtotime("+7 day", strtotime($clubStarted)); //Week 1 end date
+$weekCounter = 1;
+$tableX = "[".
+$userWeekSummary = array();
+
 foreach($bets as $bs){
-    if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet is within the current week
+
+    //If we are at the end of the week sum up data collected
+    if(date('Y/m/d', strtotime($bs['Date'])) > $clubWeek) {
+        foreach ($peoplesTotalBet as $key => $value) {
+            $userWeekSummary[$key][$weekCounter] = number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "");
+        }
+
+        $clubWeek = date('Y/m/d', strtotime("+7 day", strtotime($clubWeek))); //Go to start of next week
+
+        $tableX .= $weekCounter+", "
+        $weekCounter++;
+    }
+
+
+
+
+
+
+
+
+    if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet has fallen outside currently checked week
 
         $weekSummary .= "<h3 class='summary_header'>WEEK STARTING ".$prevClubWeek."</h3><hr />";
         $weekSummary .= "<p>ROI: ".number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "")."%</p>";
@@ -678,6 +699,20 @@ foreach($bets as $bs){
     }
 
 }
+
+$chartsJS = "<script type='text/javascript'>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, { type: 'line', data: { labels: [".$tableX."], datasets: [";
+foreach ($userWeekSummary as $key => $value) {
+    $chartsJS .= "{ data: [";
+    for($x = 1; $x < $weekCounter; $x++) {
+        $chartsJS .= $userWeekSummary[$key][$x].",";
+    }
+    $chartsJS .= "0], label: '".$userWeekSummary[$key]."', borderColor: '#3e95cd', fill: false }, ";
+
+    //$userWeekSummary[$key][$weekCounter] = number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "");
+}
+$chartsJS = "]}, options: { title: { display: true, text: 'ROI' }}});</script>";
+
+echo $chartsJS;
 
 if(($totalWon/$total)*100 > 100) {
     $roi = '<p class="green">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
