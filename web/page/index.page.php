@@ -157,6 +157,7 @@
         </div>
     </div>
 </div>
+<canvas id="myChart" width="400" height="400"></canvas>
 <div class="container-fluid club_details_container">
     <div class="row">
         <div class="col-md-6">
@@ -330,26 +331,25 @@
 
 <?php require(FOOT); ?>
 <script type="text/javascript">
-	google.charts.load('current', {'packages':['corechart']});
-	google.charts.setOnLoadCallback(drawChart);
-
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable([
-			<?=$graph_title?>
-			["5", 		-5, 		16.80, 		-10, 	-10, 	-5, 		21.50, 	-5, 		-2],
-			["10", 		-10, 		31.15, 		-10, 	-10, 	-5, 		29.50, 	-10, 		7.15],
-			["15", 		-10, 		-3, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80],
-			["20", 		-10, 		-5, 		-10, 	-10, 	-10, 		29.50, 	-10, 		4.80]
-		]);
-
-		var options = {
-			title: '',
-			curveType: 'none',
-			legend: { position: 'top' }
-		};
-
-		var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-		chart.draw(data, options);
-	}
-  </script>
+var data: [{
+    x: 10,
+    y: 20
+}, {
+    x: 15,
+    y: 10
+}];
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>

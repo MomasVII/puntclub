@@ -826,6 +826,7 @@ define('STYLES', '
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
 define('HEAD_JS', '
     '.ROOT.'web/script/jquery-3.2.1.min.js,
+    https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js
 ');
 
 
