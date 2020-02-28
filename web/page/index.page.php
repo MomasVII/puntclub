@@ -330,7 +330,7 @@
   <!-- content end -->
 
 <?php require(FOOT); ?>
-<script type="text/javascript">
+<!--script type="text/javascript">
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
@@ -371,4 +371,4 @@ var myChart = new Chart(ctx, {
     }
   }
 });
-</script>
+</script-->
