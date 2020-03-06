@@ -149,14 +149,14 @@ if (!empty($_POST['action'])) {
                 $total_winning = $_POST['amount']*$_POST['odds'];
                 $message = $user_bet." just placed a bet of $".$_POST['amount']." at $".$_POST['odds'].". That's a potential return of $".$total_winning."! ".$_POST['description']; //text that user sent
 
-                $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BACRboVZAQS6ajFHPpl2SqOVDzy2rrfIIaLHZCJtwlL9fLZAAFhbR2CEFiZC3HhUf1Y6AOfO0GtNWYvFRxosrxwT1bqnmeJD4ThFHZCK0ZCoK8PpZBawrZAMOFWWzwyVNUmEBo4pVRAX34JXmNvYGepjqsnVBK0HLWAZDZD';
+                $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAPnIZBrwzUbfbyZBPRBEWRJYHWX82TPp3TITD7ZA1UpGVSCdyro6rgmWCbZCPZCgzDf2a5BaAo1JR3uefPrJvdNO07myPVi4GUGSfTmA1V6IRZAqXTq0tGCfthtT07xmlvpfzSd7oisldG9ZCaZBqmuh39A9OKNTHgZDZD';
 
                 /* initialize curl */
                 $ch = curl_init($url);
                 /* prepare response */
                 $jsonData = '{
-                "recipient":{
-                    "id":"' . $sender . '"
+                    "recipient":{
+                        "id":"' . $sender . '"
                     },
                     "message":{
                         "text":"' . $message . '"
@@ -175,8 +175,8 @@ if (!empty($_POST['action'])) {
 
                 if($uploaded){
                     $jsonData = '{
-                    "recipient":{
-                        "id":"' . $sender . '"
+                        "recipient":{
+                            "id":"' . $sender . '"
                         },
                         "message":{
                             "attachment":{
@@ -336,8 +336,6 @@ foreach($users as $usr){
 
     //Get current betters real name
     $name = $user_bets[0]['Name'];
-    $graph_title .= $name;
-
 
     $ub_won = 0;
     $usr_total = 0;
@@ -443,24 +441,24 @@ $highestOddsWon = 0;
 
 
 
-$clubWeek = strtotime("+7 day", strtotime($clubStarted)); //Week 1 end date
+/*$clubWeek = strtotime("+7 day", strtotime($clubStarted)); //Week 1 end date
 $weekCounter = 1;
 $tableX = "[".
-$userWeekSummary = array();
+$userWeekSummary = array();*/
 
 foreach($bets as $bs){
 
     //If we are at the end of the week sum up data collected
-    if(date('Y/m/d', strtotime($bs['Date'])) > $clubWeek) {
+    /*if(date('Y/m/d', strtotime($bs['Date'])) > $clubWeek) {
         foreach ($peoplesTotalBet as $key => $value) {
             $userWeekSummary[$key][$weekCounter] = number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "");
         }
 
         $clubWeek = date('Y/m/d', strtotime("+7 day", strtotime($clubWeek))); //Go to start of next week
 
-        $tableX .= $weekCounter+", "
+        $tableX .= $weekCounter+", ";
         $weekCounter++;
-    }
+    }*/
 
 
 
@@ -700,7 +698,7 @@ foreach($bets as $bs){
 
 }
 
-$chartsJS = "<script type='text/javascript'>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, { type: 'line', data: { labels: [".$tableX."], datasets: [";
+/*$chartsJS = "<script type='text/javascript'>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, { type: 'line', data: { labels: [".$tableX."], datasets: [";
 foreach ($userWeekSummary as $key => $value) {
     $chartsJS .= "{ data: [";
     for($x = 1; $x < $weekCounter; $x++) {
@@ -712,7 +710,7 @@ foreach ($userWeekSummary as $key => $value) {
 }
 $chartsJS = "]}, options: { title: { display: true, text: 'ROI' }}});</script>";
 
-echo $chartsJS;
+echo $chartsJS;*/
 
 if(($totalWon/$total)*100 > 100) {
     $roi = '<p class="green">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';

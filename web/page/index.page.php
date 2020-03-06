@@ -157,7 +157,6 @@
         </div>
     </div>
 </div>
-<canvas id="myChart" width="400" height="400"></canvas>
 <div class="container-fluid club_details_container">
     <div class="row">
         <div class="col-md-6">
