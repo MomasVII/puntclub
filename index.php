@@ -149,12 +149,13 @@ if (!empty($_POST['action'])) {
                 $total_winning = $_POST['amount']*$_POST['odds'];
                 $message = $user_bet." just placed a bet of $".$_POST['amount']." at $".$_POST['odds'].". That's a potential return of $".$total_winning."! ".$_POST['description']; //text that user sent
 
-                $url = 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAHQIruxo84BAPnIZBrwzUbfbyZBPRBEWRJYHWX82TPp3TITD7ZA1UpGVSCdyro6rgmWCbZCPZCgzDf2a5BaAo1JR3uefPrJvdNO07myPVi4GUGSfTmA1V6IRZAqXTq0tGCfthtT07xmlvpfzSd7oisldG9ZCaZBqmuh39A9OKNTHgZDZD';
+                $url = 'https://graph.facebook.com/v6.0/me/messages?access_token=EAAHQIruxo84BAI06AoCoqqIWItLZASsL7oUZA2IYGRBnRG3r1jQk0kUgLxZAZAPgakMJ6pK94Xa6BKfiLj09NvzrnWLZCwqq8SWnRP3JmXq9qNsJRkBdIfuOBXChZBK4A5zaZCApawMMvziwZCqHP8iG1uY3uWfjAkghqPg0l1DibgZDZD';
 
                 /* initialize curl */
                 $ch = curl_init($url);
                 /* prepare response */
                 $jsonData = '{
+                    "messaging_type": "RESPONSE",
                     "recipient":{
                         "id":"' . $sender . '"
                     },
@@ -175,6 +176,7 @@ if (!empty($_POST['action'])) {
 
                 if($uploaded){
                     $jsonData = '{
+                        "messaging_type": "RESPONSE",
                         "recipient":{
                             "id":"' . $sender . '"
                         },
@@ -182,8 +184,7 @@ if (!empty($_POST['action'])) {
                             "attachment":{
                                 "type":"image",
                                 "payload":{
-                                    "url": "'.$imageURL.'",
-                                    "is_reusable":true
+                                    "url": "'.$imageURL.'"
                                 }
                             }
                         }
