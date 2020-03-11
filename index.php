@@ -160,7 +160,9 @@ if (!empty($_POST['action'])) {
                     },
                     "message":{
                         "text":"' . $message . '"
-                    }
+                    },
+                    "messaging_type": "MESSAGE_TAG",
+                    "tag": "CONFIRMED_EVENT_UPDATE"
                 }';
                 /* curl setting to send a json post data */
                 curl_setopt($ch, CURLOPT_POST, 1);
@@ -186,7 +188,9 @@ if (!empty($_POST['action'])) {
                                     "is_reusable":true
                                 }
                             }
-                        }
+                        },
+                        "messaging_type": "MESSAGE_TAG",
+                        "tag": "CONFIRMED_EVENT_UPDATE"
                     }';
                     /* curl setting to send a json post data */
                     curl_setopt($ch, CURLOPT_POST, 1);
