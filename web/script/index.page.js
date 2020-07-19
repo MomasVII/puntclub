@@ -91,10 +91,12 @@ $(document).ready( function(){
     $('.table_headers h3').click(function() {
         $('.table_headers h3').removeClass("active");
         $(this).addClass("active");
-        if($(this).html() == "LEADERBOARDS") {
-
+        if($(this).html() == "LEADERBOARD") {
+            $("#curve_chart").hide();
+            $("#table_id_wrapper").show();
         } else if($(this).html() == "GRAPHS") {
-
+            $("#curve_chart").show();
+            $("#table_id_wrapper").hide();
         } else if($(this).html() == "AWARDS") {
 
         }

@@ -15,6 +15,10 @@
   # Reset
 --------------------------------------------------------------*/
 
+a, a:active, a:hover, a:visited, a:focus {
+    color:white;
+    text-decoration: none;
+}
 
 /*---Form---*/
 form { margin:0 !important; }
@@ -28,6 +32,64 @@ form { margin:0 !important; }
     display:flex;
     width:80%;
 }
+.form div {
+    opacity:.15;
+}
+.form div:nth-of-type(1) {
+    opacity:1;
+}
+.form div:nth-of-type(2) {
+    opacity:.95;
+}
+.form div:nth-of-type(3) {
+    opacity:.90;
+}
+.form div:nth-of-type(4) {
+    opacity:.85;
+}
+.form div:nth-of-type(5) {
+    opacity:.80;
+}
+.form div:nth-of-type(6) {
+    opacity:.75;
+}
+.form div:nth-of-type(7) {
+    opacity:.70;
+}
+.form div:nth-of-type(8) {
+    opacity:.65;
+}
+.form div:nth-of-type(9) {
+    opacity:.60;
+}
+.form div:nth-of-type(10) {
+    opacity:.55;
+}
+.form div:nth-of-type(11) {
+    opacity:.50;
+}
+.form div:nth-of-type(12) {
+    opacity:.45;
+}
+.form div:nth-of-type(13) {
+    opacity:.40;
+}
+.form div:nth-of-type(14) {
+    opacity:.35;
+}
+.form div:nth-of-type(15) {
+    opacity:.30;
+}
+.form div:nth-of-type(16) {
+    opacity:.25;
+}
+.form div:nth-of-type(17) {
+    opacity:.20;
+}
+.form div:nth-of-type(18) {
+    opacity:.15;
+}
+
 
 .form-label {
   position: absolute;
@@ -64,6 +126,11 @@ form { margin:0 !important; }
   box-shadow: 0 2px 0 0 lightgreen;
 }
 
+
+/*---Graph-----*/
+/*#curve_chart { display:none; }*/
+
+
 /*---File Upload Buttton---*/
 .inputfile {
 	width: 0.1px;
@@ -95,6 +162,17 @@ form { margin:0 !important; }
 	outline: -webkit-focus-ring-color auto 5px;
 }
 
+/*--BB Button--*/
+.form-checkbox + span {
+    font-size: 14px;
+    color: #616161;
+    background-color:white;
+    display: inline-block;
+    cursor: pointer; /* "hand" cursor */
+    cursor: pointer;
+    padding: 4px 4px 4px 5px;
+}
+
 /*---Button Styles---*/
 button {
     background: none;
@@ -106,14 +184,37 @@ button {
     border:none;
     width:130px;
     border-radius:15px;
+    background-size: 300% 100%;
     padding:0 10px;
-    background: rgb(209,0,0);
-    background: -moz-linear-gradient(90deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
-    background: -webkit-linear-gradient(90deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
-    background: linear-gradient(90deg, rgba(209,0,0,1) 0%, rgba(219,201,0,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
+    transition: all .4s ease-in-out;
+    background-image: linear-gradient(to right, rgba(209,0,0,1), rgba(219,201,0,1), rgba(219,201,0,1), rgba(219,151,0,1));
 }
 .gradient_button a:hover {
+    text-decoration:none;
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
+}
+.gradient_button:hover {
+    text-decoration:none;
+    background-position: 100% 0;
+    moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+.gradient_button_2 {
+    height:30px;
+    border:none;
+    width:130px;
+    border-radius:15px;
+    padding:0 10px;
+    background: rgb(209,0,0);
+    background: -moz-linear-gradient(90deg, rgba(0, 31, 255, 1) 0%, rgba(8, 200, 210, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(0, 31, 255, 1) 0%, rgba(8, 200, 210, 1) 100%);
+    background: linear-gradient(90deg, rgba(0, 31, 255, 1) 0%, rgba(8, 200, 210, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d10000",endColorstr="#dbc900",GradientType=1);
+}
+.gradient_button_2 a:hover {
     text-decoration:none;
 }
 .grd_btn_small {

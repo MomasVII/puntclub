@@ -30,6 +30,13 @@ require(ROOT . 'secure/config.php');
 
 //set default logic response
 $response = '';
+
+if(isset($_GET['club'])) {
+    $myClubID = $_GET['club'];
+} else {
+    $myClubID = 1;
+}
+
 if (!empty($_POST['action'])) {
     if ($_POST['action'] == 'thumb_up') {
         $update_data = array(
@@ -104,7 +111,7 @@ if (!empty($_POST['action'])) {
             'Odds' => $_POST['odds'],
             'Description' => $desc,
             'Result' => 'Pending',
-            'Club' => 1,
+            'Club' => $myClubID,
             'Image' => $imageName,
             'BonusBet' => $bb,
             'Date' => $date->format('Y-m-d H:i:s')
@@ -214,19 +221,18 @@ if (!empty($_POST['action'])) {
 
 
 // Get Club Details ////////////////////////////////////////////////////////////
-
-$myClub = $mysqli_db->query('select * from clubs where ID = 1', 100);
-$myClubID = $myClub[0]['ID'];
+$myClub = $mysqli_db->query('select * from clubs where ID = '.$myClubID, 100);
 $myClubname = $myClub[0]['Name'];
 $weekStarts = $myClub[0]['WeekStart'];  //Day of the week each week starts on i.e. 'Monday'
 $clubStarted = $myClub[0]['Date'];  //Date the club started
+$amountToBet = $myClub[0]['AmountBet'];
+$ROIRequired = $myClub[0]['ROIRequired'];
 $todaysDay = date("l"); //Get the day i.e. Tuesday
 if($todaysDay != $weekStarts) { //Either get last Monday or the start of the week is today
     $myClubStartDay = 'last '.strtolower($weekStarts);
 } else {
     $myClubStartDay = date('Y-m-d H:i:s', strtotime($weekStarts));
 }
-
 
 // Get Up Next Betters /////////////////////////////////////////////////////////
 
@@ -238,9 +244,14 @@ $weekEnd = date('Y-m-d H:i:s', strtotime($myClubStartDay));
 $betters_this_week = '';
 $betters_next_week = '';
 
+$bettersArray = array(); //Array of all betters
+$betterIndex = 0;
+
 //First get and loop through all the betters
-$nextWeek = $mysqli_db->query('select clubusers.*, users.Name from clubusers inner join users on clubusers.UserID = users.ID where ClubID = 1', 100);
+$nextWeek = $mysqli_db->query('select clubusers.*, users.Name from clubusers inner join users on clubusers.UserID = users.ID where ClubID = '.$myClubID, 100);
 foreach($nextWeek as $nw){
+
+    $bettersArray[$betterIndex++] = $nw['Name'];
 
     //Next Week ---------------
     //Select all bets from a certain user where the date equals this weeks current betting
@@ -250,7 +261,7 @@ foreach($nextWeek as $nw){
     $nw_won = 0;         //Amount the user has won
     $nw_usr_total = 0;   //Total amount bet
     $nextWeekROI = 0;    //Amount won / Total Bet
-    $leftToSpend = 10;   //Current amount bet this week so far
+    $leftToSpend = $amountToBet;   //Current amount bet this week so far
 
     if($dateNextQuery) {
         foreach($dateNextQuery as $dq2){
@@ -260,6 +271,10 @@ foreach($nextWeek as $nw){
                 }
                 $nw_usr_total += $dq2['Amount'];
                 $leftToSpend -= $dq2['Amount'];
+            } else {
+                if($dq2['Result'] == "Win") {
+                    $nw_won += $dq2['Amount']*$dq2['Odds']-$dq2['Amount'];
+                }
             }
         }
     } else { //Set $nextWeekROI to positive to show if they aren't betting this week they definetely will next week
@@ -275,7 +290,7 @@ foreach($nextWeek as $nw){
 
     ///Last weeks ROI ----------------
     //Select all bets that equal the start to last week to the end of last week
-    $dateSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$nw['UserID'].' and Date > "'.$weekStart.'" and Date < "'.$weekEnd.'"';
+    $dateSql = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where Club = '.$myClubID.' and User = '.$nw['UserID'].' and Date > "'.$weekStart.'" and Date < "'.$weekEnd.'"';
     //select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = 1 and Date > "2019-11-04 00:00:00" and Date < "2019-11-11 00:00:00"
 
     $dateQuery = $mysqli_db->raw_query($dateSql, 100);
@@ -291,6 +306,10 @@ foreach($nextWeek as $nw){
                     $lw_won += $dq['Amount']*$dq['Odds'];
                 }
                 $lw_usr_total += $dq['Amount'];
+            } else {
+                if($dq['Result'] == "Win") {
+                    $lw_won += $dq['Amount']*$dq['Odds']-$dq['Amount'];
+                }
             }
         }
     } else {
@@ -299,14 +318,16 @@ foreach($nextWeek as $nw){
     }
 
     $weekROI = ($lw_won/$lw_usr_total)*100;
-    if($weekROI >= 100) {
+    if($weekROI >= $ROIRequired || $lw_usr_total == 1) {
         $betters_this_week .= '<li>'.$nw['Name'].' ($'.$leftToSpend.')</li>'; //
     }
 }
 
 // Build Datatable /////////////////////////////////////////////////////////////
 
-$users = $mysqli_db->query('select * from clubusers where ClubID = 1', 100);
+//$users = $mysqli_db->query('select clubusers.* from clubusers where ClubID = '.$myClubID, 100);
+$users = $mysqli_db->query('select clubusers.*, users.Name from puntclub.clubusers inner join users on clubusers.UserID = users.ID WHERE ClubID = '.$myClubID, 100);
+
 $table = '';
 $name = '';
 $table = '<table id="table_id" class="display">
@@ -332,21 +353,26 @@ $lossStreak = 0; //Track longest loss streak
 $lossStreakBool = false;
 $lossStreakRecord = 0;
 $lossStreakText = "";
+$bet_slip_users = "";
 
 foreach($users as $usr){
-
-    $query = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$usr['UserID'].' order by Date desc';
+    $query = 'select bets.*, users.Name from bets inner join users on bets.User = users.ID where User = '.$usr['UserID'].' and Club = '.$myClubID.' order by Date desc';
     $user_bets = $mysqli_db->query($query, 100);
     $form = '<div class="form">';
 
     //Get current betters real name
-    $name = $user_bets[0]['Name'];
+    $name = $usr['Name'];
+
+    //Build form select fields
+    $bet_slip_users .= "<option value='".$usr['UserID']."'>".$usr['Name']."</option>";
 
     $ub_won = 0;
     $usr_total = 0;
 
     $winStreak = 0; //Reset win streak for next user
     $lossStreak = 0; //Reset win streak for next user
+    $betCount = 0; //Only get certain number of bet history "Form"
+    $betCountMax = 20; //Max bets to dhow in form column
 
     foreach($user_bets as $ub){
 
@@ -354,22 +380,31 @@ foreach($users as $usr){
             if($ub['Result'] == "Win") {
                 $winStreakBool = true;
                 $ub_won += $ub['Amount']*$ub['Odds'];
-                $form .= '<div class="win"></div>';
+                if($betCount < $betCountMax) {
+                    $form .= '<div class="win"></div>';
+                }
             } else if ($ub['Result'] == "Loss") {
                 $winStreakBool = false;
-                $form .= '<div class="loss"></div>';
+                if($betCount < $betCountMax) {
+                    $form .= '<div class="loss"></div>';
+                }
             }
             $usr_total += $ub['Amount'];
         } else if($ub['BonusBet'] == "Yes") {
             if($ub['Result'] == "Win") {
                 $winStreakBool = true;
                 $ub_won += ($ub['Amount']*$ub['Odds'])-$ub['Amount'];
-                $form .= '<div class="win"></div>';
+                if($betCount < $betCountMax) {
+                    $form .= '<div class="win"></div>';
+                }
             } else if ($ub['Result'] == "Loss") {
                 $winStreakBool = false;
-                $form .= '<div class="loss"></div>';
+                if($betCount < $betCountMax) {
+                    $form .= '<div class="loss"></div>';
+                }
             }
         }
+        $betCount++;
 
         if($winStreakBool) {
             $lossStreak = 0;
@@ -396,12 +431,17 @@ foreach($users as $usr){
 
 
     $table .= '<tr>
-            <td><h4>'.$name.'</h4></td>
-            <td><h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4></td>
+            <td><h4>'.$name.'</h4></td>';
+    if($usr_total == 0) {
+        $table .=  '<td><h4>0%</h4></td>
+                    <td><h4>$0.00</h4></td>
+                    <td><h4>$0.00</h4></td>';
+    } else {
+        $table .= '<td><h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4></td>
             <td><h4>$'.number_format((float)$usr_total, 2, '.', '').'</h4></td>
-            <td><h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4></td>
-            <td>'.$form.'</td>
-        </tr>';
+            <td><h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4></td>';
+    }
+    $table .= '<td>'.$form.'</td></tr>';
 }
 
 $table .= '</tbody>
@@ -412,7 +452,7 @@ $table .= '</tbody>
 
 
 
-$bets = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date DESC', 10000);
+$bets = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = '.$myClubID.' order by Date DESC', 10000);
 
 $pending_bets = '';
 $resulted_bets = '';
@@ -436,6 +476,7 @@ $totalWeekWon = 0; //Keep track of total amount won for the week
 $weeksROI = array();
 $peoplesTotalBet = array();
 $peoplesTotalWon = array();
+$trackUserTotal = array();
 $weekSummary = '';
 
 //Awards
@@ -443,6 +484,11 @@ $highestOdds = 0;
 $highestAmountWon = 0;
 $lowestOddsLost = 100;
 $highestOddsWon = 0;
+/*---*/
+$lowestOddsLostText = "";
+$highestOddsWonText = "";
+$highestAmountWonText = "";
+$highestOddsText = "";
 
 
 
@@ -451,26 +497,21 @@ $weekCounter = 1;
 $tableX = "[".
 $userWeekSummary = array();*/
 
+
+$numItems = count($bettersArray);
+$i = 0;
+$chartData = '["Week"';
+foreach($bettersArray as $ba){
+    $chartData .= ', "'.$ba.'"';
+    if(++$i === $numItems) {
+        $chartData .= "]";
+    }
+    if(!isset($trackUserTotal[$ba])) {
+        $trackUserTotal[$ba] = 0;
+    }
+}
+
 foreach($bets as $bs){
-
-    //If we are at the end of the week sum up data collected
-    /*if(date('Y/m/d', strtotime($bs['Date'])) > $clubWeek) {
-        foreach ($peoplesTotalBet as $key => $value) {
-            $userWeekSummary[$key][$weekCounter] = number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "");
-        }
-
-        $clubWeek = date('Y/m/d', strtotime("+7 day", strtotime($clubWeek))); //Go to start of next week
-
-        $tableX .= $weekCounter+", ";
-        $weekCounter++;
-    }*/
-
-
-
-
-
-
-
 
     if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet has fallen outside currently checked week
 
@@ -487,6 +528,27 @@ foreach($bets as $bs){
         $currentWeek++; //Increment current week
         $nextDate = strtotime("-7 day", strtotime($prevClubWeek));
         $prevClubWeek = date('Y/m/d', $nextDate); //Find next weeks start date
+
+        //Build Graph
+        $chartData .= ",['".$currentWeek."' ";
+        $i = 0;
+        foreach($bettersArray as $ba){
+
+            $chartData .= ", ";
+
+            //Set initial users to $0
+
+            if(isset($peoplesTotalWon[$ba])) {
+                $trackUserTotal[$ba] -= 10;
+                $trackUserTotal[$ba] += number_format((float)$peoplesTotalWon[$ba], 2, ".", "");
+            }
+
+            $chartData .= $trackUserTotal[$ba];
+
+            if(++$i === $numItems) {
+                $chartData .= "]";
+            }
+        }
 
         $totalWeekBet = 0; //Reset values for new week
         $totalWeekWon = 0;
@@ -703,130 +765,49 @@ foreach($bets as $bs){
 
 }
 
-/*$chartsJS = "<script type='text/javascript'>var ctx = document.getElementById('myChart').getContext('2d');var myChart = new Chart(ctx, { type: 'line', data: { labels: [".$tableX."], datasets: [";
-foreach ($userWeekSummary as $key => $value) {
-    $chartsJS .= "{ data: [";
-    for($x = 1; $x < $weekCounter; $x++) {
-        $chartsJS .= $userWeekSummary[$key][$x].",";
+if($total == 0) {
+    $roi = "<p>ROI: <span>No Bets</p>";
+} else {
+    if(($totalWon/$total)*100 > 100) {
+        $roi = '<p class="green">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
+    } else if(($totalWon/$total)*100 < 100) {
+        $roi = '<p class="red">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
     }
-    $chartsJS .= "0], label: '".$userWeekSummary[$key]."', borderColor: '#3e95cd', fill: false }, ";
-
-    //$userWeekSummary[$key][$weekCounter] = number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "");
-}
-$chartsJS = "]}, options: { title: { display: true, text: 'ROI' }}});</script>";
-
-echo $chartsJS;*/
-
-if(($totalWon/$total)*100 > 100) {
-    $roi = '<p class="green">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
-} else if(($totalWon/$total)*100 < 100) {
-    $roi = '<p class="red">ROI: <span>'.number_format((float)(($totalWon/$total)*100), 2, ".", "").'%</span></p>';
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/*$betsChart = $mysqli_db->query('select bets.*, users.Name from bets INNER JOIN users ON bets.User = users.ID where Club = 1 order by Date ASC', 100);
+$graphJavascript = "<script type='text/javascript'>
+    google.charts.load('current', {
+        callback: function () {
+            drawChart();
+            $(window).resize(drawChart);
+        },
+        packages:['corechart']
+    });
 
-$arr = array(0 => array(id=>5,name=>"cat 1"),
-             1 => array(id=>2,name=>"cat 2"),
-             2 => array(id=>6,name=>"cat 1")
-);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ".$chartData."
+        ]);
 
-$money = 1;
-foreach($betsChart as $bc){
+        var options = {
+            legend: { position: 'bottom' },
+            lineWidth: 4,
+            hAxis : { textStyle : { fontSize: 10} },
+            vAxis : { textStyle : { fontSize: 10} },
+            chartArea: {
+              // leave room for y-axis labels
+              width: '94%'
+          },
+            width: '100%'
+        };
 
-    $chartData .= '["'.$money.'", ';
-
-    $amount = 0;
-
-
-    if($arrAmount[$bc['User']] == null) {
-        $arrAmount[$bc['User']] = array();
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
     }
+</script>";
 
-    $arrAmount[$bc['User']] += $bc['Amount'];
-    if($arrAmount[$bc['User']] <= $money) {
-
-        if($bc['Result'] != "Pending") {
-
-            if($bc['Result'] == "Win") {
-                $chartData .= ($bc['Amount']*$bc['Odds']);
-            } else if($bc['Result'] == "Loss") {
-                $chartData .= ($bc['Amount']);
-            }
-
-
-        }
-
-    }
-
-}
-
-$chartData = '["Week", "Thomas", "Simon", "Tom", "Gus", "Lachy", "Ali", "Joel", "Cal"],';
-
-
-                /*["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
-                ["", -10, 31.15, -10, -10, -5, 29.50, -10, 7.15],
-                ["", -10, -3, -10, -10, -10, 29.50, -10, 4.80],
-                ["", -10, -5, -10, -10, -10, 29.50, -10, 4.80]';
-
-
-
-$money = 5;
-while($money < 100) {
-
-    $chartData .= '["'.$money.'", ';
-
-    for($x = 0; $x < 8; $x++) {
-        //if($arr[0] )
-    }
-    //["", -5, 16.80, -10, -10, -5, 21.50, -5, -2],
-
-    $money += 5;
-}
-
-print_r($arr);*/
-
-/*foreach($users as $usr){
-
-    $query = 'select * from bets where User = '.$usr['UserID'].' order by Date';
-    $user_bets = $mysqli_db->query($query, 100);
-    $form = '<div class="form">';
-
-    $ub_won = 0;
-    $usr_total = 0;
-
-    foreach($user_bets as $ub){
-
-        if($ub['Result'] == "Win") {
-            $ub_won += $ub['Amount']*$ub['Odds'];
-            $form .= '<div class="win"></div>';
-        } else if ($ub['Result'] == "Loss") {
-            $form .= '<div class="loss"></div>';
-        }
-        $usr_total += $ub['Amount'];
-
-    }
-    $form .= '</div>';
-
-
-
-
-    $queryName = 'select * from users where ID = '.$usr['UserID'];
-    $user_name = $mysqli_db->query($queryName, 10);
-    foreach($user_name as $un){
-        $name = $un['Name'];
-    }
-
-    $table .= '<div class="leaderboard_content">
-        <h4>'.$name.'</h4>
-        <h4>'.number_format((float)(($ub_won/$usr_total)*100), 2, ".", "").'%</h4>
-        <h4>$'.number_format((float)$usr_total, 2, '.', '').'</h4>
-        <h4>$'.number_format((float)$ub_won, 2, '.', '').'</h4>
-        '.$form.'
-    </div>';
-
-}*/
 
 // INCLUDE DEFINITIONS /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -849,7 +830,6 @@ define('DESCRIPTION', 'Welcome to Punt.Club');
 
 //define the individual page styles - delimiter: COMMA
 define('STYLES', '
-    '.ROOT. 'web/style/base.css,
     '.ROOT. 'web/style/header.css,
     '.ROOT. 'web/style/home.css,
     '.ROOT. 'web/style/footer.css,
@@ -858,7 +838,8 @@ define('STYLES', '
     '.ROOT. 'web/style/typography.css,
     '.ROOT. 'web/style/datatables.css,
     '.ROOT. 'web/style/responsive.dataTables.min.css,
-    '.ROOT. 'web/style/gradientbutton.css
+    '.ROOT. 'web/style/gradientbutton.css,
+    '.ROOT. 'web/style/base.css,
 ');
 
 //define the individual page javascript that runs at the start of the page - delimiter: COMMA
