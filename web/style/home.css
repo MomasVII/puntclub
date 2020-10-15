@@ -317,6 +317,8 @@ table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column
 .tables_graphs_awards {
     /*width:300%;
     display:flex;*/
+    position:relative;
+    width:100%;
 }
 
 .dataTables_wrapper, .graphs {

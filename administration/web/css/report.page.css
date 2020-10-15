@@ -1,0 +1,177 @@
+/*
+  Theme Name: Postcode & Movers Statistics Administration
+  Author: Lucas Jordan
+  Description: Reports page Styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*-----------------------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-------------------------------------------------------------------------------
+#   Report Styles
+-----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+#   Report Styles
+-----------------------------------------------------------------------------*/
+/* First column */
+.report-row {
+    display: block;
+    position: relative;
+    margin-bottom: 2.0em;
+}
+.report-row:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+.report-row .report-btn-group {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin: 0 0 2.250em 0;
+}
+.report-row .primary-cta {
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: #666666;
+    color: #ffffff;
+    font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 1em;
+    border-radius: 0.188em;
+    padding: 0.9666em 1.313em;
+    margin: 0 0 0.375em 0;
+    text-align: left;
+    cursor: pointer;
+}
+.report-row .primary-cta i {
+    display: block;
+    position: absolute;
+    right: 0.666em;
+    top: 50%;
+    transform: translateY(-50%);
+}
+/* Second/ third column */
+.report-row .card {
+    display: block;
+    position: relative;
+    padding: 0.666em;
+    margin: 0 0 0.750em 0;
+    border-radius: 0.188em;
+    background-color: #00aea5;
+    color: #ffffff;
+    font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 1em;
+    text-align: center;
+    min-height: 117px;
+}
+.report-row .card span {
+    display: block;
+    position: relative;
+    font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1;
+    font-size: 2.813em;
+    padding: 0;
+    margin:  0.222em 0;
+}
+.report-row .card p {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.666em;
+    font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 1em;
+}
+.report-row ul {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    background-color: #ffffff;
+    color: #000000;
+}
+.report-row ul:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+.report-row ul li {
+    display: block;
+    position: relative;
+    list-style: none;
+    margin: 0 0 0.375em 0;
+    padding: 0;
+    font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 1em;
+    background-color: #ffffff;
+}
+.report-row ul li:after {
+    display: table;
+    clear: both;
+    content: "";
+}
+.report-row ul li span {
+    display: block;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    float: left;
+    line-height: 1.2;
+    width: calc(70% - 0.5em );
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(26.666% + 1em);
+}
+.report-row ul li .dataHero {
+    display: block;
+    position: relative;
+    background-color: #e2f7f5;
+    color: #4d4d4d;
+    font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 1.375em;
+    line-height: 3.4;
+    float: left;
+    width: 26.666%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    transform: translateY(0);
+}
+/* Reports envelope background image */
+.reports .bg {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 24.82%;
+    height: auto;
+    position: absolute;
+    top: auto;
+    right: auto;
+    bottom: 85px;
+    left: 0;
+}
+.reports .bg img {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+}

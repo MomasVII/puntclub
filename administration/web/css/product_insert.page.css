@@ -1,0 +1,151 @@
+/*
+  Theme Name: Postcode & Movers Statistics Administration
+  Author: Lucas Jordan
+  Description: Add product page Styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*-----------------------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-------------------------------------------------------------------------------
+#   Add Product Styles
+-----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+#   Add Product Styles
+-----------------------------------------------------------------------------*/
+.free_tier {
+    display: none
+}
+/* product-accordion styles */
+.product-accordion {
+    display: block;
+    position: relative;
+    -ms-transform: translateY(-52px);
+    -webkit-transform: translateY(-52px);
+    transform: translateY(-52px);
+    margin-bottom: -40px;
+}
+.product-accordion .accordion-title,
+.product-accordion .accordion-title:link,
+.product-accordion .accordion-title:visited,
+.product-accordion .accordion-title:hover,
+.product-accordion .accordion-title:focus,
+.product-accordion .accordion-title:active {
+    background-color: #ffffff;
+    border-bottom: 2px solid #00aea5;
+    padding: 1.666rem 1rem;
+}
+.product-accordion .accordion-title::before {
+    font-family: 'raremedia' !important;
+    font-weight: 400;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    margin-top: -.5rem;
+    content: "\e905";
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    font-size: 19px;
+    color: #00aea5;
+}
+.product-accordion .accordion-title[aria-expanded="true"]::before {
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.product-accordion :last-child:not(.is-active)>.accordion-title {
+    border-bottom: 2px solid #00aea5;
+    border-radius: 0;
+}
+.product-accordion .accordion-content {
+    display: none;
+    padding: 1rem 0;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    background-color: #ffffff;
+    color: #0a0a0a;
+}
+.product-accordion :last-child>.accordion-content:last-child {
+    border-bottom: 1px solid transparent;
+}
+/* product-accordio state dropdown styles */
+span.no-heading {
+    display: block;
+    position: relative;
+    font-family: ap_letter, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 20px;
+    margin: 0.666em 0 0.566em 0;
+}
+.product-description-accordion {
+    display: block;
+    position: relative;
+}
+.product-description-accordion .accordion-title,
+.product-description-accordion .accordion-title:link,
+.product-description-accordion .accordion-title:visited,
+.product-description-accordion .accordion-title:hover,
+.product-description-accordion .accordion-title:focus,
+.product-description-accordion .accordion-title:active {
+    background-color: #ffffff;
+    border-bottom: 2px solid #00aea5;
+    padding: 1.0rem 0;
+    font-family: ap_letter, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 1em;
+}
+.product-description-accordion .accordion-title::before {
+    font-family: 'raremedia' !important;
+    font-weight: 400;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    margin-top: -.5rem;
+    content: "\e905";
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    font-size: 19px;
+    color: #00aea5;
+}
+.product-description-accordion .accordion-title[aria-expanded="true"]::before {
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+.product-description-accordion .accordion-content {
+    display: none;
+    padding: 1rem 0;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    background-color: #ffffff;
+    color: #0a0a0a;
+}
+.product-description-accordion :last-child>.accordion-content:last-child {
+    border-bottom: 1px solid transparent;
+}
+/* Enable x pricing styles */
+.enableContainer {
+    display: block;
+    position: relative;
+}
+.enableItem {
+    display: block;
+    position: relative;
+}
+.enableContainer[aria-expanded="false"] .enableItem {
+    /*display: none;*/
+    overflow: hidden;
+    max-height: 0;
+}
+.enableContainer[aria-expanded="true"] .enableItem {
+    /*display: block;*/
+    max-height: 1000px;
+    overflow: hidden;
+}

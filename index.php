@@ -470,6 +470,9 @@ $thisClubWeek = date('Y/m/d', strtotime($weekEnd)); //Get next Monday as start d
 $prevWeek = strtotime($thisClubWeek);
 $prevClubWeek = date('Y/m/d', $prevWeek);
 
+$nextCWeek = strtotime($clubStarted);
+$nextClubWeek = date('Y/m/d', $nextCWeek);
+
 $currentWeek = 0;
 $totalWeekBet = 0; //Keep track of the total amount bet for the week
 $totalWeekWon = 0; //Keep track of total amount won for the week
@@ -511,24 +514,12 @@ foreach($bettersArray as $ba){
     }
 }
 
-foreach($bets as $bs){
+foreach (array_reverse($bets) as $bs) {
+    if(date('Y/m/d', strtotime($bs['Date'])) >= $nextClubWeek) {
 
-    if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet has fallen outside currently checked week
-
-        $weekSummary .= "<h3 class='summary_header'>WEEK STARTING ".$prevClubWeek."</h3><hr />";
-        $weekSummary .= "<p>ROI: ".number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "")."%</p>";
-        foreach ($peoplesTotalBet as $key => $value) {
-            $weekSummary .= "<div class='peoplesROI'>";
-            $weekSummary .= "<p>".$key.": ".number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "")."%</p>";
-            $weekSummary .= "<p>+$".number_format((float)$peoplesTotalWon[$key], 2, ".", "")."</p>";
-            $weekSummary .= "</div>";
-        }
-
-        $weeksROI[$currentWeek] = number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "");
         $currentWeek++; //Increment current week
-        $nextDate = strtotime("-7 day", strtotime($prevClubWeek));
-        $prevClubWeek = date('Y/m/d', $nextDate); //Find next weeks start date
-
+        $nextDate = strtotime("+7 day", strtotime($nextClubWeek));
+        $nextClubWeek = date('Y/m/d', $nextDate); //Find next weeks start date
         //Build Graph
         $chartData .= ",['".$currentWeek."' ";
         $i = 0;
@@ -549,6 +540,47 @@ foreach($bets as $bs){
                 $chartData .= "]";
             }
         }
+        $peoplesTotalWon = array();
+    }
+    $foundBet = false;
+    while(!$foundBet) {
+        if(date('Y/m/d', strtotime($bs['Date'])) < $nextClubWeek) {
+            if(!isset($peoplesTotalWon[$bs['Name']])) {
+                $peoplesTotalWon[$bs['Name']] = 0;
+            }
+            if($bs['Result'] == "Win") {
+                if($bs['BonusBet'] == "Yes") {
+                    $peoplesTotalWon[$bs['Name']] += ($bs['Amount']*$bs['Odds'])-$bs['Amount'];
+                } else {
+                    $peoplesTotalWon[$bs['Name']] += $bs['Amount']*$bs['Odds'];
+                }
+            }
+            $foundBet = true;
+        } else {
+            $nextDate = strtotime("+7 day", strtotime($nextClubWeek));
+            $nextClubWeek = date('Y/m/d', $nextDate); //Find next weeks start date
+        }
+    }
+
+}
+
+foreach($bets as $bs){
+
+    if(date('Y/m/d', strtotime($bs['Date'])) < $prevClubWeek) { //If bet has fallen outside currently checked week
+
+        $weekSummary .= "<h3 class='summary_header'>WEEK STARTING ".$prevClubWeek."</h3><hr />";
+        $weekSummary .= "<p>ROI: ".number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "")."%</p>";
+        foreach ($peoplesTotalBet as $key => $value) {
+            $weekSummary .= "<div class='peoplesROI'>";
+            $weekSummary .= "<p>".$key.": ".number_format((float)(($peoplesTotalWon[$key]/$value)*100), 2, ".", "")."%</p>";
+            $weekSummary .= "<p>+$".number_format((float)$peoplesTotalWon[$key], 2, ".", "")."</p>";
+            $weekSummary .= "</div>";
+        }
+
+        $weeksROI[$currentWeek] = number_format((float)(($totalWeekWon/$totalWeekBet)*100), 2, ".", "");
+        $currentWeek++; //Increment current week
+        $nextDate = strtotime("-7 day", strtotime($prevClubWeek));
+        $prevClubWeek = date('Y/m/d', $nextDate); //Find next weeks start date
 
         $totalWeekBet = 0; //Reset values for new week
         $totalWeekWon = 0;
@@ -576,11 +608,13 @@ foreach($bets as $bs){
 
     ///////Build thumbs up/down and revert forms
     if($bs['Result'] == "Win") {
-        $totalWeekWon += $bs['Amount']*$bs['Odds'];
-        $peoplesTotalWon[$bs['Name']] += $bs['Amount']*$bs['Odds'];
         if($bs['BonusBet'] == "Yes") {
+            $totalWeekWon += $bs['Amount']*$bs['Odds']-$bs['Amount'];
+            $peoplesTotalWon[$bs['Name']] += $bs['Amount']*$bs['Odds']-$bs['Amount'];
             $totalWonCard = number_format((float)(($bs['Odds']*$bs['Amount'])-$bs['Amount']), 2, '.', '');
         } else {
+            $totalWeekWon += $bs['Amount']*$bs['Odds'];
+            $peoplesTotalWon[$bs['Name']] += $bs['Amount']*$bs['Odds'];
             $totalWonCard = number_format((float)($bs['Odds']*$bs['Amount']), 2, '.', '');
         }
         $profit =  '<div class="winner_detail">

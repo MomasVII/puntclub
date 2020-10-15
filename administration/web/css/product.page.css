@@ -1,0 +1,122 @@
+/*
+  Theme Name: Postcode & Movers Statistics Administration
+  Author: Lucas Jordan
+  Description: Product page Styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*-----------------------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-------------------------------------------------------------------------------
+#   Product Styles
+-----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+#   Product Styles
+-----------------------------------------------------------------------------*/
+.product .content-block.flex {
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox;      /* TWEENER - IE 10 */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;
+    flex-flow: row wrap;
+    -ms-flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: baseline;
+    align-content: space-around;
+    padding: 0.188em;
+}
+.product .content-block.flex .item {
+   order: 0;
+   flex: 1 1 auto; /* flex-grow flex-shrink flex-basis */
+   align-self: flex-start;
+   text-align: center;
+   margin: 0.188em;
+   width: calc( 14.286% - (0.188em * 2) );
+   align-self: stretch;
+   padding: 0.9666em 0;
+   font-family: ap_letter, Helvetica, Arial, sans-serif;
+   font-weight: 400;
+   line-height: 1;
+   font-size: 0.875em;
+   color: #000000;
+   overflow: hidden;
+}
+.product .content-block.flex .item.span-two {
+   flex: 2 2 auto; /* flex-grow flex-shrink flex-basis */
+   width: calc( 28.572% - (0.188em * 2) );
+}
+.product .content-block.flex .item.span-three {
+   flex: 3 3 auto; /* flex-grow flex-shrink flex-basis */
+   width: calc( 42.858% - (0.188em * 2) );
+}
+.product .content-block.flex .item.head {
+   font-family: ap_letter, Helvetica, Arial, sans-serif;
+   font-weight: 700;
+   line-height: 1;
+   font-size: 1.125em;
+   background-color: #ffffff;
+   color: #333333;
+   padding: 0;
+}
+.product .content-block.flex .item.sub-head {
+   display: block;
+   position: relative;
+   font-family: ap_letter, Helvetica, Arial, sans-serif;
+   font-weight: 700;
+   line-height: 1.2;
+   font-size: 0.750em;
+   background-color: #00aea5;
+   color: #ffffff;
+   border-radius: 0.188em;
+   padding: 0.9666em 1.313em;
+}
+.product .content-block.flex .item.sub-head-2 {
+   display: block;
+   position: relative;
+   font-family: ap_letter, Helvetica, Arial, sans-serif;
+   font-weight: 700;
+   line-height: 1.5;
+   font-size: 0.750em;
+   background-color: #00aea5;
+   color: #ffffff;
+   border-radius: 0.188em;
+   padding: 0.9666em 1.313em;
+}
+.product .content-block.flex .item.sub-head-3 {
+   display: block;
+   position: relative;
+   font-family: ap_letter, Helvetica, Arial, sans-serif;
+   font-weight: 700;
+   line-height: 1.5;
+   font-size: 0.750em;
+   color: #000000;
+   padding: 0.9666em 1.313em;
+}
+.product .content-block.flex .item.rounded {
+   font-family: ap_letter, Helvetica, Arial, sans-serif;
+   font-weight: 700;
+   line-height: 1;
+   font-size: 1.125em;
+   background-color: #ffffff;
+   color: #333333;
+   padding: 0.9666em 1.313em;
+   border-radius: 0.188em;
+   border: solid 1px #999999;
+}
+.product .content-block.flex .item.btn-gray,
+.product .content-block.flex .item.btn-gray:link,
+.product .content-block.flex .item.btn-gray:visited,
+.product .content-block.flex .item.btn-gray:hover,
+.product .content-block.flex .item.btn-gray:focus,
+.product .content-block.flex .item.btn-gray:active {
+   font-family: "ap_letter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+   font-weight: 700;
+   line-height: 1;
+   font-size: 1em;
+   border-radius: 0.188em;
+   background-color: #666666;
+   color: #ffffff;
+}

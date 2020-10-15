@@ -52,8 +52,8 @@
             $this->_where = array();
             $this->_bind_params = array(''); //set zero index to empty
             unset($this->_query);
-            unset($this->_where_type_list);
-            unset($this->_param_type_list);
+            $this->_where_type_list = '';
+            $this->_param_type_list = '';
         }
 
 
@@ -370,7 +370,7 @@
         protected function _prepare_query(){
 
             $stmt = $this->_mysqli->prepare($this->_query);
-            if(! $stmt){
+            if(!$stmt){
                 trigger_error('A problem was encountered while trying to prepare query: <br />'.$this->_query.'<br />'.$this->_mysqli->error, E_USER_ERROR);
             }
             return $stmt;

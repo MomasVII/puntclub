@@ -1,0 +1,127 @@
+/*
+  Theme Name: Raremedia base navigation style sheet
+  Author: Lucas Jordan
+  Description: base navigation style sheet
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*-----------------------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-------------------------------------------------------------------------------
+#   Nav bar
+#   Drop down menu
+    ##  Mega menu drop down
+#   Accordion menu
+#   Responsive
+#   Navigation Utility Classes
+-----------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------
+#   Nav bar
+-----------------------------------------------------------------------------*/
+.nav-bar {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style:none;
+    z-index: 1000;
+}
+.nav-bar:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.nav-bar {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.nav-bar.nav-left {
+    float: left;
+}
+.nav-bar.nav-right {
+    float: right;
+}
+
+/* Level All */
+
+.nav-bar ul {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.nav-bar li {
+    display: block;
+}
+.nav-bar a {
+    display: block;
+}
+
+/* Level 1 */
+
+.nav-bar.horizontal > ul > li {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar > ul > li > a,
+.nav-bar > ul > li > a:link,
+.nav-bar > ul > li > a:visited{
+    color: #000000;
+    padding: 1.36777em 1.875em 1em 1.875em;
+    line-height: 1;
+    font-family: ap_letter,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    font-size: 1em;
+    border-bottom: solid 6px transparent;
+}
+
+.nav-bar > ul > li > a:hover,
+.nav-bar > ul > li > a:focus,
+.nav-bar > ul > li > a:active{
+    color: #d60926;
+    background-color: #ffffff;
+    border-bottom: solid 6px #d60926;
+}
+
+.nav-bar > ul > li > a.active,
+.nav-bar > ul > li > a.active:link,
+.nav-bar > ul > li > a.active:visited,
+.nav-bar > ul > li > a.active:hover,
+.nav-bar > ul > li > a.active:focus,
+.nav-bar > ul > li > a.active:active {
+    color: #d60926;
+    background-color: #ffffff;
+    border-bottom: solid 6px #d60926;
+}
+
+.nav-bar.horizontal > ul > li:last-of-type a,
+.nav-bar.horizontal > ul > li:last-of-type a:link,
+.nav-bar.horizontal > ul > li:last-of-type a:visited,
+.nav-bar > ul > li:last-of-type > a.active:link,
+.nav-bar > ul > li:last-of-type > a.active:visited {
+    color: #ffffff;
+    background-color: #d60926;
+    border-bottom: solid 6px transparent;
+}
+.nav-bar.horizontal > ul > li:last-of-type a:hover,
+.nav-bar.horizontal > ul > li:last-of-type a:focus
+.nav-bar.horizontal > ul > li:last-of-type a.active,
+.nav-bar > ul > li:last-of-type > a.active:hover,
+.nav-bar > ul > li:last-of-type > a.active:focus,
+.nav-bar > ul > li:last-of-type > a.active:active  {
+    color: #ffffff;
+    background-color: #bd000d;
+}
+/*-----------------------------------------------------------------------------
+#   Responsive
+-----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+#   Navigation Utility Classes
+-----------------------------------------------------------------------------*/

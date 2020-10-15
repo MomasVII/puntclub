@@ -1,0 +1,66 @@
+/*
+  Theme Name: Postcode & Movers Statistics Administration
+  Author: Lucas Jordan
+  Description: Index page Styles
+  Version: 0.0.1
+  Copyright: Raremedia Pty Ltd (Andrew Davidson)'
+*/
+
+/*-----------------------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+-------------------------------------------------------------------------------
+#   Index Styles
+-----------------------------------------------------------------------------*/
+
+
+/*-----------------------------------------------------------------------------
+#   Index Styles
+-----------------------------------------------------------------------------*/
+#main-bar {
+        display: none;
+}
+.btn-login {
+   padding: 0.5944em 2.565em;
+   margin: 0;
+}
+.btn-login,
+.btn-login:link,
+.btn-login:visited {
+    border-radius: 0.188em;
+}
+#login-panel {
+   display: block;
+   position: relative;
+   padding: 0;
+   margin-bottom: 6.250em;
+   min-height: 550px;
+}
+#login-panel h1 {
+   margin: 3.125em 0 1.250em 0;
+}
+.login-image-section {
+    display: block;
+    position: absolute;
+    bottom: calc(0px + 85px);
+    left: -175px;
+    left: -8.888%;
+    right: auto;
+    width: 100%;
+}
+@media (min-width: 1366px) {
+   .login-image-section {
+      left: 0;
+      right: 0;
+   }
+}
+@media (max-width: 900px) {
+   .login-image-section {
+      left: 0;
+      right: 0;
+   }
+}
+@media (max-width: 639px) {
+   .login-image-section {
+      bottom: calc(0px + 110px);
+   }
+}

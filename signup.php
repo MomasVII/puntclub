@@ -16,10 +16,20 @@ define('ROOT', '');
 define('LOCAL', '');
 
 //name the framework libraries you need in scope (cross dependencies mean the order matters)
-$required_libraries = array('upload');
+$required_libraries = array(
+    'mysqli_db',
+    'validate',
+    'session',
+    'shortcut',
+    'upload',
+    'password_hash',
+);
 
 //name the site classes you need in scope
-$required_classes = array();
+$required_classes = array(
+    'auth',
+    'admin_user'
+);
 
 //initialize the framework
 require(ROOT . 'secure/config.php');
@@ -30,7 +40,16 @@ require(ROOT . 'secure/config.php');
 
 //set default logic response
 $response = '';
-if (!empty($_POST['action'])) {
+//listen for insert post
+if (isset($_POST) && !empty($_POST)) {
+
+    //attempt to insert the user data
+    $insert = $admin_user->insert();
+    if($insert['boolean']){
+        $response = 'Success: '.$insert['response'];
+    }else{
+        $response = 'Error: '.$insert['response'];
+    }
 }
 
 // INCLUDE DEFINITIONS /////////////////////////////////////////////////////////////////////////////////////////////

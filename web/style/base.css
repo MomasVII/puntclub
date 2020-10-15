@@ -20,6 +20,16 @@ a, a:active, a:hover, a:visited, a:focus {
     text-decoration: none;
 }
 
+.hide {
+    display:none;
+}
+#response{
+    display:block;
+}
+#response p {
+    color:red;
+}
+
 /*---Form---*/
 form { margin:0 !important; }
 .form-group {

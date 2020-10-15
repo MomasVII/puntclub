@@ -1,0 +1,755 @@
+/*------ FONT FACE ------*/
+@font-face {
+    font-family: "letter_one";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/web/font/letterone.eot?#iefix") format("embedded-opentype"), url("/web/font/letterone.woff") format("woff"), url("/web/font/letterone.ttf") format("truetype"), url("/web/font/letterone.svg#letter_oneregular") format("svg");
+}
+@font-face {
+    font-family: "letter_one";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/web/font/letterone-bold.eot?#iefix") format("embedded-opentype"), url("/web/font/letterone-bold.woff") format("woff"), url("/web/font/letterone-bold.ttf") format("truetype"), url("/web/font/letterone-bold.svg#letter_onebold") format("svg");
+}
+@font-face {
+    font-family: "letter_one";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/web/font/letterone-bolditalic.eot?#iefix") format("embedded-opentype"), url("/web/font/letterone-bolditalic.woff") format("woff"), url("/web/font/letterone-bolditalic.ttf") format("truetype"), url("/web/font/letterone-bolditalic.svg#letter_onebold_italic") format("svg");
+}
+@font-face {
+    font-family: "letter_one";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/web/font/letterone-italic.eot?#iefix") format("embedded-opentype"), url("/web/font/letterone-italic.woff") format("woff"), url("/web/font/letterone-italic.ttf") format("truetype"), url("/web/font/letterone-italic.svg#letter_oneitalic") format("svg");
+}
+@font-face {
+    font-family: "letter_two";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/web/font/lettertwo.eot?#iefix") format("embedded-opentype"), url("/web/font/lettertwo.woff") format("woff"), url("/web/font/lettertwo.ttf") format("truetype"), url("/web/font/lettertwo.svg#letter_tworegular") format("svg");
+}
+@font-face {
+    font-family: "letter_two";
+    font-style: normal;
+    font-weight: 700;
+    src: url("/web/font/lettertwo-bold.eot?#iefix") format("embedded-opentype"), url("/web/font/lettertwo-bold.woff") format("woff"), url("/web/font/lettertwo-bold.ttf") format("truetype"), url("/web/font/lettertwo-bold.svg#letter_twobold") format("svg");
+}
+@font-face {
+    font-family: "letter_two";
+    font-style: italic;
+    font-weight: 700;
+    src: url("/web/font/lettertwo-bolditalic.eot?#iefix") format("embedded-opentype"), url("/web/font/lettertwo-bolditalic.woff") format("woff"), url("/web/font/lettertwo-bolditalic.ttf") format("truetype"), url("/web/font/lettertwo-bolditalic.svg#letter_twobold_italic") format("svg");
+}
+@font-face {
+    font-family: "letter_two";
+    font-style: italic;
+    font-weight: 400;
+    src: url("/web/font/lettertwo-italic.eot?#iefix") format("embedded-opentype"), url("/web/font/lettertwo-italic.woff") format("woff"), url("/web/font/lettertwo-italic.ttf") format("truetype"), url("/web/font/lettertwo-italic.svg#letter_twoitalic") format("svg");
+}
+
+/*------ RESET ------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    font-weight: normal;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+button, input, optgroup, select, textarea {
+    color: inherit; /* 1 */
+    font: inherit; /* 2 */
+    margin: 0; /* 3 */
+}
+
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+/*------ GLOBAL ------*/
+html, button, input, select, textarea {
+    font-family: Arial,sans-serif;
+}
+
+body {
+    color: #807370;
+    font-size: 0.813em;
+    line-height: 1.538em;
+}
+a {
+    color: #dc1928;
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+}
+a:focus {
+    outline: thin dotted;
+}
+a:active, a:hover {
+    outline: 0 none;
+}
+a:hover {
+    text-decoration: underline;
+}
+img {
+    border: 0 none;
+}
+
+/*------ STRUCTURE ------*/
+#header {
+    height: 112px;
+    margin: 0 auto;
+    position: relative;
+    width: 960px;
+}
+.header {
+	background-color: #fbf8f1 !important;
+    background-image: none !important;
+    border-bottom: 1px solid #ebeaea !important;
+    height: 82px;
+}
+#content {
+	width:960px;
+    margin: 0 auto 20px auto;
+    position: relative;
+}
+.container {
+	width:100%;
+	display:block;
+	position:relative;
+}
+#login-panel {
+	width:410px;
+    margin: 0 auto;
+	padding-top:50px;
+    position: relative;
+}
+.login-panel {
+	display: inline-flex;
+}
+.right {
+    float: right;
+}
+.left {
+    float: left;
+}
+.clearfix:before, .input-group:before, .image-products li:before, .tools-step:before, .clearfix:after, .input-group:after, .image-products li:after, .tools-step:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after, .input-group:after, .image-products li:after, .tools-step:after {
+    clear: both;
+}
+.clearfix:before, .input-group:before, .image-products li:before, .tools-step:before, .clearfix:after, .input-group:after, .image-products li:after, .tools-step:after {
+    content: " ";
+    display: table;
+}
+.search-form {
+	padding:20px;
+	display:block;
+}
+.search-form input {
+	margin-right:15px;
+	padding-left:30px !important;
+	background-image: url("/administration/web/image/auspost/icons-32bit/search-brown.png") !important;
+	background-repeat: no-repeat !important;
+	background-position: 0px center !important;
+	color: #a09390 !important;
+}
+.subscribers-search {
+    padding-right:0px;
+}
+.link-downloads a {
+	margin-top:10px;
+}
+
+.hidden {
+    visibility: hidden;
+    display: none;
+}
+/*------ TYPOGRAPHY ------*/
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "letter_one",Arial,sans-serif;
+	font-weight:700;
+}
+h1 {
+    font-size: 35px;
+    line-height: 37px;
+    margin: 15px 0 16px;
+}
+h1, h2 {
+    color: #382f2d;
+}
+h2 {
+    font-size: 20px;
+    line-height: 25px;
+    margin: 0 0 12px;
+}
+h3 {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0 0 12px;
+}
+h3, h4, h5, h6 {
+    color: #5e514d;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+	border-color: #e2dfda -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+	border-right: medium none;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    margin: 15px 0;
+}
+.symbol-req {
+    color: #dc1928;
+}
+
+/*------ NAVIGATION ------*/
+.main-logo {
+    clear: left;
+    float: left;
+    height: 60px;
+    margin-top: 11px;
+    width: 59px;
+}
+.main-logo img {
+    height: 60px;
+    width: 59px;
+}
+.primary-nav {
+    float: left;
+    font-family: "letter_one",Arial,sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 31px 0 0 21px;
+}
+#nav-items {
+	position:absolute;
+	bottom:30px;
+	right:0px;
+}
+#nav-items li {
+	float:left;
+	padding-left:2px;
+}
+#nav-items li a {
+	border-radius: 3px 3px 0px 0px;
+	font: 700 13px "letter_one",Arial,sans-serif;
+	text-decoration:none;
+	color:#FFFFFF;
+	text-align:center;
+	background-color: #dc1928;
+	display:block;
+	width:120px;
+	height:25px;
+	padding-top:10px;
+	border-bottom: solid 3px #660000;
+	cursor:pointer;
+}
+#nav-items li a:hover {
+	background-color: #bc111e;
+}
+#nav-items #logout {
+	padding-left:20px;
+}
+#nav-items #logout a {
+	width:85px;
+	background-color: #5e514d;
+	border-bottom: solid 3px #333;
+}
+#nav-items #logout a:hover {
+	background-color: #483e3b;
+}
+/*------ BUTTONS ------*/
+.primary-cta, .secondary-cta {
+    background-color: #dc1928;
+    border: 2px solid #dc1928;
+    border-radius: 3px;
+    color: #fff !important;
+    display: inline-block;
+    font: 700 13px "letter_one",Arial,sans-serif;
+    padding: 4px 18px 3px 18px;
+    transition-duration: 0.3s;
+    transition-property: background-color, border-color;
+	cursor:pointer;
+}
+.primary-cta:hover, .secondary-cta:hover {
+    background-color: #bc111e;
+	border-color: #bc111e;
+	text-decoration:none;
+}
+.secondary-cta:hover {
+    background-color: #483e3b;
+	border-color: #483e3b;
+}
+
+.btn-next, .button-next {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAKCAYAAABblxXYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADlJREFUeNpi+A8FDFQETDAGNQ1mRDeQEQioYii1DUbRTC2DmRhoAGjnfapHFLUNRAlTahkIAgABBgA3lSQFR8yOYQAAAABJRU5ErkJggg==");
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+}
+.btn-previous, .button-previous {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAKCAYAAABblxXYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGdJREFUeNpi/P//PwOVABsQrwBiFSYqGrgRiAOB+AIDyKUUYjYg3vIfAlaD+FQ3EBycFBo6E8lAZpg4tcKUB4iZ4TwqeH811LXbqeV9mMHroAZvoUZEIRu8EWrwCkYqJ/5FQCwHEGAAftuQZ+NhnpMAAAAASUVORK5CYII=");
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 32px;
+}
+.btn-cancel, .button-cancel {
+    background-image: url("/administration/web/image/auspost/icons-32bit/close.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+}
+.btn-add, .button-add {
+    background-image: url("/administration/web/image/auspost/table-plus.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+}
+#search-form .btn-add,#search-form .button-add {
+    margin-left:30px;
+}
+.btn-csv, .button-csv {
+	width:140px;
+    background-image: url("/administration/web/image/link-csv.png");
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 32px;
+}
+.secondary-cta {
+    background-color: #5e514d;
+    border-color: #5e514d;
+}
+.secondary-cta.selected, .primary-cta.selected {
+    background-color: #dc1928;
+    border: 2px solid #dc1928;
+}
+.secondary-cta.deselected, .primary-cta.deselected {
+    background-color: #5e514d;
+    border-color: #5e514d;
+}
+/* Submit button in reporting page*/
+.btn_submit{
+    margin-top: 10px;
+    padding: 4px 35px 3px 36px;
+}
+/* Make button full width*/
+.btn_block{
+    width: 100%;
+}
+/*------ FORMS ------*/
+.input {
+	position:relative;
+}
+button, input, select, textarea {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+}
+input, textarea, select, input[type="text"], input[type="email"] {
+    height: auto;
+}
+input[type="text"], input[type="email"], input[type="password"] {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #edeae6;
+    border-color: #e1deda #edeae6 #edeae6;
+    border-image: none;
+    border-radius: 3px;
+    border-right: 1px solid #edeae6;
+    border-style: solid;
+    border-width: 1px;
+    color: #382f2d;
+    font-size: 13px;
+    line-height: 13px;
+    outline: medium none;
+    padding: 7px 10px;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    background: none repeat scroll 0 0 #ffffff;
+	border: 1px solid #d7d2cb;
+}
+select {
+    -moz-appearance: none;
+    background-color: #edeae6;
+    border: 1px solid #edeae6;
+    border-radius: 3px;
+    color: #5e514d;
+    outline: medium none;
+    padding: 6px 10px;
+    white-space: nowrap;
+}
+label {
+    display: block;
+    margin: 0 0 4px;
+	height: 18px !important;
+}
+.input-large input[type="text"], .input-large input[type="email"], .input-large input[type="password"], .input-large textarea {
+    width: 388px;
+}
+.input-medium input[type="text"], .input-medium input[type="email"], .input-medium input[type="password"], .input-medium textarea {
+    width: 248px;
+}
+.input-small input[type="text"], .input-small input[type="email"], .input-small input[type="password"], .input-small textarea {
+    width: 108px;
+}
+.has-error input[type="text"], .has-error input[type="email"], .has-error input[type="password"], .has-error select, .has-error textarea {
+    border: 1px solid #dc1928;
+}
+.has-error .inline-error-symbol {
+    top: 38px;
+}
+.has-error .inline-error-symbol {
+    background: url("../image/auspost/form/inline-error.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 20px;
+    position: absolute;
+    right: -10px;
+    top: 28px;
+    width: 20px;
+}
+.inline-error-symbol {
+    display: none;
+}
+.has-error .error-message {
+    display: block;
+}
+.response {
+    margin-left:20px;
+    margin-right:20px;
+}
+
+.error-message {
+    color: #dc1928;
+    display: none;
+    margin: 0;
+}
+.form-errors h3, .tools-apps .errors h3, .form-errors p, .tools-apps .errors p, .errors h3, .errors p {
+    color: #dc1928;
+    font: 700 13px/20px Arial,sans-serif;
+    margin: 0 0 2px;
+}
+.form-errors, .tools-apps .errors, .errors {
+    border: 2px solid #dc1928;
+    border-radius: 5px;
+    color: #dc1928;
+    margin: 10px 0;
+    padding: 5px 18px;
+}
+
+.form-success h3, .tools-apps .success h3, .form-success p, .tools-apps .success p, .success h3, .success p {
+    color: #208a00;
+    font: 700 13px/20px Arial,sans-serif;
+    margin: 0 0 2px;
+}
+.form-success, .tools-apps .success, .success {
+    border: 2px solid #208a00;
+    border-radius: 5px;
+    color: #208a00;
+    margin: 10px 0;
+    padding: 5px 18px;
+}
+
+/* ------- TABLES ------ */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+th {
+    background-color: #857874;
+    border: 1px solid #e2dfda;
+    color: #fff;
+    vertical-align: top;
+	padding: 7px 5px;
+}
+td {
+    border: 1px solid #e2dfda;
+    padding: 7px 5px;
+    text-align: center;
+    vertical-align: top;
+}
+edit-table. tbody > tr > th:first-child {
+    background-color: #5e514d;
+    text-align: center;
+}
+.edit-table tbody > tr > th:last-child, .edit-table tbody > tr > td:last-child {
+    padding-right:30px;
+}
+tr:nth-child(2n+1) {
+    background-color: #fff;
+}
+tr:nth-child(2n) {
+    background-color: #f3f1ee;
+}
+tr.disabled {
+    background-color: #c4bcb7;
+    color:#857874;
+}
+.edit-table {
+	width:100%;
+}
+.edit-table tr:hover {
+	cursor:pointer;
+	background-color: #e8e4de;
+}
+.edit-table tr:hover th{
+	cursor:default;
+}
+.edit-table tbody > tr:hover  > td:last-child {
+	background: url("/administration/web/image/auspost/icons/arrow-red.png") no-repeat scroll right 20px center transparent;
+}
+
+/*------ PAGINATION ------*/
+#pagination {
+	margin:20px 0px 0px 0px;
+	width: 100%;
+	overflow: hidden;
+}
+#pagination ul {
+	position: relative;
+	float: left;
+	display: block;
+	left: 50%;
+}
+#pagination li{
+	position: relative;
+	float: left;
+	display: block;
+	right: 50%;
+}
+#pagination a, #pagination .selected span  {
+	width:20px;
+	height:20px;
+	text-align:center;
+	display:block;
+	background-color:#f3f1ee;
+	padding:5px;
+	margin:1px;
+}
+#pagination .selected span {
+
+}
+#pagination li.first a {
+	background: url("/administration/web/image/auspost/icons-32bit/first-link.png") no-repeat scroll center center #f3f1ee;
+}
+#pagination li.last a {
+	background: url("/administration/web/image/auspost/icons-32bit/last-link.png") no-repeat scroll center center #f3f1ee;
+}
+#pagination li.previous a {
+	background: url("/administration/web/image/auspost/icons-32bit/back-link.png") no-repeat scroll center center #f3f1ee;
+}
+#pagination li.next a {
+	background: url("/administration/web/image/auspost/icons-32bit/next-link.png") no-repeat scroll center center #f3f1ee;
+}
+#pagination a:hover {
+	text-decoration:none;
+	background-color:#e2dfda !important;
+}
+#pagination li.selected a, #pagination .selected span {
+	color:#FFFFFF;
+	font-weight:bold;
+	background-color:#dc1928 !important;
+}
+
+/* ----- Reporting ----- */
+.reporting-panels {
+	text-align:center;
+	margin-top:20px;
+	padding:20px;
+	float:left;
+	background-color:#e8e4de;
+}
+.reporting-panels.panel1 {
+	width:205px;
+	margin-right:20px;
+	padding-top:10px;
+}
+/* Modified styles of panel1/ panel2 to accommodate
+   the new box for download/ upload Marketing Template & Data */
+.reporting-panels.panel1_two_panels {
+    line-height:1.5em;
+    width:245px;
+    background:none;
+    padding:0px;
+    margin-top:0px;
+    padding-right: 20px;
+}
+.reporting-panels.panel1_two_panels a{
+    margin-top: 10px;
+}
+.reporting-panels.panel1_two_panels a:first-of-type{
+    margin-top: 0;
+}
+.reporting-panels.panel1_two_panels input[type="file"]{
+    margin-top: 20px;
+    width: 194px;
+    background-color: #fff;
+}
+.reporting-panels.panel1_two_panels div {
+    margin-top:20px;
+    text-align:center;
+    padding:20px;
+    background-color:#e8e4de;
+}
+/* Middle reporting table of data */
+.reporting-panels.panel2 {
+	width:320px;
+	margin-right:20px;
+    text-align: left;
+    display: table; /* Make table esc */
+}
+.reporting-panels.panel2  li{
+    display: table-row; /* each li element to behave like table row */
+    margin-bottom: 5px;
+}
+.reporting-panels.panel2  li.spacer{
+    height: 10px;
+}
+.reporting-panels.panel2 span{
+    display: table-cell;
+    /* Make each element in li act like table cell to get nice text formatting */
+    padding: 0 5px 0 20px;
+    vertical-align: middle;
+    font-weight: 700;
+}
+.reporting-panels.panel2 .dataHero {
+	font-family: "letter_one",Arial,sans-serif;
+	color: #dc1928;
+    background-color: #fff;
+	font-size: 25px;
+    padding: 5px 10px;
+    text-align: center;
+    height: 55px;
+    font-weight: 700;
+}
+.reporting-panels.panel2  li:first-child span{
+
+}
+.reporting-panels.panel3 div {
+	margin-top:20px;
+	text-align:center;
+	padding:20px;
+	background-color:#e8e4de;
+}
+.reporting-panels.panel3 .dataHero {
+	font-family: "letter_one",Arial,sans-serif;
+	color: #dc1928;
+	font-size:60px;
+	padding:0px;
+	margin:10px 0px 0px 0px;
+	height:50px;
+}
+.reporting-panels.panel3 p {
+	font-family: "letter_one",Arial,sans-serif;
+	font-size:20px;
+	display:block;
+	color: #807370;
+	clear:both;
+
+}
+.reporting-panels.panel3 {
+	line-height:1.5em;
+	width:315px;
+	background:none;
+	padding:0px;
+	margin-top:0px;
+}
+/*####################################*/
+/* Styles for subscriber email popup  */
+#update .content-area{
+    z-index: -1;
+}
+.choose_recipient_popup{
+    z-index:110;
+    display:block;
+    position:fixed;
+    top: 43%;
+    left: 35%;
+    background-color: #fff;
+    padding: 0;
+    width:300px;
+    height:125px;
+    border:solid 1px #e2dfda;
+    cursor: default;
+}
+.choose_recipient_popup .recipient_popup_header{
+    display: block;
+    position: relative;
+    background-color: #5e514d;
+    height: 20px;
+    color: #fff;
+    padding: 5px 0px 0px 20px;
+    line-height: 100%;
+}
+.choose_recipient_popup #btn_close{
+    float: right;
+    margin: -1px 5px 0 0;
+    cursor: pointer;
+}
+.choose_recipient_popup .recipient_popup_content{
+    padding: 10px 20px 20px 20px;
+    color: #444;
+}
+.choose_recipient_popup .recipient_popup_content label{
+    color: #444;
+    margin-top: 0;
+}
+.choose_recipient_popup .recipient_popup_content input, .choose_recipient_popup .recipient_popup_content button{
+    float: left;
+}
+.choose_recipient_popup .recipient_popup_content input{
+    width: 58%;
+    border-radius: 3px 0px 0px 3px;
+}
+.choose_recipient_popup .recipient_popup_content button{
+    height: 31px;
+    border-radius: 0px 3px 3px 0px;
+}
+/* END Styles for subscriber email popup  */
+
+/* Styles for self help sign in */
+.l-header {
+    background-image: none !important;
+    background-color: #fbf8f1 !important;
+    border-bottom: 1px solid #ebeaea !important;
+    height: 82px;
+}
